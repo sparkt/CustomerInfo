@@ -14,13 +14,20 @@ import com.wudi.controller.WeixinController;
 import com.wudi.interceptor.AdminInterceptor;
 import com.wudi.interceptor.WeixinIntercepter;
 import com.wudi.model.NavsModel;
+import com.wudi.model.UserModel;
 import com.wudi.model.admin.AccountingModel;
+import com.wudi.model.admin.AdminInfoModel;
+import com.wudi.model.admin.ArchitectModel;
 import com.wudi.model.admin.CourtClerkModel;
+import com.wudi.model.admin.ForeignLanguageModel;
 import com.wudi.model.admin.MandarinModel;
+import com.wudi.model.admin.MedicalScienceModel;
 import com.wudi.model.admin.PartTimePostgraduateModel;
+import com.wudi.model.admin.ProfessionalModel;
 import com.wudi.model.admin.SpecialPromotiomModel;
 import com.wudi.model.admin.TeachercertificationModel;
-import com.wudi.model.admin.*;
+import com.wudi.model.admin.UndergraduateModel;
+import com.wudi.model.admin.UserInfoModel;
 /**
  * 	系统配置类
  *   @author XIAO
@@ -83,7 +90,7 @@ public class Config extends JFinalConfig {
 			arpMysql.addMapping("MedicalScience", MedicalScienceModel.class);//
 			arpMysql.addMapping("ForeignLanguage", ForeignLanguageModel.class);//
 			arpMysql.addMapping("Undergraduate", UndergraduateModel.class);//
-			
+			arpMysql.addMapping("user", UserModel.class);
 		}
 		//添加插件
 		me.add(dsMysql);

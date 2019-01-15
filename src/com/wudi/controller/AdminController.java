@@ -1,16 +1,16 @@
 package com.wudi.controller;
 
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import com.jfinal.aop.Before;
+import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.wudi.interceptor.AdminInterceptor;
 import com.wudi.model.NavsModel;
+import com.wudi.model.UserModel;
 import com.wudi.model.admin.AccountingModel;
+import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.ArchitectModel;
 import com.wudi.model.admin.CourtClerkModel;
 import com.wudi.model.admin.ForeignLanguageModel;
@@ -21,8 +21,9 @@ import com.wudi.model.admin.ProfessionalModel;
 import com.wudi.model.admin.SpecialPromotiomModel;
 import com.wudi.model.admin.TeachercertificationModel;
 import com.wudi.model.admin.UndergraduateModel;
-import com.wudi.model.admin.*;
+import com.wudi.model.admin.UserInfoModel;
 import com.wudi.util.StringUtil;
+import com.wudi.util.Util;
 
 /**
  * 
@@ -32,8 +33,35 @@ import com.wudi.util.StringUtil;
  * @date 2019年1月12日11:01
  *
  */
+@Before(AdminInterceptor.class)
 public class AdminController extends Controller {
-
+	@Clear(AdminInterceptor.class)
+	public void login() {
+		String username=getPara("username");
+		String password=getPara("password");
+		//如果不正确，就提示什么不正确？
+		//如果正确，就正常显示系统页面
+		UserModel m=UserModel.getModeByUsername(username);
+		//判断用户名和密码是否正确
+		if(m!=null) {
+			if(m.getpassword().equals(password)) {
+				setAttr("result", 0);//可以登录
+				setCookie(Util.Cookie_NAME,username,36000);
+				setSessionAttr("user", m);
+			}else {
+				setAttr("result", 1);//密码错误
+			}
+		}else {
+			setAttr("result", 2);//用户名不存在
+		}
+		renderJson();
+	}
+	@Clear(AdminInterceptor.class)
+	public void outLogin() {
+		removeCookie(Util.Cookie_NAME);
+		removeSessionAttr("user");
+		redirect("/admin");
+	}
 	/**
 	 * 
 	 * @Title: index @Description:后台管理默认到达页面 @param 参数 @return void 返回类型 @throws
