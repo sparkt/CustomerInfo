@@ -71,7 +71,7 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 			m.setCaptain_name(captain_name);
 			m.setCaptain_phone(captain_phone);
 			m.setGroup_info(group_info);
-			m.setGroup_headcount("0");//0
+			m.setGroup_headcount("1");//刚创建团对团对人数初始为1
 			return m.save();
 		}
 		/**
