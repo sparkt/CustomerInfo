@@ -57,7 +57,7 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 			return get("group_headcount");
 		}
 		public void setGroup_headcount(String group_headcount) {
-			set("type", group_headcount);
+			set("group_headcount", group_headcount);
 		}
 	
 		/**
