@@ -84,7 +84,7 @@ public class WeixinController extends Controller {
 	 *加入团队接口 
 	 *
 	 *从微信端接收用户phone_no & 队长phone_no
-	 * @author 张志强
+	 * @author 张志强54546655555
 	 * */
 	public void joinGroup() {
 		String captain_phone  = getPara("captain_phone");
