@@ -69,7 +69,7 @@ public class WeixinController extends Controller {
 			}
 		}else {
 			code =2;
-			info ="你已经有团队";
+			info ="你不满足创建团队条件";
 		}
 			setAttr("code", code);
 			setAttr("info", info);
