@@ -59,7 +59,7 @@ public class WeixinController extends Controller {
 		UserInfoModel m = new UserInfoModel().getphone_no(captain_phone);
 		if(m!=null) {
 		//判断该用户是否满足建队条件
-		if(m.getGroup()==null&&m.getVip_grade().equals("1")) {
+		if(m.getGroup().equals("0")&&m.getVip_grade().equals("1")) {
 			
 			boolean result =new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone, group_info);
 
