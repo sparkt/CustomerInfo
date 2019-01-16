@@ -160,6 +160,11 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	}
 	
 	/*
+	 * 修改表中vip_grade字段的值
+	 * 
+	 * */
+	
+	/*
 	 * 查询团队信息
 	 * 
 	 * 
