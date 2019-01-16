@@ -56,10 +56,11 @@ public class WeixinController extends Controller {
 		String group_name = getPara("group_name");
 		int code =0; //注册不成功
 		String info ="注册不成功";
-		//查询该用户是否已存在团队
 		UserInfoModel m = new UserInfoModel().getphone_no(captain_phone);
 		
-		if(m.getGroup()==null) {
+		//判断该用户是否满足建队条件
+		if(m.getGroup()==null&&m.getVip_grade().equals("1")) {
+			
 			boolean result =new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone, group_info);
 
 			if(result) {
