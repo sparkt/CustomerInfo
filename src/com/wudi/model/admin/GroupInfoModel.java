@@ -1,8 +1,5 @@
 package com.wudi.model.admin;
 import java.util.List;
-import java.util.Stack;
-import java.util.UUID;
-import com.jfinal.plugin.activerecord.DaoContainerFactory;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
@@ -75,15 +72,15 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 			return m.save();
 		}
 		/**
-		 * 根据队长phone_no删除团队数据数据
-		 * @param phone_no
+		 * 根据队长captain_phone删除团队数据数据
+		 * @param captain_phone 这里改为了id，因为phone可以为空（梁）
 		 * @author zhangzhiqiang
 		 * @return
 		 */
-		public  boolean deleteGroupinfo(String phone_no) {
+		public  boolean deleteGroupinfo(String id) {
 			try {
-				String delsql = "DELETE FROM " + tableName + " WHERE captain_phone=?";
-				int iRet = Db.update(delsql, phone_no);
+				String delsql = "DELETE FROM " + tableName + " WHERE id=?";
+				int iRet = Db.update(delsql, id);
 				if (iRet > 0) {
 					return true;
 				} else {
@@ -94,6 +91,30 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 				return false;
 			}
 		}
+		
+				
+		/**
+		 * 更新 梁
+		 * 按captain_phone更新团队管理信息
+		 */
+		public boolean updateGroupinfo(String captain_name, String group_info, String group_headcount, String group_name,String captain_phone) {
+			boolean result=false;
+			try {
+				String sql="UPDATE "+tableName+" set captain_name=?, group_info=?, group_headcount=?, group_name=?  where captain_phone=?";
+				
+				//上面的几个问号就是对应下面captain_name,group_info,group_headcount,group_name,captain_phone
+				int r=Db.update(sql,captain_name,group_info,group_headcount,group_name,captain_phone);
+				if(r>0) {
+					result=true;
+				}
+			} catch (Exception e) {
+				result=false;
+			}
+			return result;
+		}
+		
+		
+		
 		/**
 		 * 根据队长号码查询团队是否存在
 		 * @param phone_no

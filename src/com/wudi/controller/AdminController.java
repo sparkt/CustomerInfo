@@ -14,6 +14,7 @@ import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.ArchitectModel;
 import com.wudi.model.admin.CourtClerkModel;
 import com.wudi.model.admin.ForeignLanguageModel;
+import com.wudi.model.admin.GroupInfoModel;
 import com.wudi.model.admin.MandarinModel;
 import com.wudi.model.admin.MedicalScienceModel;
 import com.wudi.model.admin.PartTimePostgraduateModel;
@@ -1986,5 +1987,115 @@ public class AdminController extends Controller {
 		renderJson();
 	}
 	
+	//------------------团队管理开始 梁老师----------------
+	/*
+	 * @Descripion: 打开团队管理信息界面
+	 * @author 梁老师
+	 */
+	public void groupinfo() {
+		render("groupinfo/groupinfoInfo.html");
+	}
+	/**
+	 * 
+	 * @Title: getAdmininfolist
+	 * @Description: 获取团队管理信息界面数据列表
+	 * @param 参数
+	 * @return void 返回类型
+	 * @throws
+	 * @author 梁老师
+	 */
+	public void getGrouplist() {
+		// 获取页面查询的关键字
+		String key = getPara("key");
+		int limit=getParaToInt("limit");
+		int page=getParaToInt("page");
+		Page<GroupInfoModel> list = new GroupInfoModel().getList(page, limit, key);
+		setAttr("code", 0);
+		setAttr("msg", "你好！");
+		setAttr("count", list.getTotalRow());
+		setAttr("data", list.getList());
+		renderJson();
+	}
+
+	/**
+	 * 打开团队管理添加页面
+	 *@author 梁老师
+	 */
+	public void openGroupAdd() {
+		render("groupinfo/admininfoAdd.html");
+	}
+
+	/*
+	 * @Title: saveAdmininfo
+	 * @Description: 保存添加团队管理信息界面数据
+	 * @param 参数
+	 * @return void 返回类型
+	 * @throws
+	 *  @author 梁老师
+	 * **/
+	public void saveGroupinfo() {
+		String admin_name = getPara("admin_name");
+		String admin_password = getPara("admin_password");
+		String admin_sex = getPara("admin_sex");
+		String admin_phone_no = getPara("admin_phone_no");
+		if(admin_sex.equals("0")) {
+			admin_sex="男";
+		}else {
+			admin_sex="女";
+		}
+		boolean result =false;
+		AdminInfoModel m = new AdminInfoModel().getphone_no(admin_phone_no);
+		if(m==null) {
+			result = new AdminInfoModel().saveAdminInfo(admin_name, admin_password, admin_sex, admin_phone_no, "1", "0");
+		}
+		setAttr("result", result);
+		renderJson();
+	}
+	/**
+	 * 打开管理员修改页面
+	 * 
+	 */
+	public void openGroupinfoEdit() {
+		// 接收页面数据
+		String captain_phone = getPara("captain_phone");
+		setAttr("captain_phone", captain_phone);
+		renderFreeMarker("groupinfo/groupinfoEdit.html");
+	}
+	/* @updateGroupinfo
+	 * @Title: saveAdmininfo
+	 * @Description: 更新修改团队管理信息界面数据到数据库
+	 * @param 参数
+	 * @return void 返回类型
+	 * @throws
+	 *  @author 梁老师
+	 * **/
+	public void updateGroupinfo() {
+		String captain_name = getPara("captain_name");
+		String captain_phone = getPara("captain_phone");
+		String group_info = getPara("group_info");
+		String group_headcount = getPara("group_headcount");
+		String group_name = getPara("group_name");
+		
+		boolean result = new GroupInfoModel().updateGroupinfo(captain_name, group_info, group_headcount, group_name,captain_phone);
+		setAttr("result", result);
+		renderJson();
+	}
+	
+	/**
+	 * 
+	 * @Title: delUserInfo @Description:删除信息，这个我们是根据唯一主键admin_phone_no来删除的。 @param 参数 @return
+	 *         void 返回类型 @throws
+	 */
+	public void delGroupInfo() {
+		String id = getPara("id");
+		// 删除
+		boolean result = new GroupInfoModel().deleteGroupinfo(id);
+		// 返回结果
+		setAttr("result", result);
+		renderJson();
+	}
+	
+	
+	//------------------团队管理结束 梁老师----------------
 
 }
