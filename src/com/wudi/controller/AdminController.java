@@ -1330,6 +1330,17 @@ public class AdminController extends Controller {
 		setAttr("id", id);
 		renderFreeMarker("Undergraduate/UndergraduateEdit.html");
 	}
+	
+	/**
+	 * @Title: gainUndergraduateNum
+	 * @Description:获得专升本条数
+	 * @param 参数 
+	 * @return void 返回类型 
+	 * @throws
+	 */
+	public void gainUndergraduateNum() {
+		
+	}
 
 	/**
 	 * @Title: queryUndergraduate
@@ -1863,4 +1874,6 @@ public class AdminController extends Controller {
 		setAttr("result", result);
 		renderJson();
 	}
+	
+
 }

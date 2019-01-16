@@ -70,7 +70,7 @@ layui.config({
 		}
 	)
 
-	// 用户数
+	// 专升本
 	$.get("../json/usersList.json",
 		function(data){
 			$(".userAll span").text(data.length);
