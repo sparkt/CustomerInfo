@@ -9,6 +9,7 @@ import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.tx.Tx;
+import com.wudi.config.Config;
 import com.wudi.util.StringUtil;
 /**
  * 
@@ -203,4 +204,6 @@ public class UndergraduateModel extends Model<UndergraduateModel> {
 			sql.append("select *  from ").append(tableName);
 			return dao.find(sql.toString());
 		}
+	 
+
 }
