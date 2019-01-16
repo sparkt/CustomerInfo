@@ -40,25 +40,35 @@ public class WeixinController extends Controller {
 	 * group_name //团队名称
 	 * */
 	
-	public void saveGroupinfo(){
+	public void createGroupinfo(){
 		String captain_phone  = getPara("captain_phone");
 		String captain_name = getPara("captain_name");
 		String group_info = getPara("group_info");
 		String group_name = getPara("group_name");
-		GroupInfoModel	uu = new GroupInfoModel();	
 		int code =0; //注册不成功
 		String info ="注册不成功";
-		boolean result = uu.saveGroupinfo(group_name, captain_name, captain_phone, group_info);
+		//查询该用户是否已存在团队
+		UserInfoModel m = new UserInfoModel().getphone_no(captain_phone);
 		
-		if(result) {
-			code =1;
-			info ="注册成功";
+		if(m.getGroup()==null) {
+			boolean result =new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone, group_info);
+
+			if(result) {
+				code =1;
+				info ="注册成功";
+			}
+		}else {
+			code =2;
+			info ="你已经有团队";
 		}
-		setAttr("code", code);
-		setAttr("info", info);
-		renderJson();
+			setAttr("code", code);
+			setAttr("info", info);
+			renderJson();
+			
+		}
 		
-	}
+		
+	
 	
 	/*
 	 * 
@@ -72,10 +82,16 @@ public class WeixinController extends Controller {
 		String phone_no = getPara("phone_no");
 		int code =0;
 		String info="加入不成功";
+		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+		if(m.getGroup()==null) {
 		boolean result = new UserInfoModel().userJoinGroup(captain_phone, phone_no);
 		if(result) {
 			code =1;
 			info ="加入成功";	
+		}
+		}else {
+			code =2;
+			info ="你已有团队";	
 		}
 		setAttr("code", code);
 		setAttr("info", info);
