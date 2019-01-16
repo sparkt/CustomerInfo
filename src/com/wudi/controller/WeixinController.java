@@ -1,24 +1,33 @@
 package com.wudi.controller;
 
-import com.wudi.model.admin.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import java.util.List;
+
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.wudi.interceptor.WeixinIntercepter;
 import com.wudi.model.admin.AccountingModel;
+import com.wudi.model.admin.AdminInfoModel;
+import com.wudi.model.admin.ArchitectModel;
 import com.wudi.model.admin.CourtClerkModel;
+import com.wudi.model.admin.ForeignLanguageModel;
+import com.wudi.model.admin.GroupInfoModel;
 import com.wudi.model.admin.MandarinModel;
+import com.wudi.model.admin.MedicalScienceModel;
 import com.wudi.model.admin.PartTimePostgraduateModel;
+import com.wudi.model.admin.ProfessionalModel;
 import com.wudi.model.admin.SpecialPromotiomModel;
 import com.wudi.model.admin.TeachercertificationModel;
-import com.wudi.model.admin.GroupInfoModel;
+import com.wudi.model.admin.UndergraduateModel;
+import com.wudi.model.admin.UserInfoModel;
+
 
 
 /**
  * 微信小程序数据访问
  * 2018年10月26日11:10:01
  */
+@Before(WeixinIntercepter.class)
 public class WeixinController extends Controller {
 	/**
 	 * 默认获取数据的地方

@@ -12,6 +12,7 @@ import com.wudi.util.Util;
  *
  */
 	public class AdminInterceptor implements Interceptor {
+		@Override
 		public void intercept(Invocation inv) {
 			Controller c = inv.getController();
 			String cookiename = c.getCookie(Util.Cookie_NAME);
