@@ -63,24 +63,39 @@ layui.config({
 		}
 	)
 
-	// 图片总数
-	$.get("../json/images.json",
+	// 专升本
+	$.get("gainUndergraduateNum",
 		function(data){
-			$(".imgAll span").text(data.length);
+			$(".imgAll span").text(data.row);
+		}
+	)
+	
+	// 建筑工程
+	$.get("gainArchitectNum",
+		function(data){
+			$(".imgAll span").text(data.row);
+		}
+	)
+	
+	// 职业资格
+	$.get("gainProfessionalNum",
+		function(data){
+			$(".imgAll span").text(data.row);
+		}
+	)
+	
+
+	// 医药卫生
+	$.get("gainMedicalScienceNum",
+		function(data){
+			$(".userAll span").text(data.row);
 		}
 	)
 
-	// 用户数
-	$.get("../json/usersList.json",
+	// 外语少儿
+	$.get("gainUndergraduateNum",
 		function(data){
-			$(".userAll span").text(data.length);
-		}
-	)
-
-	// 新消息
-	$.get("../json/message.json",
-		function(data){
-			$(".newMessage span").text(data.length);
+			$(".newMessage span").text(data.row);
 		}
 	)
 

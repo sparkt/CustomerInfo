@@ -76,8 +76,10 @@ layui.config({
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
 	 
 	  if(layEvent === 'detail'){ //查看
+		 
 		  
 	  } else if(layEvent === 'del'){
+		  
 		  
 	  } else if(layEvent === 'edit'){ //编辑
 		  var index = layui.layer.open({

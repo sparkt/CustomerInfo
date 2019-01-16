@@ -6,6 +6,8 @@ import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.render.Render;
+import com.wudi.config.Config;
 import com.wudi.interceptor.AdminInterceptor;
 import com.wudi.model.NavsModel;
 import com.wudi.model.UserModel;
@@ -358,6 +360,7 @@ public class AdminController extends Controller {
 		}
 		/**
 		 * 打开管理员修改页面
+		 * 
 		 */
 		public void openAdmininfoEdit() {
 			// 接收页面数据
@@ -492,7 +495,10 @@ public class AdminController extends Controller {
 	 *         参数 @return void 返回类型 @throws
 	 */
 	public void updateSpecialPromotiom() {
+		
 		String id = getPara("id");
+		SpecialPromotiomModel data=SpecialPromotiomModel.getById(id);
+		setAttr("data", data);
 		String name = getPara("name");
 		String sex = getPara("sex");
 		String tel_no = getPara("tel_no");
@@ -519,6 +525,13 @@ public class AdminController extends Controller {
 		boolean result = SpecialPromotiomModel.delSpecialPromotiomId(id);
 		// 返回结果
 		setAttr("result", result);
+		renderJson();
+	}
+	
+	public void getsizeS() {
+		List<SpecialPromotiomModel> list=SpecialPromotiomModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
 		renderJson();
 	}
 	
@@ -653,6 +666,12 @@ public class AdminController extends Controller {
 		renderJson();
 	}
 	
+	public void getsizeP() {
+		List<PartTimePostgraduateModel> list=PartTimePostgraduateModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
+		renderJson();
+	}
 	
 	
 	/**
@@ -778,6 +797,13 @@ public class AdminController extends Controller {
 		boolean result = MandarinModel.delMandarinById(id);
 		// 返回结果
 		setAttr("result", result);
+		renderJson();
+	}
+	
+	public void getsizeM() {
+		List<MandarinModel> list=MandarinModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
 		renderJson();
 	}
 	
@@ -909,6 +935,12 @@ public class AdminController extends Controller {
 		boolean result = TeachercertificationModel.delTeachercertificationById(id);
 		// 返回结果
 		setAttr("result", result);
+		renderJson();
+	}
+	public void getsizeT() {
+		List<TeachercertificationModel> list=TeachercertificationModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
 		renderJson();
 	}
 	
@@ -1043,6 +1075,12 @@ public class AdminController extends Controller {
 		renderJson();
 	}
 	
+	public void getsizeC() {
+		List<CourtClerkModel> list=CourtClerkModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
+		renderJson();
+	}
 	
 	/**
 	 * 
@@ -1111,6 +1149,7 @@ public class AdminController extends Controller {
 
 	}
 	
+	
 	/**
 	 * @Title: saveAccounting @Description:数据保存，在添加信息页面上，点击保存的那个按键做的事情 @param
 	 *         参数 @return void 返回类型 @throws
@@ -1174,6 +1213,12 @@ public class AdminController extends Controller {
 		renderJson();
 	}
 	
+	public void getsizeA() {
+		List<AccountingModel> list=AccountingModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
+		renderJson();
+	}
 	/**
 	 * TODO:建筑工程
 	 * @author 王驰
@@ -1201,7 +1246,19 @@ public class AdminController extends Controller {
 		setAttr("id", id);
 		renderFreeMarker("Architect/ArchitectEdit.html");
 	}
-
+	
+	/**
+	 * @Title: gainArchitectNum
+	 * @Description:获取建筑工程的数据条数
+	 * @param 参数 
+	 * @return void 返回类型 
+	 */
+	public void gainArchitectNum() {
+		List<ArchitectModel> list = ArchitectModel.getListAll();
+		setAttr("row", list.size());
+		renderJson();
+	}
+	
 	/**
 	 * @Title: queryArchitect 
 	 * @Description: 获取客户信息列表信息（查询），在这里，是用异步加载方式，
@@ -1342,7 +1399,21 @@ public class AdminController extends Controller {
 		setAttr("id", id);
 		renderFreeMarker("Undergraduate/UndergraduateEdit.html");
 	}
+	
+	/**
+	 * @Title: gainUndergraduateNum
+	 * @Description:获得专升本条数
+	 * @param 参数 
+	 * @return void 返回类型 
+	 * @throws
+	 */
+	public void gainUndergraduateNum() {
+		List<UndergraduateModel> list=UndergraduateModel.getListAll();
+		setAttr("row", list.size());
+		 renderJson();
+	}
 
+	
 	/**
 	 * @Title: queryUndergraduate
 	 * @Description: 获取客户信息列表信息（查询），在这里，是用异步加载方式，
@@ -1502,6 +1573,19 @@ public class AdminController extends Controller {
         setAttr("data", list.getList());
         renderJson();
 	}
+	
+	/**
+	 * @Title: gainUndergraduateNum
+	 * @Description:获得职业资格条数
+	 * @param 参数 
+	 * @return void 返回类型 
+	 * @throws
+	 */
+	public void gainProfessionalNum() {
+		List<ProfessionalModel> list=ProfessionalModel.getListAll();
+		setAttr("row", list.size());
+		 renderJson();
+	}
 
 	/**
 	 * @Title: getProfessional
@@ -1622,6 +1706,20 @@ public class AdminController extends Controller {
 		setAttr("id", id);
 		renderFreeMarker("ForeignLanguage/ForeignLanguageEdit.html");
 	}
+	
+	/**
+	 * @Title: gainForeignLanguageNum
+	 * @Description:获得外语少儿条数
+	 * @param 参数 
+	 * @return void 返回类型 
+	 * @throws
+	 */
+	public void gainForeignLanguageNum() {
+		List<ForeignLanguageModel> list=ForeignLanguageModel.getListAll();
+		setAttr("row", list.size());
+		 renderJson();
+	}
+
 
 	/**
 	 * @Title: queryForeignLanguage
@@ -1763,6 +1861,20 @@ public class AdminController extends Controller {
 		setAttr("id", id);
 		renderFreeMarker("MedicalScience/MedicalScienceEdit.html");
 	}
+	
+	/**
+	 * @Title: gainMedicalScienceNum
+	 * @Description:获得医药卫生条数
+	 * @param 参数 
+	 * @return void 返回类型 
+	 * @throws
+	 */
+	public void gainMedicalScienceNum() {
+		List<MedicalScienceModel> list=MedicalScienceModel.getListAll();
+		setAttr("row", list.size());
+		 renderJson();
+	}
+
 
 	/**
 	 * @Title: queryMedicalScience
@@ -1875,4 +1987,6 @@ public class AdminController extends Controller {
 		setAttr("result", result);
 		renderJson();
 	}
+	
+
 }

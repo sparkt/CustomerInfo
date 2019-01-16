@@ -74,6 +74,23 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	public void setStatus(String status) {
 		set("status", status);
 	}
+	
+	public String getCheck(String check) {
+		return get("check");
+		
+	}
+	public  void setCheck(String check) {
+		set("check",check);
+		
+	}
+	public String getGroup() {
+		return get("group");
+		
+	}
+	public  void setGroup(String group) {
+		set("group",group);
+		
+	}
 	/**
 	 * 注册用户 保存用户信息
 	 * @author zhang zhiqiang
@@ -94,6 +111,8 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		m.setVip_grade(vip_grade);
 		m.setStatus(status);
 		m.setType(type);
+		m.setGroup("0");//开始注册没有团体说以传0
+		m.setCheck("0");//开始注册还没有审核所以传0
 		return m.save();
 	}
 	
@@ -118,10 +137,44 @@ public class UserInfoModel extends Model<UserInfoModel> {
 			m.setUser_sex(user_sex);
 			m.setVip_grade(vip_grade);
 			m.setStatus(status);
+			m.setGroup("0");
 		}
 		return m.update();
 	
 	}
+	
+	
+	/*
+	 * 用户加入团队
+	 * 
+	 * */
+	public boolean userJoinGroup(String captain_phone ,String phone_no) {
+		GroupInfoModel m = new GroupInfoModel();
+		UserInfoModel n = dao.getphone_no(phone_no);
+		if(m.getisGroup(phone_no)==null) {
+			n.setGroup(captain_phone);
+		}else {
+			return false;
+		}
+		return n.update();
+	}
+	
+	/*
+	 * 查询团队信息
+	 * 
+	 * 
+	 * */
+	public List<?> getUserGrouAllInfo(String phone_no ,String captain_phone) {
+		GroupInfoModel m=new GroupInfoModel();
+		List<?> list = m.getGroupAllInfo(captain_phone);
+		return list;
+	}	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 根据phone_no删除用户数据数据
 	 * @param phone_no
@@ -155,10 +208,8 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		String selectsql = "SELECT * FROM " + tableName + " WHERE phone_no=?";
 		return m.findFirst(selectsql,phone_no);
 		
-		
-		
 	}
-	
+
 	
 	public  Page<UserInfoModel> getList(int pageNumber, int pageSize, String key) {
 		String sele_sql = "select * ";
@@ -177,13 +228,13 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	 * */
 
 
-	public List<UserInfoModel> test() {
-		UserInfoModel m=new UserInfoModel();
-		String selectsql = "SELECT test.*, userinfo.* FROM test, userinfo WHERE test.id=1";
-		List<UserInfoModel> list = m.find(selectsql);
-		return list;
-	}
-		
 	
+	//根据号码查找客户所有信息
+	public List<UserInfoModel> getUserAllInfo(String phone_no) {
+		UserInfoModel m=new UserInfoModel();
+		String selectsql = "SELECT * FROM userinfo WHERE phone_no=?";
+		List<UserInfoModel> list = m.find(selectsql,phone_no);
+		return list;
+	}	
 	
 }

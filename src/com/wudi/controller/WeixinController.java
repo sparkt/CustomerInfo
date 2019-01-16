@@ -11,6 +11,7 @@ import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.ArchitectModel;
 import com.wudi.model.admin.CourtClerkModel;
 import com.wudi.model.admin.ForeignLanguageModel;
+import com.wudi.model.admin.GroupInfoModel;
 import com.wudi.model.admin.MandarinModel;
 import com.wudi.model.admin.MedicalScienceModel;
 import com.wudi.model.admin.PartTimePostgraduateModel;
@@ -21,9 +22,9 @@ import com.wudi.model.admin.UndergraduateModel;
 import com.wudi.model.admin.UserInfoModel;
 
 
+
 /**
  * 微信小程序数据访问
- * @author 李金鹏
  * 2018年10月26日11:10:01
  */
 @Before(WeixinIntercepter.class)
@@ -39,8 +40,103 @@ public class WeixinController extends Controller {
 	
 	
 	
+	/*
+	 * 创建团队接口
+	 * @author 张志强
+	 * captain_phone //队长号码
+	 * captain_name //队长名字
+	 * group_info //团队简介
+	 * group_name //团队名称
+	 * */
+	
+	public void createGroupinfo(){
+		String captain_phone  = getPara("captain_phone");
+		String captain_name = getPara("captain_name");
+		String group_info = getPara("group_info");
+		String group_name = getPara("group_name");
+		int code =0; //注册不成功
+		String info ="注册不成功";
+		//查询该用户是否已存在团队
+		UserInfoModel m = new UserInfoModel().getphone_no(captain_phone);
+		
+		if(m.getGroup()==null) {
+			boolean result =new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone, group_info);
+
+			if(result) {
+				code =1;
+				info ="注册成功";
+			}
+		}else {
+			code =2;
+			info ="你已经有团队";
+		}
+			setAttr("code", code);
+			setAttr("info", info);
+			renderJson();
+			
+		}
+		
+		
+	
+	
+	/*
+	 * 
+	 *加入团队接口 
+	 *
+	 *从微信端接收用户phone_no & 队长phone_no
+	 * @author 张志强54546655555
+	 * */
+	public void joinGroup() {
+		String captain_phone  = getPara("captain_phone");
+		String phone_no = getPara("phone_no");
+		int code =0;
+		String info="加入不成功";
+		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+		if(m.getGroup()==null) {
+		boolean result = new UserInfoModel().userJoinGroup(captain_phone, phone_no);
+		if(result) {
+			code =1;
+			info ="加入成功";	
+		}
+		}else {
+			code =2;
+			info ="你已有团队";	
+		}
+		setAttr("code", code);
+		setAttr("info", info);
+		renderJson();
+		
+	}
+	/*
+	 * 返回用户所在团队信息
+	 * @author 张志强
+	 * phone_no// 用户号码
+	 * */
+	public void getGroupAllInfo() {
+		String phone_no = getPara("phone_no");
+		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+		String captain_phone =m.getGroup();
+		List<?> list = m.getUserGrouAllInfo(phone_no, captain_phone);
+		setAttr("infoList", list);
+		renderJson();
+	}
+	
+	
+	/*
+	 * 用户退团队接口
+	 * 
+	 * 
+	 * */
+	
+	public void quitGroup() {
+		String phone_no = getPara("phone_no");
+		
+	}
+	
+	
+	
 	/**
-	 * 微信端注册入口
+	 * 微信端用户注册入口
 	 * @author 张志强
 	 * @Description: TODO 录入用户注册信息
 	 * 给微信端发送提示信息
@@ -76,26 +172,29 @@ public class WeixinController extends Controller {
 		}
 	
 	/**
-	 * 微信登录入口
+	 * 微信用户登录入口
 	 * @author 张志强
-	 * 
-	 * GET phone_no &user_password
+	 *  GET phone_no & user_password
+	 *  
+	 * @Description: TODO 给微信端返回用户或管理员所有信息
 	 * 
 	 * */
 	
 	public void userLogin() {
 		String phone_no =getPara("phone_no");
 		String user_password = getPara("user_password");
-		int code=0;
-		int type =0;//1普通用户，2管理员
+		int code=0;	// 返回给前端做判断登录是否成功 0 密码错误 1密码正确 2 用户不存在
+		int type =0;// 用户类型  1普通用户，2管理员
 		String info = "用户不存在";
-		//查询用户表phone_no
+		List<?> list =null;
+		//查询用户表phone_no字段
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-		//查询管理员表admin_phone_no
+		//查询管理员表admin_phone_no字段
 		AdminInfoModel n = new AdminInfoModel().getphone_no(phone_no);
 		if (n!=null||m!=null) {
 			if (n!=null) {
 				if(n.getAdmin_password().equals(user_password)) {
+					list= new AdminInfoModel().getAdminAllInfo(phone_no);
 					type =1;//
 					code=1;//密码正确
 					info ="密码正确";
@@ -108,6 +207,7 @@ public class WeixinController extends Controller {
 				
 			}else {
 				if(m.getUser_password().equals(user_password)) {
+					list= new UserInfoModel().getUserAllInfo(phone_no);
 					type =2;//
 					code=1;//密码正确
 					info ="密码正确";
@@ -122,12 +222,14 @@ public class WeixinController extends Controller {
 			
 		}else {
 			//不存在
+			type=0;
 			code=2;
 			info = "用户不存在";
 		}
 		setAttr("code", code);
 		setAttr("info", info);
 		setAttr("type", type);
+		setAttr("userAllInfo",list);
 		renderJson();
 	}
 	

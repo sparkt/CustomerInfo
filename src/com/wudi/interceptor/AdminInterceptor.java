@@ -25,6 +25,7 @@ import com.wudi.util.Util;
 			c.removeCookie(Util.Cookie_NAME);
 			c.removeSessionAttr("user");
 			c.render("login.html");
+
 			}
 			}
 	}
