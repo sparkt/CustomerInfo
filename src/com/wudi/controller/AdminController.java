@@ -346,6 +346,7 @@ public class AdminController extends Controller {
 		}
 		/**
 		 * 打开管理员修改页面
+		 * 
 		 */
 		public void openAdmininfoEdit() {
 			// 接收页面数据
