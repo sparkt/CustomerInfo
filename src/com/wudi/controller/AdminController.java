@@ -495,8 +495,6 @@ public class AdminController extends Controller {
 	public void updateSpecialPromotiom() {
 		
 		String id = getPara("id");
-		SpecialPromotiomModel data=SpecialPromotiomModel.getById(id);
-		setAttr("data", data);
 		String name = getPara("name");
 		String sex = getPara("sex");
 		String tel_no = getPara("tel_no");
