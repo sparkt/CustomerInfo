@@ -151,7 +151,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	public boolean userJoinGroup(String captain_phone ,String phone_no) {
 		GroupInfoModel m = new GroupInfoModel();
 		UserInfoModel n = dao.getphone_no(phone_no);
-		if(m.getisGroup(phone_no)!=null) {
+		if(m.getisGroup(phone_no)==null) {
 			n.setGroup(captain_phone);
 		}else {
 			return false;
