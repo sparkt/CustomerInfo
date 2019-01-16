@@ -74,6 +74,16 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	public void setStatus(String status) {
 		set("status", status);
 	}
+	
+	public String getCheck(String check) {
+		return get("check");
+		
+	}
+	public  void setCheck(String check) {
+		set("check",check);
+		
+	}
+	
 	/**
 	 * 注册用户 保存用户信息
 	 * @author zhang zhiqiang
@@ -183,7 +193,12 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		List<UserInfoModel> list = m.find(selectsql);
 		return list;
 	}
-		
-	
+	//根据号码查找客户所有信息
+	public List<UserInfoModel> getUserAllInfo(String phone_no) {
+		UserInfoModel m=new UserInfoModel();
+		String selectsql = "SELECT * FROM userinfo WHERE phone_no=?";
+		List<UserInfoModel> list = m.find(selectsql,phone_no);
+		return list;
+	}	
 	
 }
