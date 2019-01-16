@@ -273,7 +273,19 @@ public class AdminController extends Controller {
 			renderJson();
 		}
 		
-		
+		/**
+		 * 
+		 * @Title: delUserInfo @Description:删除信息，这个我们是根据唯一主键admin_phone_no来删除的。 @param 参数 @return
+		 *         void 返回类型 @throws
+		 */
+		public void delUserInfo() {
+			String admin_phone_no = getPara("admin_phone_no");
+			// 删除
+			boolean result = new AdminInfoModel().deleteAdminInfo(admin_phone_no);
+			// 返回结果
+			setAttr("result", result);
+			renderJson();
+		}
 		
 		
 		
