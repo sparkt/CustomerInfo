@@ -83,7 +83,14 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		set("check",check);
 		
 	}
-	
+	public String getGroup(String group) {
+		return get("group");
+		
+	}
+	public  void setGroup(String group) {
+		set("group",group);
+		
+	}
 	/**
 	 * 注册用户 保存用户信息
 	 * @author zhang zhiqiang
@@ -104,6 +111,8 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		m.setVip_grade(vip_grade);
 		m.setStatus(status);
 		m.setType(type);
+		m.setGroup("0");//开始注册没有团体说以传0
+		m.setCheck("0");//开始注册还没有审核所以传0
 		return m.save();
 	}
 	
