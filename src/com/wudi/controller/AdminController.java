@@ -6,8 +6,6 @@ import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
-import com.jfinal.render.Render;
-import com.wudi.config.Config;
 import com.wudi.interceptor.AdminInterceptor;
 import com.wudi.model.NavsModel;
 import com.wudi.model.UserModel;
