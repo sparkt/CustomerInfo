@@ -35,7 +35,10 @@ public class WeixinController extends Controller {
 	/*
 	 * 注册团队接口
 	 * @author 张志强
-	 * 
+	 * captain_phone //队长号码
+	 * captain_name //队长名字
+	 * group_info //团队简介
+	 * group_name //团队名称
 	 * */
 	
 	public void saveGroupinfo(){
@@ -83,6 +86,7 @@ public class WeixinController extends Controller {
 	/*
 	 * 返回用户所在团队信息
 	 * @author 张志强
+	 * phone_no// 用户号码
 	 * */
 	public void getGroupAllInfo() {
 		String phone_no = getPara("phone_no");
