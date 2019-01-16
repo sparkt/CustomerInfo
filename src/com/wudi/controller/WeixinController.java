@@ -58,10 +58,11 @@ public class WeixinController extends Controller {
 		String group_name = getPara("group_name");
 		int code =0; //注册不成功
 		String info ="注册不成功";
-		//查询该用户是否已存在团队
 		UserInfoModel m = new UserInfoModel().getphone_no(captain_phone);
 		
-		if(m.getGroup()==null) {
+		//判断该用户是否满足建队条件
+		if(m.getGroup()==null&&m.getVip_grade().equals("1")) {
+			
 			boolean result =new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone, group_info);
 
 			if(result) {
@@ -70,7 +71,7 @@ public class WeixinController extends Controller {
 			}
 		}else {
 			code =2;
-			info ="你已经有团队";
+			info ="你不满足创建团队条件";
 		}
 			setAttr("code", code);
 			setAttr("info", info);
@@ -86,7 +87,7 @@ public class WeixinController extends Controller {
 	 *加入团队接口 
 	 *
 	 *从微信端接收用户phone_no & 队长phone_no
-	 * @author 张志强
+	 * @author 张志强54546655555
 	 * */
 	public void joinGroup() {
 		String captain_phone  = getPara("captain_phone");

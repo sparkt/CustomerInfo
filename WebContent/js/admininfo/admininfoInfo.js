@@ -76,7 +76,41 @@ layui.config({
 	 
 	  if(layEvent === 'detail'){ //查看
 		  
-	  } else if(layEvent === 'del'){
+	  } else if(layEvent === 'del'){ //删除
+		  layer.confirm('确定删除此信息？',{icon:3, title:'提示信息'},function(index){
+				var msgid;
+				//向服务端发送删除指令
+		 		 $.ajax({//异步请求返回给后台
+			    	  url:'delUserInfo',
+			    	  type:'POST',
+			    	  data:{"admin_phone_no":data.admin_phone_no},
+			    	  dataType:'json',
+			    	  beforeSend: function(re){
+			    		  msgid = top.layer.msg('数据处理中，请稍候',{icon: 16,time:false,shade:0.8});
+			          },
+			    	  success:function(d){
+			    		  top.layer.close(msgid);
+			    		  if(d.result==1){
+			    			//弹出loading
+						   		layer.closeAll("iframe");
+						   		obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+						  	 //刷新父页面
+						  	 	parent.location.reload();
+			    		  }else{
+			    			  top.layer.msg("操作失败！，数据库操作有问题！！");
+			    		  }
+				    		
+			    	  },
+			    	  error:function(XMLHttpRequest, textStatus, errorThrown){
+			    		  top.layer.msg('操作失败！！！服务器有问题！！！！<br>请检测服务器是否启动？', {
+			    		        time: 20000, //20s后自动关闭
+			    		        btn: ['知道了']
+			    		      });
+			           }
+			      });
+		 //关闭当前提示	
+	      layer.close(index);
+	    });
 		  
 	  } else if(layEvent === 'edit'){ //编辑
 		  var index = layui.layer.open({

@@ -273,7 +273,19 @@ public class AdminController extends Controller {
 			renderJson();
 		}
 		
-		
+		/**
+		 * 
+		 * @Title: delUserInfo @Description:删除信息，这个我们是根据唯一主键admin_phone_no来删除的。 @param 参数 @return
+		 *         void 返回类型 @throws
+		 */
+		public void delUserInfo() {
+			String admin_phone_no = getPara("admin_phone_no");
+			// 删除
+			boolean result = new AdminInfoModel().deleteAdminInfo(admin_phone_no);
+			// 返回结果
+			setAttr("result", result);
+			renderJson();
+		}
 		
 		
 		
@@ -1230,7 +1242,19 @@ public class AdminController extends Controller {
 		setAttr("id", id);
 		renderFreeMarker("Architect/ArchitectEdit.html");
 	}
-
+	
+	/**
+	 * @Title: gainArchitectNum
+	 * @Description:获取建筑工程的数据条数
+	 * @param 参数 
+	 * @return void 返回类型 
+	 */
+	public void gainArchitectNum() {
+		List<ArchitectModel> list = ArchitectModel.getListAll();
+		setAttr("row", list.size());
+		renderJson();
+	}
+	
 	/**
 	 * @Title: queryArchitect 
 	 * @Description: 获取客户信息列表信息（查询），在这里，是用异步加载方式，
@@ -1371,7 +1395,21 @@ public class AdminController extends Controller {
 		setAttr("id", id);
 		renderFreeMarker("Undergraduate/UndergraduateEdit.html");
 	}
+	
+	/**
+	 * @Title: gainUndergraduateNum
+	 * @Description:获得专升本条数
+	 * @param 参数 
+	 * @return void 返回类型 
+	 * @throws
+	 */
+	public void gainUndergraduateNum() {
+		List<UndergraduateModel> list=UndergraduateModel.getListAll();
+		setAttr("row", list.size());
+		 renderJson();
+	}
 
+	
 	/**
 	 * @Title: queryUndergraduate
 	 * @Description: 获取客户信息列表信息（查询），在这里，是用异步加载方式，
@@ -1531,6 +1569,19 @@ public class AdminController extends Controller {
         setAttr("data", list.getList());
         renderJson();
 	}
+	
+	/**
+	 * @Title: gainUndergraduateNum
+	 * @Description:获得职业资格条数
+	 * @param 参数 
+	 * @return void 返回类型 
+	 * @throws
+	 */
+	public void gainProfessionalNum() {
+		List<ProfessionalModel> list=ProfessionalModel.getListAll();
+		setAttr("row", list.size());
+		 renderJson();
+	}
 
 	/**
 	 * @Title: getProfessional
@@ -1651,6 +1702,20 @@ public class AdminController extends Controller {
 		setAttr("id", id);
 		renderFreeMarker("ForeignLanguage/ForeignLanguageEdit.html");
 	}
+	
+	/**
+	 * @Title: gainForeignLanguageNum
+	 * @Description:获得外语少儿条数
+	 * @param 参数 
+	 * @return void 返回类型 
+	 * @throws
+	 */
+	public void gainForeignLanguageNum() {
+		List<ForeignLanguageModel> list=ForeignLanguageModel.getListAll();
+		setAttr("row", list.size());
+		 renderJson();
+	}
+
 
 	/**
 	 * @Title: queryForeignLanguage
@@ -1792,6 +1857,20 @@ public class AdminController extends Controller {
 		setAttr("id", id);
 		renderFreeMarker("MedicalScience/MedicalScienceEdit.html");
 	}
+	
+	/**
+	 * @Title: gainMedicalScienceNum
+	 * @Description:获得医药卫生条数
+	 * @param 参数 
+	 * @return void 返回类型 
+	 * @throws
+	 */
+	public void gainMedicalScienceNum() {
+		List<MedicalScienceModel> list=MedicalScienceModel.getListAll();
+		setAttr("row", list.size());
+		 renderJson();
+	}
+
 
 	/**
 	 * @Title: queryMedicalScience
@@ -1904,4 +1983,6 @@ public class AdminController extends Controller {
 		setAttr("result", result);
 		renderJson();
 	}
+	
+
 }

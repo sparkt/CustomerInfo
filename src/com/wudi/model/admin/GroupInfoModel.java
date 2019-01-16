@@ -10,8 +10,8 @@ import com.wudi.util.StringUtil;
 
 /**
  * 
-* @ClassName: Userinfo
-* @Description: TODO userinfo表模型
+* @ClassName: GroupInfoModel
+* @Description: TODO GroupInfoModel表模型
 * @author zhang
 * 
 *
