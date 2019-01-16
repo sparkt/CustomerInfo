@@ -119,7 +119,6 @@ public class SpecialPromotiomModel extends Model<SpecialPromotiomModel> {
 		
 		return dao.findFirst("select * from " + tableName + " where id = ? ", id);
 	}
-
 	/**
 	 * 
 	 * @Title: save @Description:保存，这里是以分别参数传下来的，还可以用对象的信息传下来 @param @param
