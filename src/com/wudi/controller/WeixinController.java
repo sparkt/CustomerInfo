@@ -17,7 +17,6 @@ import com.wudi.model.admin.GroupInfoModel;
 
 /**
  * 微信小程序数据访问
- * @author 李金鹏
  * 2018年10月26日11:10:01
  */
 public class WeixinController extends Controller {
@@ -33,7 +32,7 @@ public class WeixinController extends Controller {
 	
 	
 	/*
-	 * 注册团队接口
+	 * 创建团队接口
 	 * @author 张志强
 	 * captain_phone //队长号码
 	 * captain_name //队长名字
@@ -96,6 +95,19 @@ public class WeixinController extends Controller {
 		setAttr("infoList", list);
 		renderJson();
 	}
+	
+	
+	/*
+	 * 用户退团队接口
+	 * 
+	 * 
+	 * */
+	
+	public void quitGroup() {
+		String phone_no = getPara("phone_no");
+		
+	}
+	
 	
 	
 	/**
