@@ -168,8 +168,13 @@ public class AdminInfoModel extends Model<AdminInfoModel> {
 		}
 		return dao.paginate(pageNumber,pageSize,sele_sql,from_sql.toString());
 	} 
-	
-	
+	//根据号码查找所有管理员信息
+	public List<AdminInfoModel> getAdminAllInfo(String phone_no) {
+		AdminInfoModel m=new AdminInfoModel();
+		String selectsql = "SELECT * FROM AdminInfo WHERE admin_phone_no=?";
+		List<AdminInfoModel> list = m.find(selectsql,phone_no);
+		return list;
+	}
 }
 
 	
