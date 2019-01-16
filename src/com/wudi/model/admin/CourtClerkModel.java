@@ -203,4 +203,10 @@ public class CourtClerkModel extends Model<CourtClerkModel> {
 			sql.append("select *  from ").append(tableName);
 			return dao.find(sql.toString());
 		}
+	 public static List<CourtClerkModel> getsize(){
+		 String sql="select * from "+tableName;
+		 List<CourtClerkModel> result=dao.find(sql);
+		 return result;
+		 
+	 }
 }

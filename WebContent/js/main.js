@@ -66,21 +66,21 @@ layui.config({
 	// 专升本
 	$.get("gainUndergraduateNum",
 		function(data){
-			$(".Undergraduate span").text(data.row);
+			$(".imgAll span").text(data.row);
 		}
 	)
 	
 	// 建筑工程
 	$.get("gainArchitectNum",
 		function(data){
-			$(".Architect span").text(data.row);
+			$(".imgAll span").text(data.row);
 		}
 	)
 	
 	// 职业资格
 	$.get("gainProfessionalNum",
 		function(data){
-			$(".Professional span").text(data.row);
+			$(".imgAll span").text(data.row);
 		}
 	)
 	
@@ -88,14 +88,14 @@ layui.config({
 	// 医药卫生
 	$.get("gainMedicalScienceNum",
 		function(data){
-			$(".MedicalScience span").text(data.row);
+			$(".userAll span").text(data.row);
 		}
 	)
 
 	// 外语少儿
-	$.get("gainForeignLanguageNum",
+	$.get("gainUndergraduateNum",
 		function(data){
-			$(".ForeignLanguage span").text(data.row);
+			$(".newMessage span").text(data.row);
 		}
 	)
 
