@@ -71,24 +71,27 @@ public class WeixinController extends Controller {
 	/**
 	 * 微信登录入口
 	 * @author 张志强
-	 * 
-	 * GET phone_no &user_password
+	 *  GET phone_no & user_password
+	 *  
+	 * @Description: TODO 给微信端返回用户或管理员所有信息
 	 * 
 	 * */
 	
 	public void userLogin() {
 		String phone_no =getPara("phone_no");
 		String user_password = getPara("user_password");
-		int code=0;
-		int type =0;//1普通用户，2管理员
+		int code=0;	// 返回给前端做判断登录是否成功 0 密码错误 1密码正确 2 用户不存在
+		int type =0;// 用户类型  1普通用户，2管理员
 		String info = "用户不存在";
-		//查询用户表phone_no
+		List<?> list =null;
+		//查询用户表phone_no字段
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-		//查询管理员表admin_phone_no
+		//查询管理员表admin_phone_no字段
 		AdminInfoModel n = new AdminInfoModel().getphone_no(phone_no);
 		if (n!=null||m!=null) {
 			if (n!=null) {
 				if(n.getAdmin_password().equals(user_password)) {
+					list= new AdminInfoModel().getAdminAllInfo(phone_no);
 					type =1;//
 					code=1;//密码正确
 					info ="密码正确";
@@ -101,6 +104,7 @@ public class WeixinController extends Controller {
 				
 			}else {
 				if(m.getUser_password().equals(user_password)) {
+					list= new UserInfoModel().getUserAllInfo(phone_no);
 					type =2;//
 					code=1;//密码正确
 					info ="密码正确";
@@ -115,12 +119,14 @@ public class WeixinController extends Controller {
 			
 		}else {
 			//不存在
+			type=0;
 			code=2;
 			info = "用户不存在";
 		}
 		setAttr("code", code);
 		setAttr("info", info);
 		setAttr("type", type);
+		setAttr("userAllInfo",list);
 		renderJson();
 	}
 	
