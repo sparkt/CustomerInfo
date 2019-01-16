@@ -85,11 +85,11 @@ public class Config extends JFinalConfig {
 			arpMysql.addMapping("Accounting", AccountingModel.class);//用户信息表（法院书记员）
 			arpMysql.addMapping("userinfo", UserInfoModel.class);//用户信息表
 			arpMysql.addMapping("AdminInfo", AdminInfoModel.class);//管理员信息表
-			arpMysql.addMapping("Architect", ArchitectModel.class);//
-			arpMysql.addMapping("Professional", ProfessionalModel.class);//
-			arpMysql.addMapping("MedicalScience", MedicalScienceModel.class);//
-			arpMysql.addMapping("ForeignLanguage", ForeignLanguageModel.class);//
-			arpMysql.addMapping("Undergraduate", UndergraduateModel.class);//
+			arpMysql.addMapping("Architect", ArchitectModel.class);//用户信息表（建筑工程）
+			arpMysql.addMapping("Professional", ProfessionalModel.class);//用户信息表（职业资格）
+			arpMysql.addMapping("MedicalScience", MedicalScienceModel.class);//用户信息表（医药卫生）
+			arpMysql.addMapping("ForeignLanguage", ForeignLanguageModel.class);//用户信息表（外语少儿）
+			arpMysql.addMapping("Undergraduate", UndergraduateModel.class);//用户信息表（专升本）
 			arpMysql.addMapping("user", UserModel.class);
 		}
 		//添加插件
