@@ -28,6 +28,7 @@ import com.wudi.model.admin.SpecialPromotiomModel;
 import com.wudi.model.admin.TeachercertificationModel;
 import com.wudi.model.admin.UndergraduateModel;
 import com.wudi.model.admin.UserInfoModel;
+import com.wudi.model.admin.*;
 /**
  * 	系统配置类
  *   @author XIAO
@@ -91,6 +92,7 @@ public class Config extends JFinalConfig {
 			arpMysql.addMapping("ForeignLanguage", ForeignLanguageModel.class);//
 			arpMysql.addMapping("Undergraduate", UndergraduateModel.class);//
 			arpMysql.addMapping("user", UserModel.class);
+			arpMysql.addMapping("GroupInfo", GroupInfoModel.class);//团队表
 		}
 		//添加插件
 		me.add(dsMysql);
@@ -102,8 +104,6 @@ public class Config extends JFinalConfig {
 	@Override
 	public void configInterceptor(Interceptors me) {
 		//添加拦截器
-		me.add(new AdminInterceptor());//添加后台数据管理访问拦截器
-		me.add(new WeixinIntercepter());//添加微信小程序访问拦截器
 	}
 
 	@Override

@@ -80,6 +80,7 @@ layui.config({
 		  
 	  } else if(layEvent === 'del'){
 		  
+		  
 	  } else if(layEvent === 'edit'){ //编辑
 		  var index = layui.layer.open({
               title : "修改信息",

@@ -1,6 +1,6 @@
 package com.wudi.controller;
 
-
+import com.wudi.model.admin.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import com.wudi.model.admin.MandarinModel;
 import com.wudi.model.admin.PartTimePostgraduateModel;
 import com.wudi.model.admin.SpecialPromotiomModel;
 import com.wudi.model.admin.TeachercertificationModel;
-import com.wudi.model.admin.*;
+import com.wudi.model.admin.GroupInfoModel;
 
 
 /**
@@ -32,8 +32,70 @@ public class WeixinController extends Controller {
 	
 	
 	
+	/*
+	 * 注册团队接口
+	 * @author 张志强
+	 * 
+	 * */
+	
+	public void saveGroupinfo(){
+		String captain_phone  = getPara("captain_phone");
+		String captain_name = getPara("captain_name");
+		String group_info = getPara("group_info");
+		String group_name = getPara("group_name");
+		GroupInfoModel	uu = new GroupInfoModel();	
+		int code =0; //注册不成功
+		String info ="注册不成功";
+		boolean result = uu.saveGroupinfo(group_name, captain_name, captain_phone, group_info);
+		
+		if(result) {
+			code =1;
+			info ="注册成功";
+		}
+		setAttr("code", code);
+		setAttr("info", info);
+		renderJson();
+		
+	}
+	
+	/*
+	 * 
+	 *加入团队接口 
+	 *
+	 *从微信端接收用户phone_no & 队长phone_no
+	 * @author 张志强
+	 * */
+	public void joinGroup() {
+		String captain_phone  = getPara("captain_phone");
+		String phone_no = getPara("phone_no");
+		int code =0;
+		String info="加入不成功";
+		boolean result = new UserInfoModel().userJoinGroup(captain_phone, phone_no);
+		if(result) {
+			code =1;
+			info ="加入成功";	
+		}
+		setAttr("code", code);
+		setAttr("info", info);
+		renderJson();
+		
+	}
+	/*
+	 * 返回用户所在团队信息
+	 * @author 张志强
+	 * */
+	public void getGroupAllInfo() {
+		String phone_no = getPara("phone_no");
+		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+		String captain_phone =m.getGroup();
+		List<?> list = m.getUserGrouAllInfo(phone_no, captain_phone);
+		setAttr("infoList", list);
+		renderJson();
+	}
+	
+	
 	/**
-	 * 微信端注册入口
+	 * 微信端用户注册入口
 	 * @author 张志强
 	 * @Description: TODO 录入用户注册信息
 	 * 给微信端发送提示信息
@@ -69,7 +131,7 @@ public class WeixinController extends Controller {
 		}
 	
 	/**
-	 * 微信登录入口
+	 * 微信用户登录入口
 	 * @author 张志强
 	 *  GET phone_no & user_password
 	 *  

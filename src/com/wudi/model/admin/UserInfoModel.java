@@ -83,7 +83,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		set("check",check);
 		
 	}
-	public String getGroup(String group) {
+	public String getGroup() {
 		return get("group");
 		
 	}
@@ -137,10 +137,44 @@ public class UserInfoModel extends Model<UserInfoModel> {
 			m.setUser_sex(user_sex);
 			m.setVip_grade(vip_grade);
 			m.setStatus(status);
+			m.setGroup("0");
 		}
 		return m.update();
 	
 	}
+	
+	
+	/*
+	 * 用户加入团队
+	 * 
+	 * */
+	public boolean userJoinGroup(String captain_phone ,String phone_no) {
+		GroupInfoModel m = new GroupInfoModel();
+		UserInfoModel n = dao.getphone_no(phone_no);
+		if(m.getisGroup(phone_no)!=null) {
+			n.setGroup(captain_phone);
+		}else {
+			return false;
+		}
+		return n.update();
+	}
+	
+	/*
+	 * 查询团队信息
+	 * 
+	 * 
+	 * */
+	public List<?> getUserGrouAllInfo(String phone_no ,String captain_phone) {
+		GroupInfoModel m=new GroupInfoModel();
+		List<?> list = m.getGroupAllInfo(captain_phone);
+		return list;
+	}	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 根据phone_no删除用户数据数据
 	 * @param phone_no
@@ -174,10 +208,8 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		String selectsql = "SELECT * FROM " + tableName + " WHERE phone_no=?";
 		return m.findFirst(selectsql,phone_no);
 		
-		
-		
 	}
-	
+
 	
 	public  Page<UserInfoModel> getList(int pageNumber, int pageSize, String key) {
 		String sele_sql = "select * ";
@@ -196,12 +228,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	 * */
 
 
-	public List<UserInfoModel> test() {
-		UserInfoModel m=new UserInfoModel();
-		String selectsql = "SELECT test.*, userinfo.* FROM test, userinfo WHERE test.id=1";
-		List<UserInfoModel> list = m.find(selectsql);
-		return list;
-	}
+	
 	//根据号码查找客户所有信息
 	public List<UserInfoModel> getUserAllInfo(String phone_no) {
 		UserInfoModel m=new UserInfoModel();
