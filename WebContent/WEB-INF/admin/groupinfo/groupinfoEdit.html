@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>信息修改</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../../layui/css/layui.css" media="all" />
+	<style type="text/css">
+		.layui-form { width:60%; float:left; margin-left:5%; margin-top: 3%}
+	</style>
+</head>
+<body class="childrenBody">
+	<form class="layui-form layui-form-pane" name="updateform">
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">团队队长名</label>
+			<div class="layui-input-inline">
+				<input type="text" class="layui-input" name="captain_name" >
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">队长电话</label>
+			<div class="layui-input-inline">
+				<input type="text" class="layui-input  layui-disabled" name="captain_phone"  lay-verify="required"   autocomplete="off" value="${(captain_phone)}">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">团队信息</label>
+			<div class="layui-input-inline">
+				<input type="text" class="layui-input" name="group_info" placeholder="请输入团队信息"  autocomplete="off">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">团队人数</label>
+			<div class="layui-input-inline">
+				<input type="text" class="layui-input" name="group_headcount" placeholder="请输入团队人数"  autocomplete="off">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">团队名称</label>
+			<div class="layui-input-inline">
+			    <input type="text" class="layui-input" name="group_name" placeholder="请输入团队名称"  autocomplete="off">  
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit="" lay-filter="update">保存修改</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+		    </div>
+		</div>
+	</form>
+	<script type="text/javascript" src="../../layui/layui.js"></script>
+	<script type="text/javascript" src="../js/groupinfo/groupinfoEdit.js"></script>
+</body>
+</html>
