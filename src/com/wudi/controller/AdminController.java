@@ -481,7 +481,10 @@ public class AdminController extends Controller {
 	 *         参数 @return void 返回类型 @throws
 	 */
 	public void updateSpecialPromotiom() {
+		
 		String id = getPara("id");
+		SpecialPromotiomModel data=SpecialPromotiomModel.getById(id);
+		setAttr("data", data);
 		String name = getPara("name");
 		String sex = getPara("sex");
 		String tel_no = getPara("tel_no");
@@ -508,6 +511,13 @@ public class AdminController extends Controller {
 		boolean result = SpecialPromotiomModel.delSpecialPromotiomId(id);
 		// 返回结果
 		setAttr("result", result);
+		renderJson();
+	}
+	
+	public void getsizeS() {
+		List<SpecialPromotiomModel> list=SpecialPromotiomModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
 		renderJson();
 	}
 	
@@ -642,6 +652,12 @@ public class AdminController extends Controller {
 		renderJson();
 	}
 	
+	public void getsizeP() {
+		List<PartTimePostgraduateModel> list=PartTimePostgraduateModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
+		renderJson();
+	}
 	
 	
 	/**
@@ -767,6 +783,13 @@ public class AdminController extends Controller {
 		boolean result = MandarinModel.delMandarinById(id);
 		// 返回结果
 		setAttr("result", result);
+		renderJson();
+	}
+	
+	public void getsizeM() {
+		List<MandarinModel> list=MandarinModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
 		renderJson();
 	}
 	
@@ -898,6 +921,12 @@ public class AdminController extends Controller {
 		boolean result = TeachercertificationModel.delTeachercertificationById(id);
 		// 返回结果
 		setAttr("result", result);
+		renderJson();
+	}
+	public void getsizeT() {
+		List<TeachercertificationModel> list=TeachercertificationModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
 		renderJson();
 	}
 	
@@ -1032,6 +1061,12 @@ public class AdminController extends Controller {
 		renderJson();
 	}
 	
+	public void getsizeC() {
+		List<CourtClerkModel> list=CourtClerkModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
+		renderJson();
+	}
 	
 	/**
 	 * 
@@ -1100,6 +1135,7 @@ public class AdminController extends Controller {
 
 	}
 	
+	
 	/**
 	 * @Title: saveAccounting @Description:数据保存，在添加信息页面上，点击保存的那个按键做的事情 @param
 	 *         参数 @return void 返回类型 @throws
@@ -1163,6 +1199,12 @@ public class AdminController extends Controller {
 		renderJson();
 	}
 	
+	public void getsizeA() {
+		List<AccountingModel> list=AccountingModel.getListAll();
+		list.size();
+		setAttr("row", list.size());
+		renderJson();
+	}
 	/**
 	 * TODO:建筑工程
 	 * @author 王驰
