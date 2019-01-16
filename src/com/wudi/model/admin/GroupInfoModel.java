@@ -58,7 +58,7 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 		}
 	
 		/**
-		 * 添加团队
+		 * 添加团队1
 		 * @author zhangzhiqiang
 		 * @return
 		 */
