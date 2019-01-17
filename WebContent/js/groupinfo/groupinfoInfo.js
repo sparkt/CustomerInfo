@@ -50,13 +50,13 @@ layui.config({
 	  });
   
 //=============绑定【添加】事件============================
-	$(window).one("resize",function(){
+  $(window).one("resize",function(){
 		$(".add_btn").click(function(){
 			var index = layui.layer.open({
-				title : "【添加信息】",
+				title: "【添加信息】",
 				icon: 2,
-				type : 2,
-				content : "openAdminAdd",
+				type: 2,
+				content : "openGroupinfoAdd",
 				success : function(layero, index){
 					setTimeout(function(){
 						layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {

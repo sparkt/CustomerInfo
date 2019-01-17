@@ -17,33 +17,30 @@
 <body class="childrenBody">
 	<form class="layui-form layui-form-pane" name="addform">
 		<div class="layui-form-item">
-			<label class="layui-form-label">姓名</label>
+			<label class="layui-form-label">团队队长名</label>
 			<div class="layui-input-inline">
-				<input type="text" class="layui-input" name="admin_name"  lay-verify="required" placeholder="请输入姓名"  autocomplete="off">
+				<input type="text" class="layui-input" name="captain_name"  lay-verify="required" placeholder="请输入团队队长名"  autocomplete="off">
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">手机号码</label>
+			<label class="layui-form-label">队长电话</label>
 			<div class="layui-input-inline">
-				<input type="text" class="layui-input" name="admin_phone_no"  placeholder="请输入号码"  autocomplete="off">
+				<input type="text" class="layui-input" name="captain_phone"  placeholder="请输入队长电话"  autocomplete="off">
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">密码</label>
+			<label class="layui-form-label">团队信息</label>
 			<div class="layui-input-inline">
-				<input type="text" class="layui-input" name="admin_password"  lay-verify="required" placeholder="请输入密码"  autocomplete="off">
+				<input type="text" class="layui-input" name="group_info"  lay-verify="required" placeholder="请输入团队信息"  autocomplete="off">
 			</div>
 		</div>
 		<div class="layui-form-item">
-			<label class="layui-form-label">性别</label>
+			<label class="layui-form-label">团队名称</label>
 			<div class="layui-input-inline">
-			      	<select name="admin_sex"  id="selectId" lay-filter="state">
-			      	<option value="0">请选择性别</option>
-			      	<option value="0">男</option>
-			      	<option value="1">女</option>
-      				</select>
+				<input type="text" class="layui-input" name="group_name"  lay-verify="required" placeholder="请输入团队信息"  autocomplete="off">
 			</div>
 		</div>
+		
 		<div class="layui-form-item">
 			<div class="layui-input-block">
 				<button class="layui-btn" lay-submit="" lay-filter="add">保存</button>
@@ -52,6 +49,6 @@
 		</div>
 	</form>
 	<script type="text/javascript" src="../../layui/layui.js"></script>
-	<script type="text/javascript" src="../js/admininfo/admininfoAdd.js"></script>
+	<script type="text/javascript" src="../js/groupinfo/groupinfoAdd.js"></script>
 </body>
 </html>

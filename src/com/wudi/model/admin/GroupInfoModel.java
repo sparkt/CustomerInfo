@@ -63,7 +63,7 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 		 * @author zhangzhiqiang
 		 * @return
 		 */
-		public  boolean saveGroupinfo(String group_name,String captain_name, String captain_phone,String group_info) {
+		public  boolean saveGroupinfo(String captain_name, String captain_phone,String group_info,String group_name) {
 			GroupInfoModel m=new GroupInfoModel();
 			m.setGroup_name(group_name);
 			m.setCaptain_name(captain_name);
