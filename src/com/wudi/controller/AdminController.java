@@ -2000,7 +2000,7 @@ public class AdminController extends Controller {
 	}
 	/**
 	 * 
-	 * @Title: getAdmininfolist
+	 * @Title: getGrouplist
 	 * @Description: 获取团队管理信息界面数据列表
 	 * @param 参数
 	 * @return void 返回类型
@@ -2024,12 +2024,12 @@ public class AdminController extends Controller {
 	 * 打开团队管理添加页面
 	 *@author 梁老师
 	 */
-	public void openGroupAdd() {
-		render("groupinfo/admininfoAdd.html");
+	public void openGroupinfoAdd() {
+		render("groupinfo/groupinfoAdd.html");
 	}
 
 	/*
-	 * @Title: saveAdmininfo
+	 * @Title: saveGroupinfo
 	 * @Description: 保存添加团队管理信息界面数据
 	 * @param 参数
 	 * @return void 返回类型
@@ -2037,22 +2037,19 @@ public class AdminController extends Controller {
 	 *  @author 梁老师
 	 * **/
 	public void saveGroupinfo() {
-		String admin_name = getPara("admin_name");
-		String admin_password = getPara("admin_password");
-		String admin_sex = getPara("admin_sex");
-		String admin_phone_no = getPara("admin_phone_no");
-		if(admin_sex.equals("0")) {
-			admin_sex="男";
-		}else {
-			admin_sex="女";
-		}
+		String captain_name = getPara("captain_name");
+		String captain_phone = getPara("captain_phone");
+		String group_info = getPara("group_info");
+		String group_name = getPara("group_name");
+		
 		boolean result =false;
-		AdminInfoModel m = new AdminInfoModel().getphone_no(admin_phone_no);
-		if(m==null) {
-			result = new AdminInfoModel().saveAdminInfo(admin_name, admin_password, admin_sex, admin_phone_no, "1", "0");
+		String m = new GroupInfoModel().getCaptain_phone();
+		if(m!=null) {
+			result = new GroupInfoModel().saveGroupinfo(captain_name, captain_phone, group_info, group_name);
 		}
 		setAttr("result", result);
 		renderJson();
+		
 	}
 	/**
 	 * 打开管理员修改页面
