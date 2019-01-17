@@ -17,6 +17,7 @@ import com.wudi.model.admin.AccountingModel;
 import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.ArchitectModel;
 import com.wudi.model.admin.CourtClerkModel;
+import com.wudi.model.admin.CustomerModel;
 import com.wudi.model.admin.ForeignLanguageModel;
 import com.wudi.model.admin.GroupInfoModel;
 import com.wudi.model.admin.MandarinModel;
@@ -1975,4 +1976,61 @@ public class WeixinController extends Controller {
 		renderJson();
 	}
 
+	/**
+	 * 保存客户信息
+	 * xiao
+	 */
+	public void saveOrUpdateCustomer() {
+		String id=getPara("id");
+		String name = getPara("name");
+		int sex = getParaToInt("sex");
+		String tel_no = getPara("tel_no");
+		int disclose = getParaToInt("disclose");
+		int age = getParaToInt("age");
+		String work_address=getPara("work_address");
+		String comments=getPara("comments");
+		String phone_no=getPara("phone_no");
+		String nation=getPara("nation");
+		int type=getParaToInt("type");
+		int status=getParaToInt("status");
+		// 保存数据
+		boolean result = CustomerModel.saveOrUpate(id, name, sex, tel_no, disclose, age, work_address, comments, phone_no, nation, type, status);
+		setAttr("result", result);
+		renderJson();
+	}
+	/*
+	 * 根据id查找客户信息
+	 */
+	public void getCustomerById() {
+		// 接收页面数据
+		String id = getPara("id");
+		// 根据条件查询数据库的数据
+		CustomerModel data = CustomerModel.getById(id);
+		
+		// *放到编辑页面上去*
+		setAttr("data", data);
+		// 返回格式是json
+		renderJson();
+	}
+	
+	/**
+	 * 根据电话号码查询客户信息
+	 */
+	public void getCustomerByPhoneNo() {
+		String phone_no=getPara("phone_no");
+		String type=getPara("type");
+        List<CustomerModel> result = CustomerModel.findModelbyPhone_no(phone_no,type);
+		setAttr("data",result);
+		renderJson();
+	}
+	
+	/**
+	 * 根据id删除客户信息
+	 */
+	public void delCustomerById() {
+		String id=getPara("id");
+		boolean result=MedicalScienceModel.delMedicalScienceById(id);
+		setAttr("data",result);
+		renderJson();
+	}
 	}
