@@ -1,11 +1,17 @@
 package com.wudi.controller;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
+
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.template.expr.ast.Map;
 import com.wudi.interceptor.WeixinIntercepter;
 import com.wudi.model.admin.AccountingModel;
 import com.wudi.model.admin.AdminInfoModel;
@@ -23,7 +29,7 @@ import com.wudi.model.admin.TeachercertificationModel;
 import com.wudi.model.admin.UndergraduateModel;
 import com.wudi.model.admin.UserInfoModel;
 import com.wudi.util.StringUtil;
-
+import com.wudi.util.*;
 
 
 /**
@@ -39,8 +45,6 @@ public class WeixinController extends Controller {
 		setAttr("result", "你好，无敌小团队微信小程序路径！");
 		renderJson();
 	}
-	
-	
 	
 	
 	/*
@@ -82,8 +86,6 @@ public class WeixinController extends Controller {
 		}
 		
 		
-	
-	
 	/*
 	 * 
 	 *加入团队接口 
@@ -178,9 +180,6 @@ public class WeixinController extends Controller {
 		setAttr("code", code);
 		setAttr("info", info);
 		renderJson();
-		
-		
-		
 		
 		
 	}

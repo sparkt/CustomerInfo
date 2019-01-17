@@ -201,6 +201,14 @@ public class AdminController extends Controller {
 		}
 		
 		
+		public void check() {
+			String phone_no = getPara("phone_no");
+			UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+			m.setCheck("1");
+			boolean  result = m.update();
+			setAttr("result", result);
+			renderJson();
+		}
 		
 		/*
 		 * 加载用户信息
