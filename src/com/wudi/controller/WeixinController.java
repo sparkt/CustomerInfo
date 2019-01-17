@@ -113,7 +113,7 @@ public class WeixinController extends Controller {
 	}
 	/*
 	 * 返回用户所在团队信息
-	 * @author 张志强
+	 * 
 	 * phone_no// 用户号码
 	 * */
 	public void getGroupAllInfo() {
