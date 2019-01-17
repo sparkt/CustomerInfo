@@ -94,6 +94,19 @@ public class WeixinController extends Controller {
 		renderJson();
 		
 	}
+	
+	public void test() {
+		String phone_no = getPara("phone_no");
+		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+		String captain_phone =m.getGroup("");
+		List<?> list = m.getUserGrouAllInfo(phone_no, captain_phone);
+		List<?>list1= new UserInfoModel().getUserAllInfo(phone_no);
+		setAttr("data1", list);
+		setAttr("data2", list1);
+		renderJson();
+	}
+	
+	
 	/*
 	 * 返回用户所在团队信息
 	 * @author 张志强
