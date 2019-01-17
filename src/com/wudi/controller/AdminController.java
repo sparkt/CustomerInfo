@@ -2060,7 +2060,6 @@ public class AdminController extends Controller {
 		renderFreeMarker("groupinfo/groupinfoEdit.html");
 	}
 	/* @updateGroupinfo
-	 * @Title: saveAdmininfo
 	 * @Description: 更新修改团队管理信息界面数据到数据库
 	 * @param 参数
 	 * @return void 返回类型
