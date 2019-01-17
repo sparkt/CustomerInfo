@@ -148,6 +148,7 @@ public class WeixinController extends Controller {
 	public void quitGroup() {
 		String phone_no = getPara("phone_no");
 		
+		
 	}
 	
 	
@@ -209,7 +210,9 @@ public class WeixinController extends Controller {
 		//查询管理员表admin_phone_no字段
 		AdminInfoModel n = new AdminInfoModel().getphone_no(phone_no);
 		if (n!=null||m!=null) {
+			
 			if (n!=null) {
+				
 				if(n.getAdmin_password().equals(user_password)) {
 					list= new AdminInfoModel().getAdminAllInfo(phone_no);
 					type =1;//

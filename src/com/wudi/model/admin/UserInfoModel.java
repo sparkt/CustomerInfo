@@ -87,8 +87,8 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		return get("groups");
 		
 	}
-	public  void setGroup(String group) {
-		set("groups",group);
+	public  void setGroup(String groups) {
+		set("groups",groups);
 		
 	}
 	/**
@@ -150,14 +150,18 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	 * 
 	 * */
 	public boolean userJoinGroup(String captain_phone ,String phone_no) {
-		GroupInfoModel m = new GroupInfoModel();
+		GroupInfoModel m = new GroupInfoModel().getisGroup(captain_phone);
 		UserInfoModel n = dao.getphone_no(phone_no);
-		if(m.getisGroup(phone_no)==null) {
-			n.setGroup(captain_phone);
-		}else {
-			return false;
+		boolean  result =false;
+		int count;
+		if(m!=null) {
+			count= Integer.parseInt(m.getGroup_headcount()); //获取当前团队人数
+			m.setGroup_headcount(String.valueOf(count+1));//团队加人数加1
+			result= m.update();//更新团队人数
+			n.setGroup(captain_phone); //更新用户团队字段为团队号码
+			result= n.update(); //更新
 		}
-		return n.update();
+		return result;
 	}
 	
 	/*
