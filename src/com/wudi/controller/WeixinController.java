@@ -46,7 +46,7 @@ public class WeixinController extends Controller {
 		UserInfoModel m = new UserInfoModel().getphone_no(captain_phone);
 		if(m!=null) {
 		//判断该用户是否满足建队条件
-		if(m.getGroup("").equals("0")&&m.getVip_grade().equals("1")) {
+		if(m.getGroup().equals("0")&&m.getVip_grade().equals("1")) {
 			
 			boolean result =new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone, group_info);
 
@@ -68,7 +68,7 @@ public class WeixinController extends Controller {
 		
 	/*
 	 * 
-	 *加入团队接口 
+	 *拉入团队接口 
 	 *
 	 *从微信端接收用户phone_no & 队长phone_no
 	 * @author 张志强
@@ -79,7 +79,8 @@ public class WeixinController extends Controller {
 		int code =0;
 		String info="加入不成功";
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-		if(m.getGroup("").equals("0")) {
+		if(m!=null) {
+		if(m.getGroup().equals("0")) {
 		boolean result = new UserInfoModel().userJoinGroup(captain_phone, phone_no);
 		if(result) {
 			code =1;
@@ -89,22 +90,32 @@ public class WeixinController extends Controller {
 			code =2;
 			info ="你已有团队";	
 		}
+		}else {
+			code =0;
+			info="该用户不存在";
+			
+		}
+		
 		setAttr("code", code);
 		setAttr("info", info);
 		renderJson();
 		
 	}
+
 	/*
+	 * 个人中心页面
 	 * 返回用户所在团队信息
 	 * @author 张志强
 	 * phone_no// 用户号码
 	 * */
 	public void getGroupAllInfo() {
 		String phone_no = getPara("phone_no");
-		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-		String captain_phone =m.getGroup("");
-		List<?> list = m.getUserGrouAllInfo(phone_no, captain_phone);
-		setAttr("data", list);
+		UserInfoModel user= new UserInfoModel().getphone_no(phone_no);
+		GroupInfoModel groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
+		List <CustomerModel> customers=CustomerModel.findListByPhone_no(phone_no);
+		setAttr("user", user);
+		setAttr("customers", customers);
+		setAttr("groups", groups);
 		renderJson();
 	}
 	/*
@@ -116,8 +127,7 @@ public class WeixinController extends Controller {
 	public void getGroupMemberAllInfo() {
 		String phone_no = getPara("phone_no");
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-		String groups =m.getGroup("");
-		List<?> list = new UserInfoModel().getGroupMemberAllInfo(groups);
+		List<?> list = new UserInfoModel().getGroupMemberAllInfo(m.getGroup());
 		setAttr("data", list);
 		renderJson();
 	}
@@ -328,4 +338,5 @@ public class WeixinController extends Controller {
 		setAttr("data",result);
 		renderJson();
 	}
-	}
+	
+}
