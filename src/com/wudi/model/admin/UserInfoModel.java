@@ -92,6 +92,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		
 	}
 	/**
+	 * 
 	 * 注册用户 保存用户信息
 	 * @author zhang zhiqiang
 	 * @param user_name 
@@ -244,7 +245,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	//根据号码查找客户所有信息
 	public List<UserInfoModel> getUserAllInfo(String phone_no) {
 		UserInfoModel m=new UserInfoModel();
-		String selectsql = "SELECT * FROM userinfo WHERE groups=?";
+		String selectsql = "SELECT * FROM userinfo WHERE phone_no=?";
 		List<UserInfoModel> list = m.find(selectsql,phone_no);
 		return list;
 	}	
