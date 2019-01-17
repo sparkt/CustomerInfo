@@ -145,10 +145,12 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	}
 	
 	
-	/*
-	 * 用户加入团队
-	 * 
-	 * */
+	/**
+	 *  用户加入团队
+	 * @param captain_phone
+	 * @param phone_no
+	 * @return
+	 */
 	public boolean userJoinGroup(String captain_phone ,String phone_no) {
 		GroupInfoModel m = new GroupInfoModel().getisGroup(captain_phone);
 		UserInfoModel n = dao.getphone_no(phone_no);
@@ -156,17 +158,18 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		int count;
 		if(m!=null) {
 			count= Integer.parseInt(m.getGroup_headcount()); //获取当前团队人数
-			m.setGroup_headcount(String.valueOf(count+1));//团队加人数加1
+			m.setGroup_headcount(String.valueOf(count+1));//团队人数加1
 			result= m.update();//更新团队人数
 			n.setGroup(captain_phone); //更新用户团队字段为团队号码
 			result= n.update(); //更新
 		}
 		return result;
 	}
-	/*
-	 * 用户退队
-	 * 
-	 * */
+	/**
+	 *  用户退队
+	 * @param phone_no
+	 * @return
+	 */
 	public boolean userQuitGroup(String phone_no) {
 		UserInfoModel n = dao.getphone_no(phone_no);
 		boolean  result =false;
@@ -175,7 +178,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		if(n!=null && !n.getGroup("").equals("0")) {
 			GroupInfoModel m = new GroupInfoModel().getisGroup(n.getGroup(""));
 			count= Integer.parseInt(m.getGroup_headcount()); //获取当前团队人数
-			m.setGroup_headcount(String.valueOf(count-1));//团队加人数减14
+			m.setGroup_headcount(String.valueOf(count-1));//团队人数减1
 			result= m.update();//更新团队人数
 			n.setGroup("0"); //更新用户团队字段为团队0
 			result= n.update(); //更新
@@ -183,19 +186,34 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		
 		return result;
 	}
+	/**
+	 *删除队员
+	 * @param captain_phone
+	 * @param phone_no
+	 */
+	public boolean deleteMember(String captain_phone ,String phone_no){
+		
+		GroupInfoModel m = new GroupInfoModel().getisGroup(captain_phone);
+		UserInfoModel n = dao.getphone_no(phone_no);
+		boolean  result =false;
+		int count;
+		
+		if(m!=null && n!=null) {
+			count= Integer.parseInt(m.getGroup_headcount()); //获取当前团队人数
+			m.setGroup_headcount(String.valueOf(count-1));//团队人数减1
+			result= m.update();//更新团队人数
+			n.setGroup("0"); //更新用户团队字段为团队0
+			result= n.update(); //更新
+		}
+		return result;
+	}
 	
-	
-	
-	/*
-	 * 修改表中vip_grade字段的值
-	 * 
-	 * */
-	
-	/*
+	/**
 	 * 查询团队信息
-	 * 
-	 * 
-	 * */
+	 * @param phone_no
+	 * @param captain_phone
+	 * @return
+	 */
 	public List<?> getUserGrouAllInfo(String phone_no ,String captain_phone) {
 		GroupInfoModel m=new GroupInfoModel();
 		List<?> list = m.getGroupAllInfo(captain_phone);
@@ -210,7 +228,6 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	/**
 	 * 根据phone_no删除用户数据数据
 	 * @param phone_no
-	 * @author zhangzhiqiang
 	 * @return
 	 */
 	public  boolean deleteUserinfo(String phone_no) {
@@ -232,16 +249,19 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	/**
 	 * 查询号码
 	 * @param phone_no
-	 * 
-	 * 
-	 * */
+	 * @return
+	 */
 	public UserInfoModel getphone_no(String phone_no) {
 		UserInfoModel m=new UserInfoModel();
 		String selectsql = "SELECT * FROM " + tableName + " WHERE phone_no=?";
 		return m.findFirst(selectsql,phone_no);
 		
 	}
-	//根据group字段查找该用户所在团队所有成员
+	/**
+	 * 根据group字段查找该用户所在团队所有成员
+	 * @param group
+	 * @return
+	 */
 		public List<UserInfoModel> getGroupMemberAllInfo(String group) {
 			UserInfoModel m=new UserInfoModel();
 			String selectsql = "SELECT * FROM userinfo WHERE groups=?";
@@ -249,7 +269,13 @@ public class UserInfoModel extends Model<UserInfoModel> {
 			return list;
 		}	
 		
-	
+	/**
+	 * 根据KEY关键字查询用户信息
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param key
+	 * @return
+	 */
 	public  Page<UserInfoModel> getList(int pageNumber, int pageSize, String key) {
 		String sele_sql = "select * ";
 		StringBuffer from_sql = new StringBuffer();
@@ -261,14 +287,11 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	}
 	
 	
-	/*
-	 * 查询用户表信息
-	 * 
-	 * */
-
-
-	
-	//根据号码查找客户所有信息
+	/**
+	 * 根据号码查找客户所有信息
+	 * @param phone_no
+	 * @return
+	 */
 	public List<UserInfoModel> getUserAllInfo(String phone_no) {
 		UserInfoModel m=new UserInfoModel();
 		String selectsql = "SELECT * FROM userinfo WHERE phone_no=?";
