@@ -24,6 +24,7 @@ layui.config({
 		      ,{field: 'user_password' ,title:'用户密码'}
 		      ,{field: 'status' ,title:'状态'}
 		      ,{field: 'vip_grade' ,title:'等级'}
+		      ,{field: 'groups' ,title:'团队'}
 		      ,{fixed: 'right', align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
 		    ]]
 	  });
