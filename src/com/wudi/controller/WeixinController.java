@@ -88,7 +88,7 @@ public class WeixinController extends Controller {
 	 *加入团队接口 
 	 *
 	 *从微信端接收用户phone_no & 队长phone_no
-	 * @author 
+	 * @author 张志强
 	 * */
 	public void joinGroup() {
 		String captain_phone  = getPara("captain_phone");
@@ -113,7 +113,7 @@ public class WeixinController extends Controller {
 	}
 	/*
 	 * 返回用户所在团队信息
-	 * 
+	 * @author 张志强
 	 * phone_no// 用户号码
 	 * */
 	public void getGroupAllInfo() {
@@ -126,8 +126,8 @@ public class WeixinController extends Controller {
 	}
 	/*
 	 * 返回用户所在团队队员员信息
-	 * 
-	 * 
+	 * @author 张志强
+	 * phone_no //用户号码
 	 * */
 	
 	public void getGroupMemberAllInfo() {
@@ -141,8 +141,8 @@ public class WeixinController extends Controller {
 	
 	/*
 	 * 用户退团队接口
-	 * 
-	 * 
+	 * @author 张志强
+	 * phone_no //用户号码
 	 * */
 	
 	public void quitGroup() {
@@ -159,7 +159,20 @@ public class WeixinController extends Controller {
 		renderJson();
 		
 	}
-	
+	/*
+	 *	 队长删除队员接口
+	 * 	captain_phone //队长号码
+	 * 	phone_no //要删除团员号码
+	 * */
+	public void deleteMember() {
+		String captain_phone  = getPara("captain_phone");
+		String phone_no = getPara("phone_no");
+		
+		
+		
+		
+		
+	}
 	
 	
 	/**
@@ -167,6 +180,10 @@ public class WeixinController extends Controller {
 	 * @author 张志强
 	 * @Description: TODO 录入用户注册信息
 	 * 给微信端发送提示信息
+	 * user_name //
+	 * user_password //
+	 * user_sex //
+	 * phone_no //
 	 */
 	public void saveUserinfo() {
 		
@@ -200,11 +217,14 @@ public class WeixinController extends Controller {
 	
 	/**
 	 * 微信用户登录入口
-	 * @author 张志强
+	 * 
 	 *  GET phone_no & user_password
 	 *  
 	 * @Description: TODO 给微信端返回用户或管理员所有信息
+	 * phone_no //
+	 * user_password//
 	 * 
+	 * @author 张志强
 	 * */
 	
 	public void userLogin() {

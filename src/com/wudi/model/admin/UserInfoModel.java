@@ -260,12 +260,6 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
 	
-	
-	/*
-	 * 查询用户表信息
-	 * 
-	 * */
-
 
 	
 	//根据号码查找客户所有信息
