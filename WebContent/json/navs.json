@@ -15,6 +15,12 @@
 			"icon" : "&#xe61c;",
 			"href" : "page/404.html",
 			"spread" : false
+		},
+		{
+			"title" : "团队管理",
+			"icon" : "&#xe61c;",
+			"href" : "admin/groupinfo",
+			"spread" : false
 		}
 	]
 }]
