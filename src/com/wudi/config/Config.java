@@ -66,7 +66,6 @@ public class Config extends JFinalConfig {
 		arpMysql.setShowSql(showSql);
 		{
 			//将数据库表，绑定到这来来，注意，表名和类要相对应
-			arpMysql.addMapping("navs", NavsModel.class);//主页面左侧菜单显示的表
 			arpMysql.addMapping("userinfo", UserInfoModel.class);//用户信息表
 			arpMysql.addMapping("AdminInfo", AdminInfoModel.class);//管理员信息表
 			arpMysql.addMapping("user", UserModel.class);
