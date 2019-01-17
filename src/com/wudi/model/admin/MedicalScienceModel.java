@@ -194,7 +194,7 @@ public class MedicalScienceModel extends Model<MedicalScienceModel> {
 	}
 
 	 public static List<MedicalScienceModel> findModelbyPhone_no(String phone_no) {
-	    	String sql="select * from "+tableName+" where phone_no = ?";
+	    	String sql="select * from "+tableName+" where phone_no= ?";
 	    	List<MedicalScienceModel> list= dao.find(sql,phone_no);
 	    	return list;
 	    }

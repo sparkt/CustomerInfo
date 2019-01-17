@@ -280,9 +280,9 @@ public class CustomerModel extends Model<CustomerModel> {
 		}
 	}
 
-	 public static List <CustomerModel> findModelbyPhone_no(String phone_no) {
-	    	String sql="select * from "+tableName+" where phone_no=?";
-	    	List<CustomerModel> list =dao.find(sql,phone_no);
+	 public static List <CustomerModel> findModelbyPhone_no(String phone_no,String type) {
+	    	String sql="select * from "+tableName+" where phone_no,type=?";
+	    	List<CustomerModel> list =dao.find(sql,phone_no,type);
 	    	return list;
 	    }
 	 public static List<CustomerModel> getListAll() {

@@ -2017,8 +2017,9 @@ public class WeixinController extends Controller {
 	 * 根据电话号码查询客户信息
 	 */
 	public void getCustomerByPhoneNo() {
-		String phone_no=getPara("phone_no");		
-        List<MedicalScienceModel> result = MedicalScienceModel.findModelbyPhone_no(phone_no);
+		String phone_no=getPara("phone_no");
+		String type=getPara("type");
+        List<CustomerModel> result = CustomerModel.findModelbyPhone_no(phone_no,type);
 		setAttr("data",result);
 		renderJson();
 	}
