@@ -221,7 +221,8 @@ layui.config({
     	        }
     	    ]
     	};
+    myChart.setOption(option);
  
  })
- myChart.setOption(option);
+
 

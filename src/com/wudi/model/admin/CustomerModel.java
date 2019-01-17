@@ -200,7 +200,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	public static boolean update(String id,CustomerModel model) {
 		CustomerModel m = CustomerModel.getById(id);
 		boolean result=false;
-		if (model == null) {
+		if (m == null) {
 			return result;
 		}else {
 			m.setName(model.getName());
@@ -212,10 +212,10 @@ public class CustomerModel extends Model<CustomerModel> {
 			m.setTel_no(model.getTel_no());
 			m.setWork_address(model.getWork_address());
 			m.setPhone_no(model.getPhone_no());
-			model.settype(model.gettype());
-			model.setstatus(model.getstatus());
+			m.settype(model.gettype());
+			m.setstatus(model.getstatus());
 			try {
-				result=model.update();
+				result=m.update();
 			} catch (Exception e) {
 				result=false;
 			}
@@ -253,7 +253,7 @@ public class CustomerModel extends Model<CustomerModel> {
 		model.setstatus(status);
 		model.setcreate_time(new Date());
 		if(StringUtil.isBlankOrEmpty(id)) {//为保存
-			result=save(model);
+			result=save(name, sex, tel_no, disclose, age, work_address, comments, phone_no, nation, type, status);
 		}else {//更新
 			result=update(id,model);
 		}
