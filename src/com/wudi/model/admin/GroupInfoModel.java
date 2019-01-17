@@ -130,7 +130,7 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 		}
 		
 		//根据队长号码返回团队信息
-		public List<GroupInfoModel> getGroupAllInfo(String phone_no) {
+		public static List<GroupInfoModel> getGroupAllInfo(String phone_no) {
 			String selectsql = "SELECT * FROM GroupInfo WHERE captain_phone=?";
 			return dao.find(selectsql,phone_no);
 		}	
