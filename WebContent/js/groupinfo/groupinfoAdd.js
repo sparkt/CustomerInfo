@@ -11,7 +11,7 @@ layui.config({
  	form.on("submit(add)",function(data){
  		var index;
  		 $.ajax({//异步请求返回给后台
-	    	  url:'saveAdmininfo',
+	    	  url:'saveGroupInfo',
 	    	  type:'POST',
 	    	  data:data.field,
 	    	  dataType:'json',

@@ -1,11 +1,6 @@
 package com.wudi.model.admin;
 import java.util.List;
-import java.util.Stack;
-import java.util.UUID;
 
-
-
-import com.jfinal.plugin.activerecord.DaoContainerFactory;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
@@ -85,7 +80,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		set("check",check);
 		
 	}
-	public String getGroup(String group) {
+	public String getGroup() {
 		return get("groups");
 		
 	}
@@ -177,8 +172,8 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		boolean  result =false;
 		int count;
 		
-		if(n!=null && !n.getGroup("").equals("0")) {
-			GroupInfoModel m = new GroupInfoModel().getisGroup(n.getGroup(""));
+		if(n!=null && !n.getGroup().equals("0")) {
+			GroupInfoModel m = new GroupInfoModel().getisGroup(n.getGroup());
 			count= Integer.parseInt(m.getGroup_headcount()); //获取当前团队人数
 			m.setGroup_headcount(String.valueOf(count-1));//团队人数减1
 			result= m.update();//更新团队人数
@@ -216,9 +211,9 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	 * @param captain_phone
 	 * @return
 	 */
-	public List<?> getUserGrouAllInfo(String phone_no ,String captain_phone) {
+	public List<GroupInfoModel> getUserGrouAllInfo(String captain_phone) {
 		GroupInfoModel m=new GroupInfoModel();
-		List<?> list = m.getGroupAllInfo(captain_phone);
+		List<GroupInfoModel> list = m.getGroupAllInfo(captain_phone);
 		return list;
 
 	}	
@@ -255,9 +250,8 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	 * @return
 	 */
 	public UserInfoModel getphone_no(String phone_no) {
-		UserInfoModel m=new UserInfoModel();
 		String selectsql = "SELECT * FROM " + tableName + " WHERE phone_no=?";
-		return m.findFirst(selectsql,phone_no);
+		return dao.findFirst(selectsql,phone_no);
 		
 	}
 	/**

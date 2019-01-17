@@ -1,9 +1,9 @@
 package com.wudi.model.admin;
 import java.util.List;
+
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
-import com.jfinal.plugin.activerecord.Record;
 import com.wudi.util.StringUtil;
 
 /**
@@ -63,7 +63,7 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 		 * @author zhangzhiqiang
 		 * @return
 		 */
-		public  boolean saveGroupinfo(String group_name,String captain_name, String captain_phone,String group_info) {
+		public  boolean saveGroupinfo(String captain_name, String captain_phone,String group_info,String group_name) {
 			GroupInfoModel m=new GroupInfoModel();
 			m.setGroup_name(group_name);
 			m.setCaptain_name(captain_name);
@@ -131,10 +131,8 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 		
 		//根据队长号码返回团队信息
 		public List<GroupInfoModel> getGroupAllInfo(String phone_no) {
-			GroupInfoModel m=new GroupInfoModel();
 			String selectsql = "SELECT * FROM GroupInfo WHERE captain_phone=?";
-			List<GroupInfoModel> list = m.find(selectsql,phone_no);
-			return list;
+			return dao.find(selectsql,phone_no);
 		}	
 
 		/*
