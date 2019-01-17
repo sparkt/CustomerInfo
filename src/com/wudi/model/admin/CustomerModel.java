@@ -99,11 +99,11 @@ public class CustomerModel extends Model<CustomerModel> {
 	public int getstatus() {
 		return get("status");
 	}
-	public void settype(int type) {
+	public void settype(String type) {
 		set("type", type);
 	}
 
-	public int gettype() {
+	public String gettype() {
 		return get("type");
 	}
 	/**
@@ -114,12 +114,12 @@ public class CustomerModel extends Model<CustomerModel> {
 	 * @param key
 	 * @return
 	 */
-	public static Page<CustomerModel> getList(int pageNumber, int pageSize, String key) {
+	public static Page<CustomerModel> getList(int pageNumber, int pageSize, String key,String type) {
 		String sele_sql = "select * ";
 		StringBuffer from_sql = new StringBuffer();
-		from_sql.append("from ").append(tableName);
+		from_sql.append("from ").append(tableName).append(" where type='").append(type).append(" ' ");
 		if (!StringUtil.isBlankOrEmpty(key)) {
-			from_sql.append(" where name like '%" + key + "%'");
+			from_sql.append("and name like '%" + key + "%'");
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
@@ -138,7 +138,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	 * 保存
 	 */
 	public static boolean save(String name, int sex, String tel_no, int disclose,
-			int age,String work_address,String comments,String phone_no,String nation,int type,int status) {
+			int age,String work_address,String comments,String phone_no,String nation,String type,int status) {
 		CustomerModel model=new CustomerModel();
 		model.setId(StringUtil.getId());
 		model.setName(name);
@@ -167,7 +167,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	 * 更新
 	 */
 	public static boolean update(String id,String name, int sex, String tel_no, int disclose,
-			int age,String work_address,String comments,String phone_no,String nation,int type,int status,Date create_time) {
+			int age,String work_address,String comments,String phone_no,String nation,String type,int status,Date create_time) {
 		CustomerModel model = CustomerModel.getById(id);
 		boolean result=false;
 		if (model == null) {
@@ -237,7 +237,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	 * @return
 	 */
 	public static boolean saveOrUpate(String id,String name, int sex, String tel_no, int disclose,
-			int age,String work_address,String comments,String phone_no,String nation,int type,int status) {
+			int age,String work_address,String comments,String phone_no,String nation,String type,int status) {
 		boolean result=false;
 		CustomerModel model=new CustomerModel();
 		model.setName(name);
@@ -265,7 +265,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	 * @param no
 	 * @return
 	 */
-	public static boolean delSpecialPromotiomId(String id) {
+	public static boolean delById(String id) {
 		try {
 			String delsql = "DELETE FROM " + tableName + " WHERE id=?";
 			int iRet = Db.update(delsql, id);
@@ -290,4 +290,9 @@ public class CustomerModel extends Model<CustomerModel> {
 			sql.append("select *  from ").append(tableName);
 			return dao.find(sql.toString());
 		}
+	 public static List <CustomerModel> getCustomerNum(String type) {
+	    	String sql="select * from "+tableName+" where  type = ?";
+	    	List<CustomerModel> list =dao.find(sql,type);
+	    	return list;
+	    }
 }
