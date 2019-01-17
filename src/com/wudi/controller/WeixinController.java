@@ -167,6 +167,16 @@ public class WeixinController extends Controller {
 	public void deleteMember() {
 		String captain_phone  = getPara("captain_phone");
 		String phone_no = getPara("phone_no");
+		boolean result = new UserInfoModel().deleteMember(captain_phone, phone_no);
+		int code =0; //删除不成功
+		String info ="删除不成功";
+		if(result) {
+			code =0;
+			 info ="删除成功";
+		}
+		setAttr("code", code);
+		setAttr("info", info);
+		renderJson();
 		
 		
 		
