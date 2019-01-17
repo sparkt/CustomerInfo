@@ -121,7 +121,7 @@ public class WeixinController extends Controller {
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
 		String captain_phone =m.getGroup("");
 		List<?> list = m.getUserGrouAllInfo(phone_no, captain_phone);
-		setAttr("infoList", list);
+		setAttr("data", list);
 		renderJson();
 	}
 	/*
@@ -135,7 +135,7 @@ public class WeixinController extends Controller {
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
 		String groups =m.getGroup("");
 		List<?> list = new UserInfoModel().getGroupMemberAllInfo(groups);
-		setAttr("infoList", list);
+		setAttr("data", list);
 		renderJson();
 	}
 	
@@ -246,7 +246,7 @@ public class WeixinController extends Controller {
 		setAttr("code", code);
 		setAttr("info", info);
 		setAttr("type", type);
-		setAttr("userAllInfo",list);
+		setAttr("data",list);
 		renderJson();
 	}
 	
