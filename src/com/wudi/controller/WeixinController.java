@@ -103,7 +103,7 @@ public class WeixinController extends Controller {
 	public void getGroupAllInfo() {
 		String phone_no = getPara("phone_no");
 		UserInfoModel user= new UserInfoModel().getphone_no(phone_no);
-		List<GroupInfoModel> groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
+		GroupInfoModel groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
 		List <CustomerModel> customers=CustomerModel.findListByPhone_no(phone_no);
 		setAttr("user", user);
 		setAttr("customers", customers);
