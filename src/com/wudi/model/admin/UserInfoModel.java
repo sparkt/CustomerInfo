@@ -83,12 +83,12 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		set("check",check);
 		
 	}
-	public String getGroup() {
-		return get("group");
+	public String getGroup(String group) {
+		return get("groups");
 		
 	}
 	public  void setGroup(String group) {
-		set("group",group);
+		set("groups",group);
 		
 	}
 	/**
@@ -214,7 +214,14 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		return m.findFirst(selectsql,phone_no);
 		
 	}
-
+	//根据group字段查找该用户所在团队所有成员
+		public List<UserInfoModel> getGroupMemberAllInfo(String group) {
+			UserInfoModel m=new UserInfoModel();
+			String selectsql = "SELECT * FROM userinfo WHERE groups=?";
+			List<UserInfoModel> list = m.find(selectsql,group);
+			return list;
+		}	
+		
 	
 	public  Page<UserInfoModel> getList(int pageNumber, int pageSize, String key) {
 		String sele_sql = "select * ";
@@ -237,7 +244,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	//根据号码查找客户所有信息
 	public List<UserInfoModel> getUserAllInfo(String phone_no) {
 		UserInfoModel m=new UserInfoModel();
-		String selectsql = "SELECT * FROM userinfo WHERE phone_no=?";
+		String selectsql = "SELECT * FROM userinfo WHERE groups=?";
 		List<UserInfoModel> list = m.find(selectsql,phone_no);
 		return list;
 	}	
