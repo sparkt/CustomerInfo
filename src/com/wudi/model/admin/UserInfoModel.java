@@ -163,6 +163,28 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		}
 		return result;
 	}
+	/*
+	 * 用户退队
+	 * 
+	 * */
+	public boolean userQuitGroup(String phone_no) {
+		UserInfoModel n = dao.getphone_no(phone_no);
+		boolean  result =false;
+		int count;
+		
+		if(n!=null && !n.getGroup("").equals("0")) {
+			GroupInfoModel m = new GroupInfoModel().getisGroup(n.getGroup(""));
+			count= Integer.parseInt(m.getGroup_headcount()); //获取当前团队人数
+			m.setGroup_headcount(String.valueOf(count-1));//团队加人数减14
+			result= m.update();//更新团队人数
+			n.setGroup("0"); //更新用户团队字段为团队0
+			result= n.update(); //更新
+		}	
+		
+		return result;
+	}
+	
+	
 	
 	/*
 	 * 修改表中vip_grade字段的值

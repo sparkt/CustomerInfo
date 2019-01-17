@@ -147,7 +147,16 @@ public class WeixinController extends Controller {
 	
 	public void quitGroup() {
 		String phone_no = getPara("phone_no");
-		
+		boolean result = new UserInfoModel().userQuitGroup(phone_no);
+		int code =0; //退队不成功
+		String info ="退队不成功";
+		if(result) {
+			code =0;
+			 info ="退队成功";
+		}
+		setAttr("code", code);
+		setAttr("info", info);
+		renderJson();
 		
 	}
 	
