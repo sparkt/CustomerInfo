@@ -477,19 +477,20 @@ public class AdminController extends Controller {
 	 * @throws
 	 *  @author 梁老师
 	 * **/
-	public void saveGroupinfo() {
+	public void saveGroupInfo() {
 		String captain_name = getPara("captain_name");
 		String captain_phone = getPara("captain_phone");
 		String group_info = getPara("group_info");
 		String group_name = getPara("group_name");
 		
 		boolean result =false;
-		String m = new GroupInfoModel().getCaptain_phone();
-		if(m!=null) {
+		GroupInfoModel m = new GroupInfoModel().getisGroup(captain_phone);
+		if(m==null) {//如果团队不存在，即m为空，则新建团队。
 			result = new GroupInfoModel().saveGroupinfo(captain_name, captain_phone, group_info, group_name);
 		}
 		setAttr("result", result);
 		renderJson();
+		
 		
 	}
 	/**
