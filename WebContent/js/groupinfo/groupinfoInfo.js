@@ -13,6 +13,7 @@ layui.config({
 	    url: 'getGrouplist', //数据接口
 	    where: {key: ''},//给后台传的参数
 	    page: true, //开启分页
+	    toolbar: '#toolbarDemo',
 	    limit: 10,//每页显示信息条数
 	    id: 'testReload',
 	    cols: [[ //表头
