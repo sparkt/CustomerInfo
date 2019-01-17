@@ -94,8 +94,11 @@ public class WeixinController extends Controller {
 		renderJson();
 		
 	}
+<<<<<<< HEAD
 
 	
+=======
+>>>>>>> refs/remotes/origin/master
 	/*
 	 * 个人中心页面
 	 * 返回用户所在团队信息
@@ -104,10 +107,12 @@ public class WeixinController extends Controller {
 	 * */
 	public void getGroupAllInfo() {
 		String phone_no = getPara("phone_no");
-		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-		List<GroupInfoModel> list = m.getUserGrouAllInfo(m.getGroup());
-		setAttr("user", m);
-		setAttr("group", list);
+		UserInfoModel user= new UserInfoModel().getphone_no(phone_no);
+		GroupInfoModel groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
+		List <CustomerModel> customers=CustomerModel.findListByPhone_no(phone_no);
+		setAttr("user", user);
+		setAttr("customers", customers);
+		setAttr("groups", groups);
 		renderJson();
 	}
 	/*

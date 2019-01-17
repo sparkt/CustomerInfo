@@ -211,10 +211,8 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	 * @param captain_phone
 	 * @return
 	 */
-	public List<GroupInfoModel> getUserGrouAllInfo(String captain_phone) {
-		GroupInfoModel m=new GroupInfoModel();
-		List<GroupInfoModel> list = m.getGroupAllInfo(captain_phone);
-		return list;
+	public GroupInfoModel getUserGrouAllInfo(String captain_phone) {
+		return GroupInfoModel.getGroupAllInfo(captain_phone);
 
 	}	
 
