@@ -295,4 +295,9 @@ public class CustomerModel extends Model<CustomerModel> {
 	    	List<CustomerModel> list =dao.find(sql,type);
 	    	return list;
 	    }
+	 public static List <CustomerModel> findListByPhone_no(String phone_no) {
+	    	String sql="select * from "+tableName+" where phone_no=?";
+	    	List<CustomerModel> list =dao.find(sql,phone_no);
+	    	return list;
+	    }
 }
