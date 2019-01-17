@@ -3,6 +3,7 @@ import java.util.List;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
 import com.wudi.util.StringUtil;
 
 /**
@@ -135,8 +136,7 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 			List<GroupInfoModel> list = m.find(selectsql,phone_no);
 			return list;
 		}	
-		
-		
+
 		/*
 		 * 根据关键字key分页查询团队信息
 		 * 
