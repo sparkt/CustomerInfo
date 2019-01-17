@@ -2018,10 +2018,10 @@ public class WeixinController extends Controller {
 	 */
 	public void getCustomerByPhoneNo() {
 		String phone_no=getPara("phone_no");
-		String type=getPara("type");
-        List<CustomerModel> result = CustomerModel.findModelbyPhone_no(phone_no,type);
+		int type=getParaToInt("type");
+		List<CustomerModel> result = CustomerModel.findModelbyPhone_no(phone_no,type);
 		setAttr("data",result);
-		renderJson();
+		renderJson();        
 	}
 	
 	/**

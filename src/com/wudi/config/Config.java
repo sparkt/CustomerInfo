@@ -17,6 +17,7 @@ import com.wudi.model.admin.AccountingModel;
 import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.ArchitectModel;
 import com.wudi.model.admin.CourtClerkModel;
+import com.wudi.model.admin.CustomerModel;
 import com.wudi.model.admin.ForeignLanguageModel;
 import com.wudi.model.admin.GroupInfoModel;
 import com.wudi.model.admin.MandarinModel;
@@ -92,6 +93,7 @@ public class Config extends JFinalConfig {
 			arpMysql.addMapping("ForeignLanguage", ForeignLanguageModel.class);//用户信息表（外语少儿）
 			arpMysql.addMapping("Undergraduate", UndergraduateModel.class);//用户信息表（专升本）
 			arpMysql.addMapping("user", UserModel.class);
+			arpMysql.addMapping("customer", CustomerModel.class);
 
 			arpMysql.addMapping("GroupInfo", GroupInfoModel.class);//团队表
 		//添加插件
