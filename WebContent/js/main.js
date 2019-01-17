@@ -66,21 +66,21 @@ layui.config({
 	// 专升本
 	$.get("gainUndergraduateNum",
 		function(data){
-			$(".imgAll span").text(data.row);
+			$(".Undergraduate span").text(data.row);
 		}
 	)
 	
 	// 建筑工程
 	$.get("gainArchitectNum",
 		function(data){
-			$(".imgAll span").text(data.row);
+			$(".Architect span").text(data.row);
 		}
 	)
 	
 	// 职业资格
 	$.get("gainProfessionalNum",
 		function(data){
-			$(".imgAll span").text(data.row);
+			$(".Professional span").text(data.row);
 		}
 	)
 	
@@ -88,14 +88,14 @@ layui.config({
 	// 医药卫生
 	$.get("gainMedicalScienceNum",
 		function(data){
-			$(".userAll span").text(data.row);
+			$(".MedicalScience span").text(data.row);
 		}
 	)
 
 	// 外语少儿
-	$.get("gainUndergraduateNum",
+	$.get("gainForeignLanguageNum",
 		function(data){
-			$(".newMessage span").text(data.row);
+			$(".ForeignLanguage span").text(data.row);
 		}
 	)
 
@@ -140,147 +140,6 @@ layui.config({
  	}
  	
  	
- // ///////////////////////////////
- // 基于准备好的dom，初始化echarts实例
-         var myChart = echarts.init(document.getElementById('tubiao'));
-         var option = {
-        		    tooltip : {
-        		        trigger: 'axis'
-        		    },
-        		    calculable : true,
-        		    legend: {
-        		        data:['未完成','已完成','总任务']
-        		    },
-        		    xAxis : [
-        		        {
-        		            type : 'category',
-        		            splitLine : {show : false},
-        		            data : ['王驰','李金鹏','李颖鹏','杨正旺','李洋','蒋霜','卢英剑','肖老师','梁老师']
-        		        }
-        		    ],
-        		    yAxis : [
-        		        {
-        		            type : 'value',
-        		            position: 'right'
-        		        }
-        		    ],
-        		    series : [
-        		        {
-        		            name:'未完成',
-        		            type:'bar',
-        		            stack: '总任务',
-        		            label: {
-        		            	formatter: '{a}',
-        		                normal: {
-        		                    show: true
-        		                }
-        		            },
-        		            data:[]
-        		        },
-        		        {
-        		            name:'已完成',
-        		            type:'bar',
-        		            stack: '总任务',
-        		            label: {
-        		            	formatter: '{a}',
-        		                normal: {
-        		                    show: true
-        		                }
-        		            },
-        		            itemStyle: {
-          		            	 normal: {
-          		            		 label: {
-          		            			 show: true,
-          		            			 position: 'top',
-          		            			 formatter: '{a}\n{c}'
-          		            		 }
-          		            	 }
-           		            },
-        		            data:[]
-        		        },
-        		        {
-        		            name:'总任务',
-        		            type:'line',
-        		            data:[]
-        		        },
-
-        		        {
-        		            name:'工程任务',
-        		            type:'pie',
-        		            tooltip : {
-        		                trigger: 'item',
-        		                formatter: '{a} <br/>{b} : {c} ({d}%)'
-        		            },
-        		            center:[130,100],
-        		            radius:[0, 80],
-        		            itemStyle:{
-        		            	normal:{
-        		                    labelLine : {
-        		                        length : 20
-        		                    }
-        		                }
-        		            },
-        		            data:[]
-        		        }
-        		    ]
-        		};
-         // 使用刚指定的配置项和数据显示图表。
- myChart.setOption(option);
- var names=[];    // 成员名单数组
- var totalTask=[];    // 总完成数组
-// 异步加载数据
- $.get('getTaskTubiaoinfo').done(function (data) {
-		 var list = data.names;
-         for(var i=0;i<list.length;i++){
-        	 names.push(list[i].name);    // 遍历成员并填入数组
-        	 totalTask.push(list[i].totalTask);
-         }
-	 
-     // 填入数据
-     myChart.setOption({
-         xAxis: {
-             data: names
-         },
-         series: [{
-             // 根据名字对应到相应的系列
-             name: '未完成',
-             data:data.ncList
-         },
-         {
-             // 根据名字对应到相应的系列
-             name: '已完成',
-             data: data.cList
-         },
-         {
-             // 根据名字对应到相应的系列
-             name: '总任务',
-             data: totalTask
-         },
-         {
-             // 根据名字对应到相应的系列
-             name: '工程任务',
-             data: data.allList
-         }
-         ]
-     });
-     });
-//处理点击事件并且跳转到相应的百度搜索页面
- myChart.on('click', 'series', function (params) {
-	 var index = layui.layer.open({
-         title : "查看信息",
-         type : 2,
-         area: ['1000px', '600px'],
-         content : "openStuTask?stuid="+params.name,
-         success : function(layero, index){
-             setTimeout(function(){
-                 layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
-                     tips: 3
-                 });
-             },500)
-         }
-     }) 
- });
- 
  })
 
 
