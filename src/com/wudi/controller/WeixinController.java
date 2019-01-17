@@ -79,6 +79,7 @@ public class WeixinController extends Controller {
 		int code =0;
 		String info="加入不成功";
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+		if(m!=null) {
 		if(m.getGroup().equals("0")) {
 		boolean result = new UserInfoModel().userJoinGroup(captain_phone, phone_no);
 		if(result) {
@@ -89,6 +90,12 @@ public class WeixinController extends Controller {
 			code =2;
 			info ="你已有团队";	
 		}
+		}else {
+			code =0;
+			info="该用户不存在";
+			
+		}
+		
 		setAttr("code", code);
 		setAttr("info", info);
 		renderJson();
