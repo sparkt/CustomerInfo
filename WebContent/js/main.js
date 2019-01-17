@@ -39,72 +39,71 @@ layui.config({
 	  });
 
 	// 专升本
-	$.get("gainUndergraduateNum",
+	  
+	$.get("getCustomerNum?type=1002",
 		function(data){
 			$(".Undergraduate span").text(data.row);
 		}
 	)
 	
 	// 建筑工程
-	$.get("gainArchitectNum",
+	$.get("getCustomerNum?type=1006",
 		function(data){
 			$(".Architect span").text(data.row);
 		}
 	)
 	
 	// 职业资格
-	$.get("gainProfessionalNum",
+	$.get("getCustomerNum?type=1007",
 		function(data){
 			$(".Professional span").text(data.row);
 		}
 	)
-	
-
 	// 医药卫生
-	$.get("gainMedicalScienceNum",
+	$.get("getCustomerNum?type=1008",
 		function(data){
 			$(".MedicalScience span").text(data.row);
 		}
 	)
 
 	// 外语少儿
-	$.get("gainForeignLanguageNum",
+	$.get("getCustomerNum?type=1009",
 		function(data){
 			$(".ForeignLanguage span").text(data.row);
 		}
 	)
 	// 高升专
-	$.get("getsizeS",
+	$.get("getCustomerNum?type=1001",
 		function(data){
 			$(".SpecialPromotiom span").text(data.row);
 		}
 	)
 	// 非全日制研究生
-	$.get("getsizeP",
+	$.get("getCustomerNum?type=1003",
 		function(data){
 			$(".PartTimePostgraduate span").text(data.row);
 		}
 	)
 	// 普通话培训
-	$.get("getsizeM",
+	$.get("getCustomerNum?type=1004",
 		function(data){
 			$(".Mandarin span").text(data.row);
 		}
 	)
 	// 教师资格证
-	$.get("getsizeT",
+	$.get("getCustomerNum?type=1005",
 		function(data){
 			$(".Teachercertification span").text(data.row);
 		}
 	)
 		// 法院书记员
-	$.get("getsizeC",
+	$.get("getCustomerNum?type=1011",
 		function(data){
 			$(".CourtClerk span").text(data.row);
 		}
 	)
 		// 财会经济
-	$.get("getsizeA",
+	$.get("getCustomerNum?type=1010",
 		function(data){
 			$(".Accounting span").text(data.row);
 		}

@@ -13,20 +13,9 @@ import com.wudi.controller.AdminController;
 import com.wudi.controller.WeixinController;
 import com.wudi.model.NavsModel;
 import com.wudi.model.UserModel;
-import com.wudi.model.admin.AccountingModel;
 import com.wudi.model.admin.AdminInfoModel;
-import com.wudi.model.admin.ArchitectModel;
-import com.wudi.model.admin.CourtClerkModel;
 import com.wudi.model.admin.CustomerModel;
-import com.wudi.model.admin.ForeignLanguageModel;
 import com.wudi.model.admin.GroupInfoModel;
-import com.wudi.model.admin.MandarinModel;
-import com.wudi.model.admin.MedicalScienceModel;
-import com.wudi.model.admin.PartTimePostgraduateModel;
-import com.wudi.model.admin.ProfessionalModel;
-import com.wudi.model.admin.SpecialPromotiomModel;
-import com.wudi.model.admin.TeachercertificationModel;
-import com.wudi.model.admin.UndergraduateModel;
 import com.wudi.model.admin.UserInfoModel;
 /**
  * 	系统配置类
@@ -78,20 +67,8 @@ public class Config extends JFinalConfig {
 		{
 			//将数据库表，绑定到这来来，注意，表名和类要相对应
 			arpMysql.addMapping("navs", NavsModel.class);//主页面左侧菜单显示的表
-			arpMysql.addMapping("SpecialPromotiom", SpecialPromotiomModel.class);//用户信息表（高升专）
-			arpMysql.addMapping("PartTimePostgraduate", PartTimePostgraduateModel.class);//用户信息表（非全日制研究生）
-			arpMysql.addMapping("Mandarin", MandarinModel.class);//用户信息表（普通话培训）
-			arpMysql.addMapping("Teachercertification", TeachercertificationModel.class);//用户信息表（普通话培训）
-			arpMysql.addMapping("CourtClerk", CourtClerkModel.class);//用户信息表（法院书记员）
-			arpMysql.addMapping("Accounting", AccountingModel.class);//用户信息表（法院书记员）
 			arpMysql.addMapping("userinfo", UserInfoModel.class);//用户信息表
 			arpMysql.addMapping("AdminInfo", AdminInfoModel.class);//管理员信息表
-
-			arpMysql.addMapping("Architect", ArchitectModel.class);//用户信息表（建筑工程）
-			arpMysql.addMapping("Professional", ProfessionalModel.class);//用户信息表（职业资格）
-			arpMysql.addMapping("MedicalScience", MedicalScienceModel.class);//用户信息表（医药卫生）
-			arpMysql.addMapping("ForeignLanguage", ForeignLanguageModel.class);//用户信息表（外语少儿）
-			arpMysql.addMapping("Undergraduate", UndergraduateModel.class);//用户信息表（专升本）
 			arpMysql.addMapping("user", UserModel.class);
 			arpMysql.addMapping("customer", CustomerModel.class);
 
