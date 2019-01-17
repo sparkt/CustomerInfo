@@ -11,7 +11,6 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
 import com.wudi.controller.AdminController;
 import com.wudi.controller.WeixinController;
-import com.wudi.model.NavsModel;
 import com.wudi.model.UserModel;
 import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.CustomerModel;
