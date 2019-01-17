@@ -14,7 +14,9 @@ layui.config({//框架的固定，配置的使用
 	    url: 'queryAccounting', //数据接口
 	    where: {key: ''},//给后台传的参数
 	    page: true, //开启分页
+	    toolbar: '#toolbarDemo',
 	    limit: 10,//每页显示信息条数
+	    
 	    id: 'testReload',
 	    cols: [[ //表头
 	    	{field: 'name', title: '姓名', sort: true, fixed: 'left'}
