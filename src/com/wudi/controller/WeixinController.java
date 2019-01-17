@@ -94,11 +94,7 @@ public class WeixinController extends Controller {
 		renderJson();
 		
 	}
-<<<<<<< HEAD
 
-	
-=======
->>>>>>> refs/remotes/origin/master
 	/*
 	 * 个人中心页面
 	 * 返回用户所在团队信息
