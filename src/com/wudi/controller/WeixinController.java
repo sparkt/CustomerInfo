@@ -46,6 +46,7 @@ public class WeixinController extends Controller {
 		renderJson();
 	}
 	
+	
 	/*
 	 * 创建团队接口
 	 * @author 张志强
@@ -85,8 +86,6 @@ public class WeixinController extends Controller {
 		}
 		
 		
-	
-	
 	/*
 	 * 
 	 *加入团队接口 
