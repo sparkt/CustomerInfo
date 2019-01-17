@@ -174,7 +174,6 @@ public class AdminController extends Controller {
 
 	}
 
-	//**********************************用户信息表操作开始****张志强*******************************************//
 	
 		/*
 		//打开用户信息界面
@@ -202,6 +201,14 @@ public class AdminController extends Controller {
 		}
 		
 		
+		public void check() {
+			String phone_no = getPara("phone_no");
+			UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+			m.setCheck("1");
+			boolean  result = m.update();
+			setAttr("result", result);
+			renderJson();
+		}
 		
 		/*
 		 * 加载用户信息
@@ -290,10 +297,9 @@ public class AdminController extends Controller {
 		
 		
 		
-		/*****************************************添加用户信息结束*******张志强*******************************************/
+		
 
 		
-		//***********************************{管理员信息表操作开始}张志强********************************************************************************//
 		/*
 		 * @Descripion: 打开管理员信息界面
 		 * @author zhangzhiqiang
@@ -391,7 +397,6 @@ public class AdminController extends Controller {
 			renderJson();
 		}
 		
-	//****************************************************{管理员信息表操作结束}***张志强******************************************************************************//
 	
 	
 	

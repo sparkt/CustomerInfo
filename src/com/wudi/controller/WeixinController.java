@@ -1,16 +1,23 @@
 package com.wudi.controller;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
+
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.template.expr.ast.Map;
 import com.wudi.interceptor.WeixinIntercepter;
 import com.wudi.model.admin.AccountingModel;
 import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.ArchitectModel;
 import com.wudi.model.admin.CourtClerkModel;
+import com.wudi.model.admin.CustomerModel;
 import com.wudi.model.admin.ForeignLanguageModel;
 import com.wudi.model.admin.GroupInfoModel;
 import com.wudi.model.admin.MandarinModel;
@@ -22,7 +29,7 @@ import com.wudi.model.admin.TeachercertificationModel;
 import com.wudi.model.admin.UndergraduateModel;
 import com.wudi.model.admin.UserInfoModel;
 import com.wudi.util.StringUtil;
-
+import com.wudi.util.*;
 
 
 /**
@@ -38,8 +45,6 @@ public class WeixinController extends Controller {
 		setAttr("result", "你好，无敌小团队微信小程序路径！");
 		renderJson();
 	}
-	
-	
 	
 	
 	/*
@@ -61,7 +66,7 @@ public class WeixinController extends Controller {
 		UserInfoModel m = new UserInfoModel().getphone_no(captain_phone);
 		if(m!=null) {
 		//判断该用户是否满足建队条件
-		if(m.getGroup().equals("0")&&m.getVip_grade().equals("1")) {
+		if(m.getGroup("").equals("0")&&m.getVip_grade().equals("1")) {
 			
 			boolean result =new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone, group_info);
 
@@ -81,14 +86,12 @@ public class WeixinController extends Controller {
 		}
 		
 		
-	
-	
 	/*
 	 * 
 	 *加入团队接口 
 	 *
 	 *从微信端接收用户phone_no & 队长phone_no
-	 * @author 张志强54546655555
+	 * @author 张志强
 	 * */
 	public void joinGroup() {
 		String captain_phone  = getPara("captain_phone");
@@ -96,7 +99,7 @@ public class WeixinController extends Controller {
 		int code =0;
 		String info="加入不成功";
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-		if(m.getGroup()==null) {
+		if(m.getGroup("").equals("0")) {
 		boolean result = new UserInfoModel().userJoinGroup(captain_phone, phone_no);
 		if(result) {
 			code =1;
@@ -119,24 +122,67 @@ public class WeixinController extends Controller {
 	public void getGroupAllInfo() {
 		String phone_no = getPara("phone_no");
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-		String captain_phone =m.getGroup();
+		String captain_phone =m.getGroup("");
 		List<?> list = m.getUserGrouAllInfo(phone_no, captain_phone);
-		setAttr("infoList", list);
+		setAttr("data", list);
+		renderJson();
+	}
+	/*
+	 * 返回用户所在团队队员员信息
+	 * @author 张志强
+	 * phone_no //用户号码
+	 * */
+	
+	public void getGroupMemberAllInfo() {
+		String phone_no = getPara("phone_no");
+		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+		String groups =m.getGroup("");
+		List<?> list = new UserInfoModel().getGroupMemberAllInfo(groups);
+		setAttr("data", list);
 		renderJson();
 	}
 	
-	
 	/*
 	 * 用户退团队接口
-	 * 
-	 * 
+	 * @author 张志强
+	 * phone_no //用户号码
 	 * */
 	
 	public void quitGroup() {
 		String phone_no = getPara("phone_no");
+		boolean result = new UserInfoModel().userQuitGroup(phone_no);
+		int code =0; //退队不成功
+		String info ="退队不成功";
+		if(result) {
+			code =0;
+			 info ="退队成功";
+		}
+		setAttr("code", code);
+		setAttr("info", info);
+		renderJson();
 		
 	}
-	
+	/*
+	 *	 队长删除队员接口
+	 * 	captain_phone //队长号码
+	 * 	phone_no //要删除团员号码
+	 * */
+	public void deleteMember() {
+		String captain_phone  = getPara("captain_phone");
+		String phone_no = getPara("phone_no");
+		boolean result = new UserInfoModel().deleteMember(captain_phone, phone_no);
+		int code =0; //删除不成功
+		String info ="删除不成功";
+		if(result) {
+			code =0;
+			 info ="删除成功";
+		}
+		setAttr("code", code);
+		setAttr("info", info);
+		renderJson();
+		
+		
+	}
 	
 	
 	/**
@@ -144,6 +190,10 @@ public class WeixinController extends Controller {
 	 * @author 张志强
 	 * @Description: TODO 录入用户注册信息
 	 * 给微信端发送提示信息
+	 * user_name //
+	 * user_password //
+	 * user_sex //
+	 * phone_no //
 	 */
 	public void saveUserinfo() {
 		
@@ -177,11 +227,14 @@ public class WeixinController extends Controller {
 	
 	/**
 	 * 微信用户登录入口
-	 * @author 张志强
+	 * 
 	 *  GET phone_no & user_password
 	 *  
 	 * @Description: TODO 给微信端返回用户或管理员所有信息
+	 * phone_no //
+	 * user_password//
 	 * 
+	 * @author 张志强
 	 * */
 	
 	public void userLogin() {
@@ -196,7 +249,9 @@ public class WeixinController extends Controller {
 		//查询管理员表admin_phone_no字段
 		AdminInfoModel n = new AdminInfoModel().getphone_no(phone_no);
 		if (n!=null||m!=null) {
+			
 			if (n!=null) {
+				
 				if(n.getAdmin_password().equals(user_password)) {
 					list= new AdminInfoModel().getAdminAllInfo(phone_no);
 					type =1;//
@@ -233,7 +288,7 @@ public class WeixinController extends Controller {
 		setAttr("code", code);
 		setAttr("info", info);
 		setAttr("type", type);
-		setAttr("userAllInfo",list);
+		setAttr("data",list);
 		renderJson();
 	}
 	
@@ -1920,4 +1975,61 @@ public class WeixinController extends Controller {
 		renderJson();
 	}
 
+	/**
+	 * 保存客户信息
+	 * xiao
+	 */
+	public void saveOrUpdateCustomer() {
+		String id=getPara("id");
+		String name = getPara("name");
+		int sex = getParaToInt("sex");
+		String tel_no = getPara("tel_no");
+		int disclose = getParaToInt("disclose");
+		int age = getParaToInt("age");
+		String work_address=getPara("work_address");
+		String comments=getPara("comments");
+		String phone_no=getPara("phone_no");
+		String nation=getPara("nation");
+		int type=getParaToInt("type");
+		int status=getParaToInt("status");
+		// 保存数据
+		boolean result = CustomerModel.saveOrUpate(id, name, sex, tel_no, disclose, age, work_address, comments, phone_no, nation, type, status);
+		setAttr("result", result);
+		renderJson();
+	}
+	/*
+	 * 根据id查找客户信息
+	 */
+	public void getCustomerById() {
+		// 接收页面数据
+		String id = getPara("id");
+		// 根据条件查询数据库的数据
+		CustomerModel data = CustomerModel.getById(id);
+		
+		// *放到编辑页面上去*
+		setAttr("data", data);
+		// 返回格式是json
+		renderJson();
+	}
+	
+	/**
+	 * 根据电话号码查询客户信息
+	 */
+	public void getCustomerByPhoneNo() {
+		String phone_no=getPara("phone_no");
+		String type=getPara("type");
+        List<CustomerModel> result = CustomerModel.findModelbyPhone_no(phone_no,type);
+		setAttr("data",result);
+		renderJson();
+	}
+	
+	/**
+	 * 根据id删除客户信息
+	 */
+	public void delCustomerById() {
+		String id=getPara("id");
+		boolean result=MedicalScienceModel.delMedicalScienceById(id);
+		setAttr("data",result);
+		renderJson();
+	}
 	}

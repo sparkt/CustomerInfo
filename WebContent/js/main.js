@@ -37,31 +37,6 @@ layui.config({
 	      ,{fixed: 'right',  align:'center', toolbar: '#barDemo'} // 这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
-	
-
-	// 动态获取文章总数和待审核文章数量,最新文章
-	$.get("../json/newsList.json",
-		function(data){
-			var waitNews = [];
-			$(".allNews span").text(data.length);  // 文章总数
-			for(var i=0;i<data.length;i++){
-				var newsStr = data[i];
-				if(newsStr["newsStatus"] == "待审核"){
-					waitNews.push(newsStr);
-				}
-			}
-			$(".waitNews span").text(waitNews.length);  // 待审核文章
-			// 加载最新文章
-			var hotNewsHtml = '';
-			for(var i=0;i<5;i++){
-				hotNewsHtml += '<tr>'
-		    	+'<td align="left">'+data[i].newsName+'</td>'
-		    	+'<td>'+data[i].newsTime+'</td>'
-		    	+'</tr>';
-			}
-			$(".hot_news").html(hotNewsHtml);
-		}
-	)
 
 	// 专升本
 	$.get("gainUndergraduateNum",
@@ -98,6 +73,43 @@ layui.config({
 			$(".ForeignLanguage span").text(data.row);
 		}
 	)
+	// 高升专
+	$.get("getsizeS",
+		function(data){
+			$(".SpecialPromotiom span").text(data.row);
+		}
+	)
+	// 非全日制研究生
+	$.get("getsizeP",
+		function(data){
+			$(".PartTimePostgraduate span").text(data.row);
+		}
+	)
+	// 普通话培训
+	$.get("getsizeM",
+		function(data){
+			$(".Mandarin span").text(data.row);
+		}
+	)
+	// 教师资格证
+	$.get("getsizeT",
+		function(data){
+			$(".Teachercertification span").text(data.row);
+		}
+	)
+		// 法院书记员
+	$.get("getsizeC",
+		function(data){
+			$(".CourtClerk span").text(data.row);
+		}
+	)
+		// 财会经济
+	$.get("getsizeA",
+		function(data){
+			$(".Accounting span").text(data.row);
+		}
+	)
+
 
 
 	// 数字格式化
@@ -139,7 +151,7 @@ layui.config({
 		$(".userRights").text(nullData(data.userRights));// 当前用户权限
  	}
  	
- 	
+ 
  })
 
 
