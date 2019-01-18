@@ -155,14 +155,14 @@ layui.config({
     var myChart = echarts.init(document.getElementById('tubiao'));
     var option = {
     	    title : {
-    	        text: '某地区蒸发量和降水量',
-    	        subtext: '纯属虚构'
+    	        text: '用户成交量和未成交量',
+    	        subtext: '一年内数据'
     	    },
     	    tooltip : {
     	        trigger: 'axis'
     	    },
     	    legend: {
-    	        data:['蒸发量','降水量']
+    	        data:['成交量','未成交量']
     	    },
     	    toolbox: {
     	        show : true,
@@ -188,7 +188,7 @@ layui.config({
     	    ],
     	    series : [
     	        {
-    	            name:'蒸发量',
+    	            name:'成交',
     	            type:'bar',
     	            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
     	            markPoint : {
@@ -204,7 +204,7 @@ layui.config({
     	            }
     	        },
     	        {
-    	            name:'降水量',
+    	            name:'未成交',
     	            type:'bar',
     	            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
     	            markPoint : {

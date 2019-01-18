@@ -4,34 +4,29 @@
 	"href" : "page/main.html",
 	"spread" : false
 },{
-	"title" : "文章列表",
-	"icon" : "icon-text",
-	"href" : "page/news/newsList.html",
-	"spread" : false
-},{
-	"title" : "系统设置",
-	"icon" : "&#xe630;",
+	"title" : "数据管理",
+	"icon" : "&#xe656;",
 	"href" : "",
 	"spread" : true,
 	"children" : [
 		{
-			"title" : "系统基本参数",
-			"icon" : "&#xe631;",
-			"href" : "page/systemParameter/systemParameter.html",
+			"title" : "团队管理",
+			"icon" : "&#xe613;",
+			"href" : "admin/groupinfo",
 			"spread" : false
-		},
+			}]
+	},{
+		"title" : "系统设置",
+		"icon" : "&#xe614;",
+		"href" : "",
+		"spread" : true,
+		"children" : [
+		
 		{
 			"title" : "404页面",
-			"icon" : "&#xe61c;",
+			"icon" : "&#x1006;",
 			"href" : "page/404.html",
 			"spread" : false
-		},
-		{
-			"title" : "登录",
-			"icon" : "&#xe609;",
-			"href" : "page/login/login.html",
-			"spread" : false,
-			"target" : "_blank"
+		}]
 		}
-	]
-}]
+]

@@ -28,7 +28,7 @@ layui.config({
 		    		
 	    	  },
 	    	  error:function(XMLHttpRequest, textStatus, errorThrown){
-	    		  top.layer.msg('保存失败！！！服务器有问题！！！！<br>请检测服务器是否启动？', {
+	    		  top.layer.msg('保存失败！！！服务器有问题！！！！<br>请检测服务器是否启动？<br>该队长已有团队？', {
 	    		        time: 20000, //20s后自动关闭
 	    		        btn: ['知道了']
 	    		      });

@@ -11,7 +11,6 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
 import com.wudi.controller.AdminController;
 import com.wudi.controller.WeixinController;
-import com.wudi.model.NavsModel;
 import com.wudi.model.UserModel;
 import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.CustomerModel;
@@ -31,7 +30,7 @@ public class Config extends JFinalConfig {
 		loadPropertyFile("config.properties");
 		// 配置一些系统变量
 		me.setDevMode(getPropertyToBoolean("DevMode", true));//设置为开发模式，方便查看日志
-		
+		me.setError404View("WEB-INF/admin/404.html");
 	}
 
 	@Override

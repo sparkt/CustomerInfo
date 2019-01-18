@@ -487,6 +487,8 @@ public class AdminController extends Controller {
 		GroupInfoModel m = new GroupInfoModel().getisGroup(captain_phone);
 		if(m==null) {//如果团队不存在，即m为空，则新建团队。
 			result = new GroupInfoModel().saveGroupinfo(captain_name, captain_phone, group_info, group_name);
+		}else {//团队已存在
+			return;
 		}
 		setAttr("result", result);
 		renderJson();
