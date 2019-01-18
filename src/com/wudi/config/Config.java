@@ -16,6 +16,7 @@ import com.wudi.model.UserModel;
 import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.CustomerModel;
 import com.wudi.model.admin.GroupInfoModel;
+import com.wudi.model.admin.InformModel;
 import com.wudi.model.admin.UserInfoModel;
 /**
  * 	系统配置类
@@ -70,8 +71,8 @@ public class Config extends JFinalConfig {
 			arpMysql.addMapping("AdminInfo", AdminInfoModel.class);//管理员信息表
 			arpMysql.addMapping("user", UserModel.class);
 			arpMysql.addMapping("customer", CustomerModel.class);
-
 			arpMysql.addMapping("GroupInfo", GroupInfoModel.class);//团队表
+			arpMysql.addMapping("inform", InformModel.class);
 		//添加插件
 		me.add(dsMysql);
 		me.add(arpMysql);

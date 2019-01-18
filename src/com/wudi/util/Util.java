@@ -3,6 +3,8 @@ package com.wudi.util;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
@@ -33,4 +35,20 @@ public class Util {
 		int a=ra.nextInt(10000);
 		return t.toString()+a;
 	}
+	/**
+	 * 获取当前时间
+	 * @return
+	 */
+	public static String getCurrentTime(){
+		DateFormat bf = new SimpleDateFormat("yyyyMMddHHmmss");
+		Date date = new Date();
+        String format = bf.format(date);
+		return format;
+	}
+	public static void main(String[]args) {
+		System.out.println(getCurrentTime());
+	}
+	
+	
+	
 }
