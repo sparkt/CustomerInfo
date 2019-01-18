@@ -4,23 +4,29 @@
 	"href" : "page/main.html",
 	"spread" : false
 },{
-	"title" : "系统设置",
-	"icon" : "&#xe630;",
+	"title" : "数据管理",
+	"icon" : "&#xe656;",
 	"href" : "",
 	"spread" : true,
 	"children" : [
+		{
+			"title" : "团队管理",
+			"icon" : "&#xe613;",
+			"href" : "admin/groupinfo",
+			"spread" : false
+			}]
+	},{
+		"title" : "系统设置",
+		"icon" : "&#xe614;",
+		"href" : "",
+		"spread" : true,
+		"children" : [
 		
 		{
 			"title" : "404页面",
-			"icon" : "&#xe61c;",
+			"icon" : "&#x1006;",
 			"href" : "page/404.html",
 			"spread" : false
-		},
-		{
-			"title" : "团队管理",
-			"icon" : "&#xe61c;",
-			"href" : "admin/groupinfo",
-			"spread" : false
+		}]
 		}
-	]
-}]
+]
