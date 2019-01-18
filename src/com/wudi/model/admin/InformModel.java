@@ -61,6 +61,7 @@ import com.jfinal.plugin.activerecord.Model;
 		save.setinfo(info);
 		save.settime(time);
 		InformModel m = dao.getphone_no(phone_no);
+		//如果信息存在及更新，不存在即保存
 		if(m!=null){
 			result = save.update();
 		}else {

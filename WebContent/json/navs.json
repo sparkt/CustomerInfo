@@ -14,6 +14,16 @@
 			"icon" : "&#xe613;",
 			"href" : "admin/groupinfo",
 			"spread" : false
+			},{
+			"title" : "用户管理",
+			"icon" : "&#xe613;",
+			"href" : "admin/userinfo",
+			"spread" : false
+			},{
+			"title" : "管理员表",
+			"icon" : "&#xe613;",
+			"href" : "admin/admininfo",
+			"spread" : false
 			}]
 	},{
 		"title" : "系统设置",
