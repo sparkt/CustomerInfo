@@ -189,11 +189,13 @@ public class AdminController extends Controller {
 				renderFreeMarker("userinfo/userinfoEdit.html");
 		}
 		
-		
+		/*
+		 * 审核用户
+		 */
 		public void check() {
 			String phone_no = getPara("phone_no");
 			UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-			m.setCheck("1");
+			m.setStatus("已审核");
 			boolean  result = m.update();
 			setAttr("result", result);
 			renderJson();
@@ -238,7 +240,7 @@ public class AdminController extends Controller {
 				result=false;
 			}else {
 
-				result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0","0","0");
+				result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0","0");
 			}
 			setAttr("result", result);
 			renderJson();

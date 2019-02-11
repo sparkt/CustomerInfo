@@ -204,7 +204,7 @@ public class WeixinController extends Controller {
 			info = "用户已经存在";
 		}else {
 
-			boolean result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0","0","0");
+			boolean result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0","0");
 			if(result) {
 				code=2;//注册成功
 				info = "注册成功";
@@ -230,7 +230,7 @@ public class WeixinController extends Controller {
 	public void userLogin() {
 		String phone_no =getPara("phone_no");
 		String user_password = getPara("user_password");
-		int code=0;	// 返回给前端做判断登录是否成功 0 密码错误 1密码正确 2 用户不存在
+		int code=0;	// 返回给前端做判断登录是否成功 0 密码错误 1密码正确 2 用户不存在，3表示用户未通过审核
 		int type =0;// 用户类型  1普通用户，2管理员
 		String info = "用户不存在";
 		List<?> list =null;
@@ -255,7 +255,10 @@ public class WeixinController extends Controller {
 				}
 				
 			}else {
-				if(m.getUser_password().equals(user_password)) {
+				if(m.getStatus().equals("未审核")) {
+					code=3;//未审核用户
+					info ="未审核用户";
+				}else if(m.getUser_password().equals(user_password)) {
 					list= new UserInfoModel().getUserAllInfo(phone_no);
 					type =2;//
 					code=1;//密码正确

@@ -6,7 +6,7 @@ layui.config({
 		laypage = layui.laypage,
 		table = layui.table,
 		$ = layui.$;
-
+		
 //==================一个table实例================================
 	  table.render({
 	    elem: '#demo',//渲染对象
@@ -77,8 +77,34 @@ layui.config({
 	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
 	 
-	  if(layEvent === 'detail'){ //查看
-		 
+	  if(layEvent === 'check'){ //审核通过
+		  var index;
+	 		 $.ajax({//异步请求返回给后台
+		    	  url:'check?phone_no='+data.phone_no,
+		    	  type:'POST',
+		    //	  data:data.field,
+		    	  dataType:'json',
+		    	  beforeSend: function(re){
+		    		  index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+		          },
+		    	  success:function(d){
+		    			//弹出loading
+				    	top.layer.close(index);
+				  		top.layer.msg("审核通过！");
+				   		//layer.closeAll("iframe");
+				  	 		//刷新父页面
+				  	 	parent.location.reload();
+			    		
+		    	  },
+		    	  error:function(XMLHttpRequest, textStatus, errorThrown){
+		    		  top.layer.msg('操作失败！！！服务器有问题！！！！<br>请检测服务器是否启动？', {
+		    		        time: 20000, //20s后自动关闭
+		    		        btn: ['知道了']
+		    		      });
+		           }
+		      });
+	 		return false;
+	 	
 		  
 	  } else if(layEvent === 'del'){
 		  
