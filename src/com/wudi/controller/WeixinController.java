@@ -10,6 +10,8 @@ import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.CustomerModel;
 import com.wudi.model.admin.GroupInfoModel;
 import com.wudi.model.admin.UserInfoModel;
+import com.wudi.model.admin.InformModel;
+import com.wudi.util.Util;
 
 
 /**
@@ -83,6 +85,7 @@ public class WeixinController extends Controller {
 		if(m.getGroup().equals("0")) {
 		boolean result = new UserInfoModel().userJoinGroup(captain_phone, phone_no);
 		if(result) {
+			boolean temp = new InformModel().circularize("你已于"+Util.getCurrentTime()+"加入"+captain_phone+"团队", phone_no,Util.getCurrentTime());
 			code =1;
 			info ="加入成功";	
 		}
@@ -119,6 +122,24 @@ public class WeixinController extends Controller {
 		renderJson();
 	}
 	/*
+	 * 获取通知信息
+	 */
+	public void circularize() {
+		String phone_no = getPara("phone_no"); 
+		String info ="暂无信息！";
+		InformModel m = new InformModel().getphone_no(phone_no);
+		if(m!=null){
+			info=m.getinfo();
+		}
+		setAttr("info",info);
+		renderJson();
+	}
+	
+	
+	
+	
+	
+	/*
 	 * 返回用户所在团队队员员信息
 	 * @author 张志强
 	 * phone_no //用户号码
@@ -144,6 +165,7 @@ public class WeixinController extends Controller {
 		int code =0; //退队不成功
 		String info ="退队不成功";
 		if(result) {
+			boolean temp = new InformModel().circularize("你已于"+Util.getCurrentTime()+"退出团队", phone_no,Util.getCurrentTime());
 			code =0;
 			 info ="退队成功";
 		}

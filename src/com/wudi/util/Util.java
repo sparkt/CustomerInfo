@@ -40,15 +40,15 @@ public class Util {
 	 * @return
 	 */
 	public static String getCurrentTime(){
-		DateFormat bf = new SimpleDateFormat("yyyyMMddHHmmss");
+		DateFormat bf = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
 		Date date = new Date();
         String format = bf.format(date);
 		return format;
 	}
-	public static void main(String[]args) {
+	/*public static void main(String[]args) {
 		System.out.println(getCurrentTime());
 	}
-	
+	*/
 	
 	
 }

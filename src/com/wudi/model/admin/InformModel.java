@@ -1,6 +1,7 @@
 package com.wudi.model.admin;
 
 import com.jfinal.plugin.activerecord.Model;
+import com.wudi.util.Util;
 
  public class InformModel extends Model<InformModel> {
 	/**
@@ -15,9 +16,6 @@ import com.jfinal.plugin.activerecord.Model;
 	
 	public String getId() {
 		return get("id");
-	}
-	public void setId(String id) {
-		set("id", id);
 	}
 	public String gettime() {
 		return get("time");
@@ -39,6 +37,7 @@ import com.jfinal.plugin.activerecord.Model;
 	}
 	
 	/**
+	 * 查找号码
 	 * @param phone_no
 	 * @return
 	 */
@@ -68,7 +67,8 @@ import com.jfinal.plugin.activerecord.Model;
 			result = save.save();
 		}
 		
-		return false;
+		return result;
 	}
+	
 	
  }
