@@ -8,8 +8,8 @@ import com.wudi.interceptor.WeixinIntercepter;
 import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.CustomerModel;
 import com.wudi.model.admin.GroupInfoModel;
-import com.wudi.model.admin.UserInfoModel;
 import com.wudi.model.admin.InformModel;
+import com.wudi.model.admin.UserInfoModel;
 import com.wudi.util.Util;
 
 /**
@@ -44,9 +44,12 @@ public class WeixinController extends Controller {
 			// 判断该用户是否满足建队条件
 			if (m.getGroup().equals("0") && m.getVip_grade().equals("1")) {
 
-				boolean result = new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone,
-						group_info);
-
+		if(m!=null) {
+		//判断该用户是否满足建队条件
+		if(m.getGroup().equals("0")&&m.getVip_grade().equals("1")) {
+			m.setGroup("1");
+			m.update();
+			boolean result =new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone, group_info);
 				if (result) {
 					code = 1;
 					info = "注册成功";
@@ -59,9 +62,9 @@ public class WeixinController extends Controller {
 		setAttr("code", code);
 		setAttr("info", info);
 		renderJson();
-
+			}
 	}
-
+		}
 	/*
 	 * 
 	 * 拉入团队接口

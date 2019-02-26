@@ -251,9 +251,13 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	 */
 		public List<UserInfoModel> getGroupMemberAllInfo(String group) {
 			UserInfoModel m=new UserInfoModel();
-			String selectsql = "SELECT * FROM userinfo WHERE groups=?";
-			List<UserInfoModel> list = m.find(selectsql,group);
+			List<UserInfoModel> list =null;
+			if(!group.equals("0")) {
+				String selectsql = "SELECT * FROM userinfo WHERE groups=?";
+				 list = m.find(selectsql,group);
+			}
 			return list;
+			
 		}	
 		
 	/**
