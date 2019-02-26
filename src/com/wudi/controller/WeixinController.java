@@ -364,9 +364,10 @@ public class WeixinController extends Controller {
 		int status = getParaToInt("status");
 		List<CustomerModel> p = CustomerModel.findListByPhone_no(phone_no);
 		if (p.size() != 0) {
-			List<CustomerModel> had = CustomerModel.finListByStatus(status, phone_no);
+			
 			if (status == 2) {
 				//2为已跟进
+				List<CustomerModel> had = CustomerModel.finListByStatus(status, phone_no);
 				setAttr("data", had);
 				renderJson();
 			} else if (status == 3) {
@@ -378,6 +379,9 @@ public class WeixinController extends Controller {
 				//6为已成交
 				List<CustomerModel> done = CustomerModel.finListByStatus(status, phone_no);
 				setAttr("data", done);
+				renderJson();
+			}else {
+				setAttr("data", "暂无信息！");
 				renderJson();
 			}
 		}
