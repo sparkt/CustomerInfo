@@ -359,11 +359,11 @@ public class WeixinController extends Controller {
 	 * @TODO 已跟进信息,待处理信息，已成交信息的接口。
 	 * @author lijinpeng 根据status数值进行判断
 	 */
-	public void getHadCustomer() {
+	public void geCustomerInfo() {
 		String phone_no = getPara("phone_no");
 		int status = getParaToInt("status");
-		List<CustomerModel> p = CustomerModel.findListByPhone_no(phone_no);
-		if (p.size() != 0) {
+		CustomerModel p = CustomerModel.Byphone_no(phone_no);
+		if (p.getPhone_no().equals(phone_no)) {
 			
 			if (status == 2) {
 				//2为已跟进
@@ -381,7 +381,7 @@ public class WeixinController extends Controller {
 				setAttr("data", done);
 				renderJson();
 			}else {
-				setAttr("data", "暂无信息！");
+				setAttr("data", "出错！");
 				renderJson();
 			}
 		}
