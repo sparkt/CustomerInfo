@@ -300,4 +300,14 @@ public class CustomerModel extends Model<CustomerModel> {
 	    	List<CustomerModel> list =dao.find(sql,phone_no);
 	    	return list;
 	    }
+	 public static List<CustomerModel> finListByStatus(int status ,String phone_no){
+	        String sql="select * from "+tableName+" where status=? and phone_no =?";
+		    List<CustomerModel> list =dao.find(sql, status,phone_no);
+		    return list;
+	 }
+	 public static CustomerModel Byphone_no(String phone_no) {
+		   String sql="select * from "+tableName+" where phone_no =?";
+				   return dao.findFirst(sql,phone_no);
+	 }
+	 
 }

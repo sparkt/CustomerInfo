@@ -540,6 +540,20 @@ public class AdminController extends Controller {
 		renderJson();
 	}
 	
+	/*
+	 * 返回团队所有队员信息员信息
+	 * @author 张志强
+	 * phone_no //用户号码
+	 * */
+	
+	public void getGroupMemberAllInfo() {
+		String captain_phone = getPara("captain_phone");
+		List<?> list = new UserInfoModel().getGroupMemberAllInfo(captain_phone);
+		setAttr("data", list);
+		renderJson();
+	}
+	
+	
 	
 	//------------------团队管理结束 梁老师----------------
 

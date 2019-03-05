@@ -88,7 +88,7 @@ layui.config({//框架的固定，配置的使用
 				var msgid;
 				//向服务端发送删除指令
 		 		 $.ajax({//异步请求返回给后台
-			    	  url:'delSpecialPromotiom',
+			    	  url:'delCustomerModel',
 			    	  type:'POST',
 			    	  data:{"id":data.id},
 			    	  dataType:'json',
