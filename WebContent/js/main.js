@@ -108,6 +108,24 @@ layui.config({
 			$(".Accounting span").text(data.row);
 		}
 	)
+	// 已跟进
+	$.get("getFollowNum?type=1010",
+			function(data){
+		$(".Follow span").text(data.row);
+	}
+	)
+	// 待处理
+	$.get("getPendingNum?type=1010",
+			function(data){
+		$(".Pending span").text(data.row);
+	}
+	)
+	// 已成交
+	$.get("getTransactionsNum?type=1010",
+			function(data){
+		$(".Transactions span").text(data.row);
+	}
+	)
 
 
 
