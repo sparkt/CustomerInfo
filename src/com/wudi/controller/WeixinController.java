@@ -45,28 +45,27 @@ public class WeixinController extends Controller {
 		if (m != null) {
 			// 判断该用户是否满足建队条件
 			if (m.getGroup().equals("0") && m.getVip_grade().equals("1")) {
-
-		if(m!=null) {
-		//判断该用户是否满足建队条件
-		if(m.getGroup().equals("0")&&m.getVip_grade().equals("1")) {
-			m.setGroup("1");
-			m.update();
-			boolean result =new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone, group_info);
-				if (result) {
-					code = 1;
-					info = "注册成功";
+				if(m!=null) {
+					//判断该用户是否满足建队条件
+					if(m.getGroup().equals("0")&&m.getVip_grade().equals("1")) {
+						m.setGroup("1");
+						m.update();
+						boolean result =new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone, group_info);
+							if (result) {
+								code = 1;
+								info = "注册成功";
+							}
+						} else {
+							code = 2;
+							info = "你不满足创建团队条件";
+						}
 				}
-			} else {
-				code = 2;
-				info = "你不满足创建团队条件";
 			}
 		}
 		setAttr("code", code);
 		setAttr("info", info);
 		renderJson();
-			}
 	}
-		}
 	/*
 	 * 
 	 * 拉入团队接口
