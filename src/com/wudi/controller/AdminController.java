@@ -422,7 +422,7 @@ public class AdminController extends Controller {
 		// 删除
 		boolean result = CustomerModel.delById(id);
 		// 返回结果
-		setAttr("result", result);
+		setAttr("result", result);	
 		renderJson();
 	}
 	public void getCustomerNum() {
