@@ -17,12 +17,18 @@ layui.config({
 	    limit: 10,//每页显示信息条数
 	    id: 'testReload',
 	    cols: [[ //表头
-		      {field: 'id', title: 'ID', sort: true, fixed: 'left'}
+		      {field: 'id', title: 'ID', sort: true, fixed: 'left',width:60}
 		      ,{field: 'admin_name', title: '管理员'}
-		      ,{field: 'admin_sex', title: '性别'} 
+		      ,{field: 'admin_sex', title: '性别',width:50,templet:function(d){
+		    	  if(d.user_sex=='男'){
+		    		  return '<span style="color: blue">男</span>'
+		    	  }else{
+		    		  return '<span style="color: red" >女</span>'
+		    	  }
+		      }} 
 		      ,{field: 'admin_phone_no', title: '手机号码'}
 		      ,{field: 'admin_password' ,title:'管理员密码'}
-		      ,{field: 'status' ,title:'状态'}
+
 		      ,{fixed: 'right', align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
 		    ]]
 	  });
