@@ -148,7 +148,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 			count= Integer.parseInt(m.getGroup_headcount()); //获取当前团队人数
 			m.setGroup_headcount(String.valueOf(count+1));//团队人数加1
 			result= m.update();//更新团队人数
-			n.setGroup(captain_phone); //更新用户团队字段为团队号码1
+			n.setGroup(captain_phone); //更新用户团队字段为团队号码
 			result= n.update(); //更新
 			
 		}

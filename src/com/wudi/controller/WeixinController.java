@@ -91,7 +91,7 @@ public class WeixinController extends Controller {
 				}
 			} else {
 				code = 2;
-				info = "你已有团队";
+				info = "已有团队";
 			}
 		} else {
 			code = 0;
@@ -266,7 +266,7 @@ public class WeixinController extends Controller {
 				}
 
 			} else {
-				if (m.getStatus().equals("未审核")) {
+				if (m.getStatus().equals("0")) {
 					code = 3;// 未审核用户
 					info = "未审核用户";
 				} else if (m.getUser_password().equals(user_password)) {
