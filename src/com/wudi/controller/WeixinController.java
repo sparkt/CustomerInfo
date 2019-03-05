@@ -43,7 +43,6 @@ public class WeixinController extends Controller {
 		String info = "注册不成功";
 		UserInfoModel m = new UserInfoModel().getphone_no(captain_phone);
 
-
 		if(m!=null) {
 		//判断该用户是否满足建队条件
 		if(m.getGroup().equals("0")&&m.getVip_grade().equals("1")) {
