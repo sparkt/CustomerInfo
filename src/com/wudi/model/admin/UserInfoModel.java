@@ -277,7 +277,15 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
 	
-	
+	public  Page<UserInfoModel> getmenberList(int pageNumber, int pageSize, String key) {
+		String sele_sql = "select * ";
+		StringBuffer from_sql = new StringBuffer();
+		from_sql.append("from ").append(tableName);
+		if (!StringUtil.isBlankOrEmpty(key)) {
+			from_sql.append(" where groups like '%" + key + "%'");
+		}
+		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
+	}
 	/**
 	 * 根据号码查找客户所有信息
 	 * @param phone_no
