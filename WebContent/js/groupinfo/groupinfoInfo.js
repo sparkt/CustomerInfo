@@ -17,11 +17,11 @@ layui.config({
 	    limit: 10,//每页显示信息条数
 	    id: 'testReload',
 	    cols: [[ //表头
-		      {field: 'id', title: 'ID', sort: true, fixed: 'left'}
-		      ,{field: 'captain_name', title: '团队队长名'}
+		      {field: 'id', title: 'ID', sort: true, fixed: 'left',width:50}
+		      ,{field: 'captain_name', title: '团队队长名',width:100}
 		      ,{field: 'captain_phone', title: '队长电话'} 
 		      ,{field: 'group_info', title: '团队信息'}
-		      ,{field: 'group_headcount' ,title:'团队人数'}
+		      ,{field: 'group_headcount' ,title:'团队人数',width:100}
 		      ,{field: 'group_name' ,title:'团队名称'}
 		      ,{fixed: 'right', align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
 		    ]]

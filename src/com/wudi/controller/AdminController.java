@@ -195,7 +195,7 @@ public class AdminController extends Controller {
 		public void check() {
 			String phone_no = getPara("phone_no");
 			UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-			m.setStatus("已审核");
+			m.setStatus("1");
 			boolean  result = m.update();
 			setAttr("result", result);
 			renderJson();

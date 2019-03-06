@@ -290,10 +290,19 @@ public class CustomerModel extends Model<CustomerModel> {
 	}
 
 	 public static List <CustomerModel> findModelbyPhone_no(String phone_no,int type) {
-	    	String sql="select * from "+tableName+" where phone_no=? and type = ?";
-	    	List<CustomerModel> list =dao.find(sql,phone_no,type);
-	    	return list;
-	    }
+		 List<CustomerModel> list=null;
+		 //要先到admininfo表里查看phone_no是不是一样，如果是，就说明是管理员
+		AdminInfoModel admin=AdminInfoModel.dao.getphone_no(phone_no);
+		if(admin!=null) {//说明是管理员
+			String sql="select * from "+tableName+" where type = ?";
+		    list =dao.find(sql,type);
+		}else {
+			 String sql="select * from "+tableName+" where phone_no=? and type = ?";
+			 list =dao.find(sql,phone_no,type);
+		}
+	  
+	    return list;
+	   }
 	 public static List<CustomerModel> getListAll() {
 			StringBuffer sql=new StringBuffer();
 			sql.append("select *  from ").append(tableName);
@@ -309,7 +318,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	    	List<CustomerModel> list =dao.find(sql,phone_no);
 	    	return list;
 	    }
-	 public static List<CustomerModel> finListByStatus(int status ,String phone_no){
+	 public static List<CustomerModel> findListByStatus(int status ,String phone_no){
 	        String sql="select * from "+tableName+" where status=? and phone_no =?";
 		    List<CustomerModel> list =dao.find(sql, status,phone_no);
 		    return list;

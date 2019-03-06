@@ -99,7 +99,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		m.setUser_sex(user_sex);
 		m.setPhone_no(phone_no);
 		m.setVip_grade(vip_grade);
-		m.setStatus("未审核");//开始注册还没有审核
+		m.setStatus("0");//开始注册还没有审核
 		m.setType(type);
 		m.setGroup("0");//开始注册没有团体说以传0
 		return m.save();
@@ -148,7 +148,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 			count= Integer.parseInt(m.getGroup_headcount()); //获取当前团队人数
 			m.setGroup_headcount(String.valueOf(count+1));//团队人数加1
 			result= m.update();//更新团队人数
-			n.setGroup(captain_phone); //更新用户团队字段为团队号码1
+			n.setGroup(captain_phone); //更新用户团队字段为团队号码
 			result= n.update(); //更新
 			
 		}
