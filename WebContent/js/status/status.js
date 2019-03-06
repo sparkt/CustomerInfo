@@ -18,12 +18,13 @@ layui.config({//框架的固定，配置的使用
 	    limit: 10,//每页显示信息条数
 	    id: 'testReload',
 	    cols: [[ //表头
-	    	 {field: 'name', title: '姓名33', sort: true, fixed: 'left' ,width:'10%'}
-		      ,{field: 'sex', title: '性别44',align:'center',width:'10%'}
-		      ,{field: 'tel_no', title: '电话44', align:'center',width:'10%'}
-		      ,{field: 'comments', title: '备注',align:'center',width:'30%' }
-		      ,{fixed: 'status', title:'状态22', align:'center', width:'10%'} //这里的toolbar值是模板元素的选择器
-		      ,{fixed: 'right', title:'操作', align:'center', toolbar: '#barDemo',width:'10%'} //这里的toolbar值是模板元素的选择器
+	    	 {field: 'name', title: '姓名', sort: true, fixed: 'left'}
+		      ,{field: 'sex', title: '性别',align:'center'}
+		      ,{field: 'tel_no', title: '电话', align:'center'}
+		      ,{field: 'comments', title: '备注',align:'center'}
+		      ,{field: 'status', title: '状态', align:'center'}
+		     // ,{fixed: 'status', title:'状态22', align:'center'} //这里的toolbar值是模板元素的选择器
+		      ,{fixed: 'right', title:'操作', align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
 //====================点击【搜索】按钮事件===========================
