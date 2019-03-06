@@ -91,7 +91,13 @@ public class CustomerModel extends Model<CustomerModel> {
 	public Date getcreate_time() {
 		return get("create_time");
 	}
-	
+	/**
+	 * 1：未处理，首次录入信息
+	 * 2：已经跟进，已经修改备注
+	 * 3：待处理，已经跟进，还未成交（显示的按钮就是“处理”）
+	 * 6：已成交，没有按钮
+	 * @param status
+	 */
 	public void setstatus(int status) {
 		set("status", status);
 	}

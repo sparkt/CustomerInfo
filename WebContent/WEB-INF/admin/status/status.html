@@ -29,9 +29,11 @@
 	<script type="text/javascript" src="../../layui/layui.js"></script>
 	<script type="text/javascript" src="../js/status/status.js"></script>
 	<script type="text/html" id="barDemo">
-		 <a class="layui-btn layui-btn-normal" lay-event="del"><i class="layui-icon">&#xe654;</i>已跟进</a>
-		 <a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del"><i class="layui-icon">&#xe642;</i>待处理</a>
-		 <a class="layui-btn layui-btn-warm" lay-event="del"><i class="layui-icon">&#xe602;</i>已成交</a>
+#[[
+		{{# if (d.status===3) {}} 
+		 	<a class="layui-btn layui-btn-normal" lay-event="del"><i class="layui-icon">&#xe654;</i>处理</a>
+		{{# } }} 
+]]#
 	</script>
 </body>
 </html>

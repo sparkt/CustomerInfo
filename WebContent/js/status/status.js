@@ -1,10 +1,11 @@
 layui.config({//框架的固定，配置的使用
 	base : "js/"
-}).use(['form','layer','jquery','laypage','table'],function(){//组件，使用组件完成功能：from:表单；
+}).use(['form','layer','jquery','laypage','table','laytpl'],function(){//组件，使用组件完成功能：from:表单；
 	var form = layui.form,
 		layer = parent.layer === undefined ? layui.layer : parent.layer,
 		laypage = layui.laypage,
 		table = layui.table,
+		laytpl = layui.laytpl,
 		$ = layui.$;//以上只是将所需要的文件拿出来，以便于后面使用。
 
 //==================一个table实例================================//table怎么设置
@@ -17,11 +18,12 @@ layui.config({//框架的固定，配置的使用
 	    limit: 10,//每页显示信息条数
 	    id: 'testReload',
 	    cols: [[ //表头
-	    	 {field: 'name', title: '姓名', sort: true, fixed: 'left' ,width:'15%'}
-		      ,{field: 'sex', title: '性别',lign:'center',width:'15%'}
-		      ,{field: 'tel_no', title: '电话', lign:'center',width:'15%'}
-		      ,{field: 'comments', title: '备注',align:'center',width:'16%' }
-		      ,{fixed: 'right', title:'状态', align:'center', toolbar: '#barDemo',width:'40%'} //这里的toolbar值是模板元素的选择器
+	    	 {field: 'name', title: '姓名33', sort: true, fixed: 'left' ,width:'10%'}
+		      ,{field: 'sex', title: '性别44',align:'center',width:'10%'}
+		      ,{field: 'tel_no', title: '电话44', align:'center',width:'10%'}
+		      ,{field: 'comments', title: '备注',align:'center',width:'30%' }
+		      ,{fixed: 'status', title:'状态22', align:'center', width:'10%'} //这里的toolbar值是模板元素的选择器
+		      ,{fixed: 'right', title:'操作', align:'center', toolbar: '#barDemo',width:'10%'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
 //====================点击【搜索】按钮事件===========================
