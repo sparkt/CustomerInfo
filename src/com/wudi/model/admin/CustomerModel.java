@@ -123,6 +123,15 @@ public class CustomerModel extends Model<CustomerModel> {
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
+	public static Page<CustomerModel> getList(int pageNumber, int pageSize, String key) {
+		String sele_sql = "select * ";
+		StringBuffer from_sql = new StringBuffer();
+		from_sql.append("from ").append(tableName).append(" ");
+		if (!StringUtil.isBlankOrEmpty(key)) {
+			from_sql.append("where  name like '%" + key + "%'");
+		}
+		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
+	}
 
 	/**
 	 * 根据id查找
