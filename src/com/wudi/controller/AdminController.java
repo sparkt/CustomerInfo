@@ -394,6 +394,49 @@ public class AdminController extends Controller {
 		setAttr("type", type);
 		renderFreeMarker("customer/customerInfo.html");
 	}
+	/**
+	 * 打开客户管理页面
+	 * @author wangchi
+	 */
+	public void openStatus() {
+		render("status/status.html");
+	}
+	
+	/**
+	 * @TODO 已跟进信息,待处理信息，已成交信息的接口。
+	 * @author  王驰 根据status数值进行判断
+	 * 如果staus=2状态为已跟进
+	 * 如果status=3状态为待处理
+	 * 如果status=6已成交
+	 */
+	public void getStatus() {
+		String phone_no = getPara("phone_no");
+		int status = getParaToInt("status");
+		CustomerModel p = CustomerModel.Byphone_no(phone_no);
+		if (p.getPhone_no().equals(phone_no)) {
+			
+			if (status == 2) {
+				//2为已跟进
+				List<CustomerModel> had = CustomerModel.findListByStatus(status, phone_no);
+				setAttr("data", had);
+				renderJson();
+			} else if (status == 3) {
+				//3为待处理
+				List<CustomerModel> ing = CustomerModel.findListByStatus(status, phone_no);
+				setAttr("data", ing);
+				renderJson();
+			} else if (status == 6) {
+				//6为已成交
+				List<CustomerModel> done = CustomerModel.findListByStatus(status, phone_no);
+				setAttr("data", done);
+				renderJson();
+			}else {
+				setAttr("data", "出错！");
+				renderJson();
+			}
+		}
+	}
+	
 	public void queryCustomers() {
 		String key = getPara("key");
         int limit=getParaToInt("limit");
@@ -406,6 +449,21 @@ public class AdminController extends Controller {
         setAttr("data", list.getList());
         renderJson();
 	}
+	
+	
+	 
+	public void queryStatus() {
+		String key = getPara("key");
+        int limit=getParaToInt("limit");
+        int page=getParaToInt("page");
+        Page<CustomerModel> list = CustomerModel.getList(page, limit, key);
+        setAttr("code", 0);
+        setAttr("msg", "你好！");
+        setAttr("count", list.getTotalRow());
+        setAttr("data", list.getList());
+        renderJson();
+	}
+	
 	public void getCustomer() {
 		// 接收页面数据
 		String id = getPara("id");

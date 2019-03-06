@@ -91,7 +91,13 @@ public class CustomerModel extends Model<CustomerModel> {
 	public Date getcreate_time() {
 		return get("create_time");
 	}
-	
+	/**
+	 * 1：未处理，首次录入信息
+	 * 2：已经跟进，已经修改备注
+	 * 3：待处理，已经跟进，还未成交（显示的按钮就是“处理”）
+	 * 6：已成交，没有按钮
+	 * @param status
+	 */
 	public void setstatus(int status) {
 		set("status", status);
 	}
@@ -120,6 +126,15 @@ public class CustomerModel extends Model<CustomerModel> {
 		from_sql.append("from ").append(tableName).append(" where type='").append(type).append(" ' ");
 		if (!StringUtil.isBlankOrEmpty(key)) {
 			from_sql.append("and name like '%" + key + "%'");
+		}
+		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
+	}
+	public static Page<CustomerModel> getList(int pageNumber, int pageSize, String key) {
+		String sele_sql = "select * ";
+		StringBuffer from_sql = new StringBuffer();
+		from_sql.append("from ").append(tableName).append(" ");
+		if (!StringUtil.isBlankOrEmpty(key)) {
+			from_sql.append("where  name like '%" + key + "%'");
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
