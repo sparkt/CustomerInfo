@@ -417,17 +417,17 @@ public class AdminController extends Controller {
 			
 			if (status == 2) {
 				//2为已跟进
-				List<CustomerModel> had = CustomerModel.finListByStatus(status, phone_no);
+				List<CustomerModel> had = CustomerModel.findListByStatus(status, phone_no);
 				setAttr("data", had);
 				renderJson();
 			} else if (status == 3) {
 				//3为待处理
-				List<CustomerModel> ing = CustomerModel.finListByStatus(status, phone_no);
+				List<CustomerModel> ing = CustomerModel.findListByStatus(status, phone_no);
 				setAttr("data", ing);
 				renderJson();
 			} else if (status == 6) {
 				//6为已成交
-				List<CustomerModel> done = CustomerModel.finListByStatus(status, phone_no);
+				List<CustomerModel> done = CustomerModel.findListByStatus(status, phone_no);
 				setAttr("data", done);
 				renderJson();
 			}else {
