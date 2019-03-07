@@ -25,7 +25,7 @@ layui.config({//框架的固定，配置的使用
 		      ,{field: 'status', title: '状态', align:'center',
 		    	  templet: function(d){
 			    	  if(d.status==6){
-			    		  return '<span class="layui-badge layui-bg-red">已通过</span>'
+			    		  return '<span class="layui-badge layui-bg-green">已成交</span>'
 			    	  }else if(d.status==3){
 			    		  return '<span class="layui-badge layui-bg-blue">待处理</span>'
 			    	  }else if(d.status==2){
