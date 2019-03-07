@@ -642,5 +642,14 @@ public class AdminController extends Controller {
 	
 	
 	//------------------团队管理结束 梁老师----------------
-
+/**
+ * xiao
+ * 点击客户信息成交
+ */
+	public void completeCustomer() {
+		String id=getPara("id");
+		boolean result=CustomerModel.completeCustomer(id);
+		setAttr("result", result);
+		renderJson();
+	}
 }
