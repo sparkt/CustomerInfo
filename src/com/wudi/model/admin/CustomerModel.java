@@ -358,8 +358,24 @@ public class CustomerModel extends Model<CustomerModel> {
 		   boolean result=false;
 		   if(m!=null) {
 			   m.setstatus(6);
-			   result= m.update();
+			   result= m.update();//更新状态为已成交
+			   
+			 //将这个客户统计到用户账号上，并且判断是否可以升级为二级用户
+			  List <CustomerModel> list=findListByPhone_no(m.getPhone_no(),6);
+			  if(list.size()>10) {//如果本用户的客户的成交量大于10人，那么就升级为2级
+				//找到这个客户的用户
+				UserInfoModel u=UserInfoModel.findByPhone_no(m.getPhone_no());
+				if(u!=null) {
+					u.setVip_grade("2");
+					u.update();
+				}
+			  }
 		   }
 		   return result;
 	 }
+	 public static List <CustomerModel> findListByPhone_no(String phone_no,int status) {
+	    	String sql="select * from "+tableName+" where phone_no=? and status=?";
+	    	List<CustomerModel> list =dao.find(sql,phone_no,status);
+	    	return list;
+	    }
 }
