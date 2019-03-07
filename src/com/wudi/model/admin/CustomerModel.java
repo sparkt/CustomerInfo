@@ -254,22 +254,30 @@ public class CustomerModel extends Model<CustomerModel> {
 	public static boolean saveOrUpate(String id,String name, int sex, String tel_no, int disclose,
 			int age,String work_address,String comments,String phone_no,String nation,String type,int status) {
 		boolean result=false;
-		CustomerModel model=new CustomerModel();
-		model.setName(name);
-		model.setAge(age);
-		model.setNation(nation);
-		model.setComments(comments);
-		model.setDisclose(disclose);
-		model.setSex(sex);
-		model.setTel_no(tel_no);
-		model.setWork_address(work_address);
-		model.setPhone_no(phone_no);
-		model.settype(type);
-		model.setstatus(status);
-		model.setcreate_time(new Date());
 		if(StringUtil.isBlankOrEmpty(id)) {//为保存
 			result=save(name, sex, tel_no, disclose, age, work_address, comments, phone_no, nation, type, status);
 		}else {//更新
+			CustomerModel model=new CustomerModel();
+			model.setName(name);
+			model.setAge(age);
+			model.setNation(nation);
+			model.setComments(comments);
+			model.setDisclose(disclose);
+			model.setSex(sex);
+			model.setTel_no(tel_no);
+			model.setWork_address(work_address);
+			model.setPhone_no(phone_no);
+			model.settype(type);
+			/* 1：未处理，首次录入信息
+			 * 2：已经跟进，已经修改备注
+			 * 3：待处理，已经跟进，还未成交
+			 * 6：已成交
+			 */
+			if(!StringUtil.isBlankOrEmpty(comments)) {
+				status=2;
+			}
+			model.setstatus(status);
+			model.setcreate_time(new Date());
 			result=update(id,model);
 		}
 		return result;
