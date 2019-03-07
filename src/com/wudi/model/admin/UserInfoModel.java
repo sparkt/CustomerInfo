@@ -298,5 +298,15 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		
 		return list;
 	}	
+	/**
+	 * 查询号码
+	 * @param phone_no
+	 * @return
+	 */
+	public static UserInfoModel findByPhone_no(String phone_no) {
+		String selectsql = "SELECT * FROM " + tableName + " WHERE phone_no=?";
+		return dao.findFirst(selectsql,phone_no);
+		
+	}
 	
 }

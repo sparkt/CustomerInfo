@@ -81,26 +81,37 @@ public class WeixinController extends Controller {
 		int code = 0;
 		String info = "加入不成功";
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-		if (m != null) {
-			if (m.getGroup().equals("0")) {
-				boolean result = new UserInfoModel().userJoinGroup(captain_phone, phone_no);
-				if (result) {
-					boolean temp = new InformModel().circularize(
-							"你已于" + Util.getCurrentTime() + "加入" + captain_phone + "团队", phone_no,
-							Util.getCurrentTime());
-					code = 1;
-					info = "加入成功";
+		GroupInfoModel n = new GroupInfoModel().getisGroup(captain_phone);
+		
+		
+		if(n!=null) {
+			if(m != null) {
+				if (m.getGroup().equals("0")) {
+					
+					boolean result = new UserInfoModel().userJoinGroup(captain_phone, phone_no);
+					if (result) {
+						boolean temp = new InformModel().circularize(
+								"你已于" + Util.getCurrentTime() + "加入" + captain_phone + "团队", phone_no,
+								Util.getCurrentTime());
+						code = 1;
+						info = "加入成功";
+					}
+					
+				}else {
+					code = 2;
+					info = "该用户已有团队有团队";
 				}
-			} else {
-				code = 2;
-				info = "已有团队";
+				
+			}else {
+				
+				code = 0;
+				info = "该用户不存在";
 			}
-		} else {
-			code = 0;
-			info = "该用户不存在";
-
+			
+		}else {
+			info="你还没创建团队";
 		}
-
+		
 		setAttr("code", code);
 		setAttr("info", info);
 		renderJson();
@@ -159,12 +170,21 @@ public class WeixinController extends Controller {
 	 */
 
 	public void getGroupMemberAllInfo() {
+		String message ="";
 		String phone_no = getPara("phone_no");
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+		GroupInfoModel groupinfo=null;
 		List<?> list = new UserInfoModel().getGroupMemberAllInfo(m.getGroup());
-		GroupInfoModel groupinfo = GroupInfoModel.getGroupAllInfo(m.getGroup());
+		if(m.getGroup().equals("0")) {
+			message="你还没加入团队";
+		}else {
+			groupinfo = GroupInfoModel.getGroupAllInfo(m.getGroup());
+		}
+		
+
 		setAttr("data", list);
 		setAttr("groupinfo",groupinfo);
+		setAttr("message",message);
 		renderJson();
 	}
 
@@ -288,15 +308,17 @@ public class WeixinController extends Controller {
 				
 				if (m.getUser_password().equals(user_password)) {
 					
-					if(!m.getStatus().equals("0")) {
-					list = new UserInfoModel().getUserAllInfo(phone_no);
-					type = 2;//
-					code = 1;// 密码正确
-					info = "密码正确";
-					
-					}else {
+					if(m.getStatus().equals("0")) {
 						code = 3;// 未审核用户
 						info = "未审核用户";
+					
+					
+					}else {
+						list = new UserInfoModel().getUserAllInfo(phone_no);
+						type = 2;//
+						code = 1;// 密码正确
+						info = "密码正确";
+						
 					}
 					
 				} else {
