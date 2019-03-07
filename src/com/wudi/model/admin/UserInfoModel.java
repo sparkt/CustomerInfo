@@ -99,9 +99,9 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		m.setUser_sex(user_sex);
 		m.setPhone_no(phone_no);
 		m.setVip_grade(vip_grade);
-		m.setStatus("0");//开始注册还没有审核
+		m.setStatus("0");//开始注册还没有审核传0
 		m.setType(type);
-		m.setGroup("0");//开始注册没有团体说以传0
+		m.setGroup("0");//开始注册没有团队传0
 		return m.save();
 	}
 	
