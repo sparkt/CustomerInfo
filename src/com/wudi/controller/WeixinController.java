@@ -99,7 +99,7 @@ public class WeixinController extends Controller {
 					
 				}else {
 					code = 2;
-					info = "该用户已有团队已有团队";
+					info = "该用户已有团队有团队";
 				}
 				
 			}else {
