@@ -108,6 +108,12 @@ layui.config({
 			$(".Accounting span").text(data.row);
 		}
 	)
+	// 客户管理
+	$.get("getStatus",
+			function(data){
+		$(".client span").text(data.row);
+	}
+	)
 
 
 

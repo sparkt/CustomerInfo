@@ -22,11 +22,57 @@ layui.config({//框架的固定，配置的使用
 		      ,{field: 'sex', title: '性别',align:'center'}
 		      ,{field: 'tel_no', title: '电话', align:'center'}
 		      ,{field: 'comments', title: '备注',align:'center'}
-		      ,{field: 'status', title: '状态', align:'center'}
+		      ,{field: 'status', title: '状态', align:'center',
+		    	  templet: function(d){
+			    	  if(d.status==6){
+			    		  return '<span class="layui-badge layui-bg-red">已通过</span>'
+			    	  }else{
+			    		  return '<span class="layui-badge layui-bg-blue">待审核</span>'
+			    	  }
+			      }}
 		     // ,{fixed: 'status', title:'状态22', align:'center'} //这里的toolbar值是模板元素的选择器
 		      ,{fixed: 'right', title:'操作', align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
 	    ]]
 	  });
+	  
+//  ====================点击【处理】按钮事件===========================
+		table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+			  var data = obj.data; //获得当前行数据
+			  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+			  var tr = obj.tr; //获得当前行 tr 的DOM对象
+			 
+			  if(layEvent === 'handle'){ //审核通过
+				  var index;
+			 		 $.ajax({//异步请求返回给后台
+				    	  url:'handle?status='+data.status,
+				    	  type:'POST',
+				    //	  data:data.field,
+				    	  dataType:'json',
+				    	  beforeSend: function(re){
+				    		  index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+				          },
+				    	  success:function(d){
+				    			//弹出loading
+						    	top.layer.close(index);
+						  		top.layer.msg("审核通过！");
+						   		//layer.closeAll("iframe");
+						  	 		//刷新父页面
+						  	 	parent.location.reload();
+					    		
+				    	  },
+				    	  error:function(XMLHttpRequest, textStatus, errorThrown){
+				    		  top.layer.msg('操作失败！！！服务器有问题！！！！<br>请检测服务器是否启动？', {
+				    		        time: 20000, //20s后自动关闭
+				    		        btn: ['知道了']
+				    		      });
+				           }
+				      });
+			 		return false;
+			  }
+		});
+	  
+
+
 //====================点击【搜索】按钮事件===========================
   var active = {
 		  reload : function() {
@@ -49,7 +95,7 @@ layui.config({//框架的固定，配置的使用
 	  var type = $(this).data('type');
 	  active[type] ? active[type].call(this) : '';
 	  });
-  
+ /* 
 //=============绑定【添加】事件============================
 //	$(window).one("resize",function(){//基于框架做的
 //		$(".add_btn").click(function(){
@@ -71,7 +117,7 @@ layui.config({//框架的固定，配置的使用
 //		})
 //	}).resize();
   
-  /*
+
 //=======================监听工具条====================================
 
 	//给编辑和删除增加动作，直接应用layui
@@ -154,6 +200,8 @@ layui.config({//框架的固定，配置的使用
 //			})			
 //			layui.layer.full(index);
 //		})
-//	}).resize();*/
+//	}).resize();
 	
+	  */
+	  
 })
