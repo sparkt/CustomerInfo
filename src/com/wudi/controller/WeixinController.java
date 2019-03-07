@@ -40,15 +40,16 @@ public class WeixinController extends Controller {
 		String group_name = getPara("group_name");
 		int code = 0; // 注册不成功
 		String info = "注册不成功";
+		boolean result;
 		UserInfoModel m = new UserInfoModel().getphone_no(captain_phone);
 		if (m != null) {
 					// 判断该用户是否满足建队条件
 					if (m.getGroup().equals("0") && m.getVip_grade().equals("1")) {
-						m.setGroup(captain_phone);
-						m.update();
-						boolean result = new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone,
-								group_info);
+						
+						result = new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone,group_info);
 						if (result) {
+							m.setGroup(captain_phone);
+							m.update();
 							code = 1;
 							info = "注册成功";
 						}
