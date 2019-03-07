@@ -45,7 +45,7 @@ layui.config({//框架的固定，配置的使用
 			  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 			  var tr = obj.tr; //获得当前行 tr 的DOM对象
 			 
-			  if(layEvent === 'handle'){ //审核通过
+			  if(layEvent === 'chengjiao'){ //审核通过
 				  var index;
 			 		 $.ajax({//异步请求返回给后台
 				    	  url:'completeCustomer',
