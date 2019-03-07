@@ -91,7 +91,13 @@ public class CustomerModel extends Model<CustomerModel> {
 	public Date getcreate_time() {
 		return get("create_time");
 	}
-	
+	/**
+	 * 1：未处理，首次录入信息
+	 * 2：已经跟进，已经修改备注
+	 * 3：待处理，已经跟进，还未成交（显示的按钮就是“处理”）
+	 * 6：已成交，没有按钮
+	 * @param status
+	 */
 	public void setstatus(int status) {
 		set("status", status);
 	}
@@ -120,6 +126,15 @@ public class CustomerModel extends Model<CustomerModel> {
 		from_sql.append("from ").append(tableName).append(" where type='").append(type).append(" ' ");
 		if (!StringUtil.isBlankOrEmpty(key)) {
 			from_sql.append("and name like '%" + key + "%'");
+		}
+		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
+	}
+	public static Page<CustomerModel> getList(int pageNumber, int pageSize, String key) {
+		String sele_sql = "select * ";
+		StringBuffer from_sql = new StringBuffer();
+		from_sql.append("from ").append(tableName).append(" ");
+		if (!StringUtil.isBlankOrEmpty(key)) {
+			from_sql.append("where  name like '%" + key + "%'");
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
@@ -281,10 +296,19 @@ public class CustomerModel extends Model<CustomerModel> {
 	}
 
 	 public static List <CustomerModel> findModelbyPhone_no(String phone_no,int type) {
-	    	String sql="select * from "+tableName+" where phone_no=? and type = ?";
-	    	List<CustomerModel> list =dao.find(sql,phone_no,type);
-	    	return list;
-	    }
+		 List<CustomerModel> list=null;
+		 //要先到admininfo表里查看phone_no是不是一样，如果是，就说明是管理员
+		AdminInfoModel admin=AdminInfoModel.dao.getphone_no(phone_no);
+		if(admin!=null) {//说明是管理员
+			String sql="select * from "+tableName+" where type = ?";
+		    list =dao.find(sql,type);
+		}else {
+			 String sql="select * from "+tableName+" where phone_no=? and type = ?";
+			 list =dao.find(sql,phone_no,type);
+		}
+	  
+	    return list;
+	   }
 	 public static List<CustomerModel> getListAll() {
 			StringBuffer sql=new StringBuffer();
 			sql.append("select *  from ").append(tableName);

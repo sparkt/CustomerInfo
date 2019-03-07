@@ -33,6 +33,7 @@ public class WeixinController extends Controller {
 	 */
 
 	public void createGroupinfo() {
+		
 		String captain_phone = getPara("captain_phone");
 		String captain_name = getPara("captain_name");
 		String group_info = getPara("group_info");
@@ -41,13 +42,9 @@ public class WeixinController extends Controller {
 		String info = "注册不成功";
 		UserInfoModel m = new UserInfoModel().getphone_no(captain_phone);
 		if (m != null) {
-			// 判断该用户是否满足建队条件
-			if (m.getGroup().equals("0") && m.getVip_grade().equals("1")) {
-
-				if (m != null) {
 					// 判断该用户是否满足建队条件
 					if (m.getGroup().equals("0") && m.getVip_grade().equals("1")) {
-						m.setGroup("1");
+						m.setGroup(captain_phone);
 						m.update();
 						boolean result = new GroupInfoModel().saveGroupinfo(group_name, captain_name, captain_phone,
 								group_info);
@@ -59,13 +56,14 @@ public class WeixinController extends Controller {
 						code = 2;
 						info = "你不满足创建团队条件";
 					}
-				}
-				setAttr("code", code);
-				setAttr("info", info);
-				renderJson();
 			}
-		}
-	}
+		
+		setAttr("code", code);
+		setAttr("info", info);
+		renderJson();
+}
+		
+
 
 	/*
 	 * 
@@ -76,6 +74,7 @@ public class WeixinController extends Controller {
 	 * @author 张志强
 	 */
 	public void joinGroup() {
+		
 		String captain_phone = getPara("captain_phone");
 		String phone_no = getPara("phone_no");
 		int code = 0;
@@ -93,7 +92,7 @@ public class WeixinController extends Controller {
 				}
 			} else {
 				code = 2;
-				info = "你已有团队";
+				info = "已有团队";
 			}
 		} else {
 			code = 0;
@@ -268,7 +267,7 @@ public class WeixinController extends Controller {
 				}
 
 			} else {
-				if (m.getStatus().equals("未审核")) {
+				if (m.getStatus().equals("0")) {
 					code = 3;// 未审核用户
 					info = "未审核用户";
 				} else if (m.getUser_password().equals(user_password)) {
