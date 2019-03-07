@@ -83,7 +83,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	/**
 	 * 
 	 * 注册用户 保存用户信息
-	 * @author zhang zhiqiang
+	 * @author 张志强 
 	 * @param user_name 
 	 * @param user_password 
 	 * @param user_sex
@@ -108,7 +108,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	
 	/*
 	 * 根据用户号码修改用户信息
-	 * @author zhang zhiqiang
+	 * @author 张志强 
 	 * @param user_name 
 	 * @param user_password 
 	 * @param user_sex
@@ -135,6 +135,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	
 	/**
 	 *  用户加入团队
+	 *  @author 张志强 
 	 * @param captain_phone
 	 * @param phone_no
 	 * @return
@@ -156,6 +157,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	}
 	/**
 	 *  用户退队
+	 *  @author 张志强 
 	 * @param phone_no
 	 * @return
 	 */
@@ -177,6 +179,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	}
 	/**
 	 *删除队员
+	 *@author 张志强 
 	 * @param captain_phone
 	 * @param phone_no
 	 */
