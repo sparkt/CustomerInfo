@@ -112,9 +112,23 @@ public class WeixinController extends Controller {
 	 * @author 张志强 phone_no用户号码
 	 */
 	public void getGroupAllInfo() {
+		
 		String phone_no = getPara("phone_no");
 		UserInfoModel user = new UserInfoModel().getphone_no(phone_no);
-		GroupInfoModel groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
+		GroupInfoModel groups = null;
+		String info =""; 
+		if(user.getGroup().equals("0")) {
+			
+			info="你还没加入团队";
+			
+		}else {
+			groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
+		}
+		
+		
+		
+		
+		
 		List<CustomerModel> customers = CustomerModel.findListByPhone_no(phone_no);
 		setAttr("user", user);
 		setAttr("customers", customers);
@@ -137,7 +151,8 @@ public class WeixinController extends Controller {
 	}
 
 	/*
-	 * 返回用户所在团队队员员信息
+	 * 返回用户所在团队队员员信息和团队信息
+	 * 
 	 * 
 	 * @author 张志强 phone_no 用户号码
 	 */
@@ -146,7 +161,9 @@ public class WeixinController extends Controller {
 		String phone_no = getPara("phone_no");
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
 		List<?> list = new UserInfoModel().getGroupMemberAllInfo(m.getGroup());
+		GroupInfoModel groupinfo = GroupInfoModel.getGroupAllInfo(m.getGroup());
 		setAttr("data", list);
+		setAttr("groupinfo",groupinfo);
 		renderJson();
 	}
 
@@ -267,14 +284,20 @@ public class WeixinController extends Controller {
 				}
 
 			} else {
-				if (m.getStatus().equals("0")) {
-					code = 3;// 未审核用户
-					info = "未审核用户";
-				} else if (m.getUser_password().equals(user_password)) {
+				
+				if (m.getUser_password().equals(user_password)) {
+					
+					if(!m.getStatus().equals("0")) {
 					list = new UserInfoModel().getUserAllInfo(phone_no);
 					type = 2;//
 					code = 1;// 密码正确
 					info = "密码正确";
+					
+					}else {
+						code = 3;// 未审核用户
+						info = "未审核用户";
+					}
+					
 				} else {
 					// 密码错误
 					type = 0;
