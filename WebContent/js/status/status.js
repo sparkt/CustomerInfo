@@ -26,8 +26,12 @@ layui.config({//框架的固定，配置的使用
 		    	  templet: function(d){
 			    	  if(d.status==6){
 			    		  return '<span class="layui-badge layui-bg-red">已通过</span>'
+			    	  }else if(d.status==3){
+			    		  return '<span class="layui-badge layui-bg-blue">待处理</span>'
+			    	  }else if(d.status==2){
+			    		  return '<span class="layui-badge layui-bg-blue">已跟进</span>'
 			    	  }else{
-			    		  return '<span class="layui-badge layui-bg-blue">待审核</span>'
+			    		  return '<span class="layui-badge layui-bg-red">未处理</span>'
 			    	  }
 			      }}
 		     // ,{fixed: 'status', title:'状态22', align:'center'} //这里的toolbar值是模板元素的选择器
@@ -44,9 +48,9 @@ layui.config({//框架的固定，配置的使用
 			  if(layEvent === 'handle'){ //审核通过
 				  var index;
 			 		 $.ajax({//异步请求返回给后台
-				    	  url:'handle?status='+data.status,
+				    	  url:'completeCustomer',
 				    	  type:'POST',
-				    //	  data:data.field,
+				    	  data:{"id":data.id},
 				    	  dataType:'json',
 				    	  beforeSend: function(re){
 				    		  index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});

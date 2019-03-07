@@ -334,4 +334,32 @@ public class CustomerModel extends Model<CustomerModel> {
 				   return dao.findFirst(sql,phone_no);
 	 }
 	 
+	 public static boolean updateCustomerStatus(String id,int status) {
+		   CustomerModel m=getById(id);
+		   boolean result=false;
+		   if(m!=null) {
+			   m.setstatus(status);
+			   result= m.update();
+		   }
+		   return result;
+	 }
+	 /**
+	  * 更改客户信息状态，交易成功
+	  * @param id
+	  * @param status
+	  * @return
+	  ** 1：未处理，首次录入信息
+	 * 2：已经跟进，已经修改备注
+	 * 3：待处理，已经跟进，还未成交
+	 * 6：已成交
+	  */
+	 public static boolean completeCustomer(String id) {
+		   CustomerModel m=getById(id);
+		   boolean result=false;
+		   if(m!=null) {
+			   m.setstatus(6);
+			   result= m.update();
+		   }
+		   return result;
+	 }
 }

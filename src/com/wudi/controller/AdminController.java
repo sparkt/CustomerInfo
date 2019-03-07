@@ -456,12 +456,13 @@ public class AdminController extends Controller {
 		setAttr("row", list.size());
 		renderJson();
 	}
+
 	public void getStatus() {
 		List<CustomerModel> list=CustomerModel. getListAll();
 		setAttr("row", list.size());
-		renderJson();
 	}
 	
+
 	
 	//------------------团队管理开始 梁老师----------------
 	/*
@@ -500,7 +501,20 @@ public class AdminController extends Controller {
 	public void openGroupinfoAdd() {
 		render("groupinfo/groupinfoAdd.html");
 	}
-
+	
+	/*
+	 * 打开团队队员信息页面
+	 * @author 张志强
+	 * */
+	
+	
+	public void openGroupMemberInfo() {
+		String captain_phone = getPara("captain_phone");
+		setAttr("captain_phone", captain_phone);
+		renderFreeMarker("groupinfo/groupMemberInfo.html");
+	}
+	
+	
 	/*
 	 * @Title: saveGroupinfo
 	 * @Description: 保存添加团队管理信息界面数据
@@ -577,14 +591,38 @@ public class AdminController extends Controller {
 	 * */
 	
 	public void getGroupMemberAllInfo() {
+		
+		
+		String key = getPara("key");
+		int limit=getParaToInt("limit");
+		int page=getParaToInt("page");
+		Page<UserInfoModel> list = new UserInfoModel().getmenberList(page, limit, key);
+		setAttr("code", 0);
+		setAttr("msg", "你好！");
+		setAttr("count", list.getTotalRow());
+		setAttr("data", list.getList());
+		renderJson();
+		
+		
+		/*
+		
 		String captain_phone = getPara("captain_phone");
 		List<?> list = new UserInfoModel().getGroupMemberAllInfo(captain_phone);
 		setAttr("data", list);
-		renderJson();
+		renderJson();*/
 	}
 	
 	
 	
 	//------------------团队管理结束 梁老师----------------
-
+/**
+ * xiao
+ * 点击客户信息成交
+ */
+	public void completeCustomer() {
+		String id=getPara("id");
+		boolean result=CustomerModel.completeCustomer(id);
+		setAttr("result", result);
+		renderJson();
+	}
 }

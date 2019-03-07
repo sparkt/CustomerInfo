@@ -13,11 +13,12 @@ layui.config({
 	    url: 'getGrouplist', //数据接口
 	    where: {key: ''},//给后台传的参数
 	    page: true, //开启分页
+	    even:true,	//开启隔行
 	    toolbar: '#toolbarDemo',
 	    limit: 10,//每页显示信息条数
 	    id: 'testReload',
 	    cols: [[ //表头
-		      {field: 'id', title: 'ID', sort: true, fixed: 'left',width:50}
+		      {field: 'id', title: 'ID', sort: true, fixed: 'left',width:100}
 		      ,{field: 'captain_name', title: '团队队长名',width:100}
 		      ,{field: 'captain_phone', title: '队长电话'} 
 		      ,{field: 'group_info', title: '团队信息'}
@@ -76,6 +77,20 @@ layui.config({
 	  var tr = obj.tr; //获得当前行 tr 的DOM对象
 	 
 	  if(layEvent === 'detail'){ //查看
+		  var index = layui.layer.open({
+              title : "团队信息",
+              type : 2,
+              content : "openGroupMemberInfo?captain_phone="+data.captain_phone,
+              success : function(layero, index){
+                  setTimeout(function(){
+                      layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
+                          tips: 3
+                      });
+                  },500)
+              }
+          })          
+          layui.layer.full(index);
+	  
 		  
 	  } else if(layEvent === 'del'){ //删除
 		  layer.confirm('确定删除此信息？',{icon:3, title:'提示信息'},function(index){

@@ -17,7 +17,7 @@ layui.config({
 	    toolbar: '#toolbarDemo',
 	    id: 'testReload',
 	    cols: [[ //表头
-		      {field: 'id', title: 'ID', sort: true, fixed: 'left',width:50}
+		      {field: 'id', title: 'ID', sort: true, fixed: 'left',width:100}
 		      ,{field: 'user_name', title: '用户名',width:100}
 		      ,{field: 'user_sex', title: '性别',width:50,templet:function(d){
 		    	  if(d.user_sex=='男'){
