@@ -33,6 +33,7 @@ public class WeixinController extends Controller {
 	 */
 
 	public void createGroupinfo() {
+		
 		String captain_phone = getPara("captain_phone");
 		String captain_name = getPara("captain_name");
 		String group_info = getPara("group_info");
@@ -57,7 +58,6 @@ public class WeixinController extends Controller {
 					}
 			}
 		
-		
 		setAttr("code", code);
 		setAttr("info", info);
 		renderJson();
@@ -74,6 +74,7 @@ public class WeixinController extends Controller {
 	 * @author 张志强
 	 */
 	public void joinGroup() {
+		
 		String captain_phone = getPara("captain_phone");
 		String phone_no = getPara("phone_no");
 		int code = 0;
