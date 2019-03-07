@@ -431,6 +431,10 @@ public class AdminController extends Controller {
 		setAttr("row", list.size());
 		renderJson();
 	}
+	public void getTest() {
+		setAttr("rows", 10);
+		renderJson();
+	}
 	
 	
 	//------------------团队管理开始 梁老师----------------

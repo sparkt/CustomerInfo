@@ -208,17 +208,19 @@ layui.config({
     	        {
     	            name:'成交',
     	            type:'bar',
-    	            data:[0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+    	            data:[],
     	            markPoint : {
     	                data : [
     	                    {type : 'max', name: '最大值'},
     	                    {type : 'min', name: '最小值'}
     	                ]
     	            },
+    	            
     	            markLine : {
     	                data : [
     	                    {type : 'average', name: '平均值'}
     	                ]
+    	            
     	            }
     	        },
     	        {
@@ -240,6 +242,31 @@ layui.config({
     	    ]
     	};
     myChart.setOption(option);
+    function loadDATA(option){
+        $.ajax({
+           type : "post",
+           async : false, //同步执行
+           url : "getTest",
+           data : {},
+           dataType : "json", //返回数据形式为json
+           success : function(result) {
+                      if (result) {
+////                             //初始化option.xAxis[0]中的data
+////                              option.xAxis[0].data=[];
+////                              for(var i=0;i<result.length;i++){
+////                                option.xAxis[0].data.push(result[i].name);
+//                              }
+                              //初始化option.series[0]中的data
+                              option.series[0].data=[];
+                              for(var i=0;i<result.length;i++){
+                                option.series[0].data.push(result[i].rows);
+                              }
+                       }
+                    }
+        });       
+   }
+ 
+
  
  })
 
