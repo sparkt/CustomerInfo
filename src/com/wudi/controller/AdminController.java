@@ -625,4 +625,14 @@ public class AdminController extends Controller {
 		setAttr("result", result);
 		renderJson();
 	}
+	/**
+	 * xiao
+	 * 点击客户信息处理
+	 */
+		public void dealCustomer() {
+			String id=getPara("id");
+			boolean result=CustomerModel.dealCustomer(id);
+			setAttr("result", result);
+			renderJson();
+		}
 }

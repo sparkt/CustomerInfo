@@ -384,6 +384,24 @@ public class CustomerModel extends Model<CustomerModel> {
 		   }
 		   return result;
 	 }
+	 /**
+	  * 处理
+	 * @Title: dealCustomer
+	 * @Description:???
+	 * @param @param id
+	 * @param @return    参数
+	 * @return boolean    返回类型
+	 * @throws
+	  */
+	 public static boolean dealCustomer(String id) {
+		   CustomerModel m=getById(id);
+		   boolean result=false;
+		   if(m!=null) {
+			   m.setstatus(3);
+			   result= m.update();//更新状态为已成交
+		   }
+		   return result;
+	 }
 	 public static List <CustomerModel> findListByPhone_no(String phone_no,int status) {
 	    	String sql="select * from "+tableName+" where phone_no=? and status=?";
 	    	List<CustomerModel> list =dao.find(sql,phone_no,status);
