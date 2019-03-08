@@ -43,7 +43,7 @@ public class WeixinController extends Controller {
 		if (m != null) {
 			// 判断该用户是否满足建队条件
 			if (m.getGroup().equals("0") && m.getVip_grade().equals("1")) {
-				result = new GroupInfoModel().saveGroupinfo(group_name, m.getUser_name(), captain_phone,group_info);
+				result = new GroupInfoModel().saveGroupinfo(m.getUser_name(),captain_phone,group_info,group_name);
 				if (result) {
 					m.setGroup(captain_phone);
 					m.update();
@@ -147,19 +147,20 @@ public class WeixinController extends Controller {
 	 */
 	
 	public void getGroupMemberAllInfo() {
-		String message ="";
+
 		String phone_no = getPara("phone_no");
+		String type ="1"; //
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
 		GroupInfoModel groupinfo=null;
 		List<?> list = new UserInfoModel().getGroupMemberAllInfo(m.getGroup());
 		if(m.getGroup().equals("0")) {
-			message="你还没加入团队";
+			type="0";
 		}else {
 			groupinfo=GroupInfoModel.getGroupAllInfo(m.getGroup());
 		}
 		setAttr("data", list);
 		setAttr("groupinfo",groupinfo);
-		setAttr("message",message);
+		setAttr("message",type);
 		renderJson();
 	}
 	/*

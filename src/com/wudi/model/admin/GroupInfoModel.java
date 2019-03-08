@@ -90,7 +90,7 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 				String delsql = "DELETE FROM " + tableName + " WHERE captain_phone=?";
 				int iRet = Db.update(delsql, captain_phone);
 				if (iRet > 0) {
-					
+					//删除团队要把客客户groups字段更新为0
 					Db.update("UPDATE userinfo  SET groups='0' WHERE groups=?",captain_phone);
 					return true;
 				} else {
