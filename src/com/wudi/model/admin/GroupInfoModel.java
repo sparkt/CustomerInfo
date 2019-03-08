@@ -1,5 +1,5 @@
 package com.wudi.model.admin;
-import java.util.List;
+import java.util.Date;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
@@ -57,6 +57,12 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 		public void setGroup_headcount(String group_headcount) {
 			set("group_headcount", group_headcount);
 		}
+		public Date getcreate_time() {
+			return get("create_time");
+		}
+		public void setcreate_time(Date create_time) {
+			set("create_time", create_time);
+		}
 	
 		/**
 		 * 添加团队1
@@ -69,6 +75,7 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 			m.setCaptain_name(captain_name);
 			m.setCaptain_phone(captain_phone);
 			m.setGroup_info(group_info);
+			m.setcreate_time(new Date());
 			m.setGroup_headcount("1");//刚创建团对团对人数初始为1
 			return m.save();
 		}

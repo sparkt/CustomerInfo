@@ -274,7 +274,9 @@ public class CustomerModel extends Model<CustomerModel> {
 			 * 6：已成交
 			 */
 			if(!StringUtil.isBlankOrEmpty(comments)) {
-				status=2;
+				if(status==1) {//只有未处理状态的时候才可以修改
+					status=2;
+				}
 			}
 			model.setstatus(status);
 			model.setcreate_time(new Date());
@@ -374,7 +376,8 @@ public class CustomerModel extends Model<CustomerModel> {
 				//找到这个客户的用户
 				UserInfoModel u=UserInfoModel.findByPhone_no(m.getPhone_no());
 				if(u!=null) {
-					u.setVip_grade("2");
+					//0，初级，1为2级
+					u.setVip_grade("1");
 					u.update();
 				}
 			  }
