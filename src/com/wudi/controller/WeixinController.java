@@ -145,7 +145,7 @@ public class WeixinController extends Controller {
 	 * 
 	 * @author 张志强
 	 */
-
+	
 	public void getGroupMemberAllInfo() {
 		String message ="";
 		String phone_no = getPara("phone_no");
@@ -155,7 +155,7 @@ public class WeixinController extends Controller {
 		if(m.getGroup().equals("0")) {
 			message="你还没加入团队";
 		}else {
-			groupinfo = GroupInfoModel.getGroupAllInfo(m.getGroup());
+			groupinfo=GroupInfoModel.getGroupAllInfo(m.getGroup());
 		}
 		setAttr("data", list);
 		setAttr("groupinfo",groupinfo);

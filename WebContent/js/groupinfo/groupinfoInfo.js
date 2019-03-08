@@ -99,7 +99,7 @@ layui.config({
 		 		 $.ajax({//异步请求返回给后台
 			    	  url:'delGroupInfo',
 			    	  type:'POST',
-			    	  data:{"id":data.id},
+			    	  data:{"id":data.captain_phone},
 			    	  dataType:'json',
 			    	  beforeSend: function(re){
 			    		  msgid = top.layer.msg('数据处理中，请稍候',{icon: 16,time:false,shade:0.8});

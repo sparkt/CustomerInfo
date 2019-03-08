@@ -1,6 +1,6 @@
 package com.wudi.model.admin;
 import java.util.Date;
-
+import java.util.List;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
@@ -85,11 +85,13 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 		 * @author zhangzhiqiang
 		 * @return
 		 */
-		public  boolean deleteGroupinfo(String id) {
+		public  boolean deleteGroupinfo(String captain_phone) {
 			try {
-				String delsql = "DELETE FROM " + tableName + " WHERE id=?";
-				int iRet = Db.update(delsql, id);
+				String delsql = "DELETE FROM " + tableName + " WHERE captain_phone=?";
+				int iRet = Db.update(delsql, captain_phone);
 				if (iRet > 0) {
+					
+					Db.update("UPDATE userinfo  SET groups='0' WHERE groups=?",captain_phone);
 					return true;
 				} else {
 					return false;
@@ -135,6 +137,7 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 			return m.findFirst(selectsql,phone_no);
 			
 		}
+		
 		
 		//根据队长号码返回团队信息
 		public static GroupInfoModel getGroupAllInfo(String phone_no) {
