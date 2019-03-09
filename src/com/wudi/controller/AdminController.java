@@ -460,6 +460,7 @@ public class AdminController extends Controller {
 	public void getStatus() {
 		List<CustomerModel> list=CustomerModel. getListAll();
 		setAttr("row", list.size());
+		renderJson();
 	}
 	
 
