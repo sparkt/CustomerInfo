@@ -11,8 +11,6 @@ import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
 import com.wudi.controller.AdminController;
 import com.wudi.controller.WeixinController;
-import com.wudi.model.UserModel;
-import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.CustomerModel;
 import com.wudi.model.admin.GroupInfoModel;
 import com.wudi.model.admin.InformModel;
@@ -67,8 +65,6 @@ public class Config extends JFinalConfig {
 		{
 			//将数据库表，绑定到这来来，注意，表名和类要相对应
 			arpMysql.addMapping("userinfo", UserInfoModel.class);//用户信息表
-			arpMysql.addMapping("AdminInfo", AdminInfoModel.class);//管理员信息表
-			arpMysql.addMapping("user", UserModel.class);
 			arpMysql.addMapping("customer", CustomerModel.class);
 			arpMysql.addMapping("GroupInfo", GroupInfoModel.class);//团队表
 			arpMysql.addMapping("inform", InformModel.class);

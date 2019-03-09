@@ -1,5 +1,6 @@
 package com.wudi.model.admin;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -90,6 +91,16 @@ public class CustomerModel extends Model<CustomerModel> {
 	}
 	public Date getcreate_time() {
 		return get("create_time");
+	}
+	/**
+	 * 成交时间
+	 * @param finish_time
+	 */
+	public void setfinish_time(Date finish_time) {
+		set("finish_time",finish_time);
+	}
+	public Date getfinish_time() {
+		return get("finish_time");
 	}
 	/**
 	 * 1：未处理，首次录入信息
@@ -308,7 +319,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	 public static List <CustomerModel> findModelbyPhone_no(String phone_no,int type) {
 		 List<CustomerModel> list=null;
 		 //要先到admininfo表里查看phone_no是不是一样，如果是，就说明是管理员
-		AdminInfoModel admin=AdminInfoModel.dao.getphone_no(phone_no);
+		 UserInfoModel admin=UserInfoModel.getModeByAdminlogin(phone_no);
 		if(admin!=null) {//说明是管理员
 			String sql="select * from "+tableName+" where type = ?";
 		    list =dao.find(sql,type);
@@ -368,6 +379,7 @@ public class CustomerModel extends Model<CustomerModel> {
 		   boolean result=false;
 		   if(m!=null) {
 			   m.setstatus(6);
+			   m.setfinish_time(new Date());
 			   result= m.update();//更新状态为已成交
 			   
 			 //将这个客户统计到用户账号上，并且判断是否可以升级为二级用户
@@ -407,4 +419,25 @@ public class CustomerModel extends Model<CustomerModel> {
 	    	List<CustomerModel> list =dao.find(sql,phone_no,status);
 	    	return list;
 	    }
+	 /**
+	     * 找出本年的数据
+	  * @return
+	  */
+	 public static List<CustomerModel> getListByCYeanMonth(int month) {
+			StringBuffer sql=new StringBuffer();
+			Calendar now = Calendar.getInstance(); 
+			int yean=now.get(Calendar.YEAR);
+			//构造类似2019-01的格式（SELECT * from customer where create_time like '%2019-01%'）
+			StringBuffer m=new StringBuffer();
+			m.append(yean).append("-");
+			if(month<10) {
+				m.append("0").append(month);
+			}else {
+				m.append(month);
+			}
+			sql.append("select *  from ").append(tableName);
+			sql.append(" where create_time like '%"+m+"%'");
+			
+			return dao.find(sql.toString());
+		}
 }

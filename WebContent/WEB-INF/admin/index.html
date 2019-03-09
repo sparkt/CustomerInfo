@@ -64,13 +64,13 @@
 					<li class="layui-nav-item" pc>
 						<a href="javascript:;">
 							<img src="images/wudi.png" class="layui-circle" width="35" height="35">
-							<cite>无敌小团队</cite>
+							<cite>${user.user_name}</cite>
 						</a>
 						<dl class="layui-nav-child">
 							<dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
 							<dd><a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>
 							<dd><a href="javascript:;" class="changeSkin"><i class="iconfont icon-huanfu"></i><cite>更换皮肤</cite></a></dd>
-							<dd><a href="/page/login/login.html" class="signOut"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
+							<dd><a href="admin/outLogin" class="signOut"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
 						</dl>
 					</li>
 				</ul>
@@ -80,7 +80,7 @@
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
 				<a class="img" title="我的头像" ><img src="images/wudi.png"></a>
-				<p>你好！<span class="userName">无敌小团队</span></p>
+				<p>你好！<span class="userName">${user.user_name}</span></p>
 			</div>
 			<div class="navBar layui-side-scroll"></div>
 		</div>

@@ -114,62 +114,18 @@ layui.config({
 		$(".client span").text(data.row);
 	}
 	)
-
-
-
-
-	// 数字格式化
-	$(".panel span").each(function(){
-		$(this).html($(this).text()>9999 ? ($(this).text()/10000).toFixed(2) + "<em>万</em>" : $(this).text());	
-	})
-/*
-
-	// 系统基本参数
-	if(window.sessionStorage.getItem("systemParameter")){
-		var systemParameter = JSON.parse(window.sessionStorage.getItem("systemParameter"));
-		fillParameter(systemParameter);
-	}else{
-		$.ajax({
-			url : "../json/systemParameter.json",
-			type : "get",
-			dataType : "json",
-			success : function(data){
-				fillParameter(data);
-			}
-		})
-	}
-*/
-	
-	// 填充数据方法
- 	function fillParameter(data){
- 		// 判断字段数据是否存在
- 		function nullData(data){
- 			if(data == '' || data == "undefined"){
- 				return "未定义";
- 			}else{
- 				return data;
- 			}
- 		}
- 		$(".version").text(nullData(data.version));      // 当前版本
-		$(".author").text(nullData(data.author));        // 开发作者
-		$(".homePage").text(nullData(data.homePage));    // 网站首页
-		$(".server").text(nullData(data.server));        // 服务器环境
-		$(".dataBase").text(nullData(data.dataBase));    // 数据库版本
-		$(".maxUpload").text(nullData(data.maxUpload));    // 最大上传限制
-		$(".userRights").text(nullData(data.userRights));// 当前用户权限
- 	}
- 	 // 基于准备好的dom，初始化echarts实例
+  // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('tubiao'));
     var option = {
     	    title : {
     	        text: '用户成交量和未成交量',
-    	        subtext: '一年内数据'
+    	        subtext: '2019年数据'
     	    },
     	    tooltip : {
     	        trigger: 'axis'
     	    },
     	    legend: {
-    	        data:['成交量','未成交量']
+    	        data:['已成交','未成交']
     	    },
     	    toolbox: {
     	        show : true,
@@ -195,7 +151,7 @@ layui.config({
     	    ],
     	    series : [
     	        {
-    	            name:'成交',
+    	            name:'已成交',
     	            type:'bar',
     	            data:[],
     	            markPoint : {
@@ -231,32 +187,23 @@ layui.config({
     	    ]
     	};
     myChart.setOption(option);
-    function loadDATA(option){
-        $.ajax({
-           type : "post",
-           async : false, //同步执行
-           url : "getTest",
-           data : {},
-           dataType : "json", //返回数据形式为json
-           success : function(result) {
-                      if (result) {
-////                             //初始化option.xAxis[0]中的data
-////                              option.xAxis[0].data=[];
-////                              for(var i=0;i<result.length;i++){
-////                                option.xAxis[0].data.push(result[i].name);
-//                              }
-                              //初始化option.series[0]中的data
-                              option.series[0].data=[];
-                              for(var i=0;i<result.length;i++){
-                                option.series[0].data.push(result[i].rows);
-                              }
-                       }
-                    }
-        });       
-   }
- 
-
- 
+   // 异步加载数据
+    $.get('getTubiaoinfo').done(function (data) {
+        //设置数据
+        myChart.setOption({
+            series: [{
+                // 根据名字对应到相应的系列
+                name: '未成交',
+                data:data.weichengjiao
+            },
+            {
+                // 根据名字对应到相应的系列
+                name: '已成交',
+                data: data.chengjiao
+            }
+            ]
+        });
+        });
  })
 
 

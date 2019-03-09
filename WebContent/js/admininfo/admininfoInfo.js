@@ -18,16 +18,16 @@ layui.config({
 	    id: 'testReload',
 	    cols: [[ //表头
 		      {field: 'id', title: 'ID', sort: true, fixed: 'left',width:100}
-		      ,{field: 'admin_name', title: '管理员'}
-		      ,{field: 'admin_sex', title: '性别',width:50,templet:function(d){
+		      ,{field: 'user_name', title: '管理员'}
+		      ,{field: 'user_sex', title: '性别',width:50,templet:function(d){
 		    	  if(d.user_sex=='男'){
 		    		  return '<span style="color: blue">男</span>'
 		    	  }else{
 		    		  return '<span style="color: red" >女</span>'
 		    	  }
 		      }} 
-		      ,{field: 'admin_phone_no', title: '手机号码'}
-		      ,{field: 'admin_password' ,title:'管理员密码'}
+		      ,{field: 'phone_no', title: '手机号码'}
+		      ,{field: 'user_password' ,title:'管理员密码'}
 
 		      ,{fixed: 'right', align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
 		    ]]
@@ -123,7 +123,7 @@ layui.config({
 		  var index = layui.layer.open({
               title : "修改信息",
               type : 2,
-              content : "openAdmininfoEdit?admin_phone_no="+data.admin_phone_no,
+              content : "openUserinfoEdit?phone_no="+data.phone_no,
               success : function(layero, index){
                   setTimeout(function(){
                       layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {

@@ -1,15 +1,14 @@
 package com.wudi.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.wudi.bean.TubiaoBean;
 import com.wudi.interceptor.AdminInterceptor;
-import com.wudi.model.NavsModel;
-import com.wudi.model.UserModel;
-import com.wudi.model.admin.AdminInfoModel;
 import com.wudi.model.admin.CustomerModel;
 import com.wudi.model.admin.GroupInfoModel;
 import com.wudi.model.admin.UserInfoModel;
@@ -27,16 +26,16 @@ import com.wudi.util.Util;
 public class AdminController extends Controller {
 	@Clear(AdminInterceptor.class)
 	public void login() {
-		String username=getPara("username");
+		String phone_no=getPara("username");
 		String password=getPara("password");
 		//如果不正确，就提示什么不正确？
 		//如果正确，就正常显示系统页面
-		UserModel m=UserModel.getModeByUsername(username);
+		UserInfoModel m=UserInfoModel.getModeByAdminlogin(phone_no);
 		//判断用户名和密码是否正确
 		if(m!=null) {
-			if(m.getpassword().equals(password)) {
+			if(m.getUser_password().equals(password)) {
 				setAttr("result", 0);//可以登录
-				setCookie(Util.Cookie_NAME,username,36000);
+				setCookie(Util.Cookie_NAME,phone_no,36000);
 				setSessionAttr("user", m);
 			}else {
 				setAttr("result", 1);//密码错误
@@ -57,87 +56,24 @@ public class AdminController extends Controller {
 	 * @Title: index @Description:后台管理默认到达页面 @param 参数 @return void 返回类型 @throws
 	 */
 	public void index() {
-		render("index.html");
+		setAttr("user", getSessionAttr("user"));
+		renderFreeMarker("index.html");
 	}
 	public void main() {
 		render("main.html");
 	}
-
-	/**
-	 * 
-	 * @Title: getnavs @Description: 获取主页面左侧菜单数据 @param 参数 @return void 返回类型 @throws
-	 */
-	public void getnavs() {
-		Object object = NavsModel.getListForLeft();
-		renderJson(object);
-	}
-
 	/**
 	 * 显示菜单列表
 	 */
 	public void navsinfo() {
 		render("sys/navsinfo.html");
 	}
-
-	/**
-	 * 
-	 * @Title: getnavs @Description: 获取侧菜单数据列表 @param 参数 @return void 返回类型 @throws
-	 */
-	public void getNavsList() {
-		// 获取页面查询的关键字
-		String key = getPara("key");
-		int limit=getParaToInt("limit");
-		int page=getParaToInt("page");
-		Page<NavsModel> list = NavsModel.getList(page, limit, key);
-		setAttr("code", 0);
-		setAttr("msg", "你好！");
-		setAttr("count", list.getTotalRow());
-		setAttr("data", list.getList());
-		renderJson();
-	}
-
 	/**
 	 * 打开菜单添加页面
 	 */
 	public void openNavsAdd() {
 		render("sys/navsAdd.html");
 	}
-
-	/**
-	 * 添加保存菜单信息
-	 */
-	public void saveNavs() {
-		String title = getPara("title");
-		String href = getPara("href");
-		String icon = "&#xe630;";
-		String fid = getPara("fid");
-		boolean result = NavsModel.saveModel(title, href, icon, fid);
-		setAttr("result", result);
-		renderJson();
-
-	}
-
-	/**
-	 * TODO:根据id查找信息数据
-	 */
-	public void getModeListById() {
-		String id = getPara("id");
-		NavsModel m = NavsModel.getModeById(id);
-		List<NavsModel> ml = NavsModel.getModeListByFid("-1");
-		setAttr("m", m);// 找数据去更新
-		setAttr("ml", ml);// 父节点列表
-		renderJson();
-	}
-
-	/**
-	 * TODO:根据fid查找信息数据
-	 */
-	public void getModeByFId() {
-		List<NavsModel> ml = NavsModel.getModeListByFid("-1");
-		setAttr("ml", ml);// 找数据去更新
-		renderJson();
-	}
-
 	/**
 	 * 打开菜单修改页面
 	 */
@@ -147,23 +83,6 @@ public class AdminController extends Controller {
 		setAttr("id", id);
 		renderFreeMarker("sys/navsEdit.html");
 	}
-
-	/**
-	 * 更新保存菜单信息
-	 */
-	public void updatenavs() {
-		String id = getPara("id");
-		String title = getPara("title");
-		String href = getPara("href");
-		String icon = "&#xe630;";
-		String fid = getPara("fid");
-		boolean result = NavsModel.updateModel(id, title, href, icon, fid);
-		setAttr("result", result);
-		renderJson();
-
-	}
-
-	
 		/*
 		//打开用户信息界面
 		 * */
@@ -240,7 +159,7 @@ public class AdminController extends Controller {
 				result=false;
 			}else {
 
-				result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0","0");
+				result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0",1);
 			}
 			setAttr("result", result);
 			renderJson();
@@ -272,25 +191,6 @@ public class AdminController extends Controller {
 			renderJson();
 		}
 		
-		/**
-		 * 
-		 * @Title: delUserInfo @Description:删除信息，这个我们是根据唯一主键admin_phone_no来删除的。 @param 参数 @return
-		 *         void 返回类型 @throws
-		 */
-		public void delUserInfo() {
-			String admin_phone_no = getPara("admin_phone_no");
-			// 删除
-			boolean result = new AdminInfoModel().deleteAdminInfo(admin_phone_no);
-			// 返回结果
-			setAttr("result", result);
-			renderJson();
-		}
-		
-		
-		
-		
-
-		
 		/*
 		 * @Descripion: 打开管理员信息界面
 		 * @author zhangzhiqiang
@@ -312,82 +212,13 @@ public class AdminController extends Controller {
 			String key = getPara("key");
 			int limit=getParaToInt("limit");
 			int page=getParaToInt("page");
-			Page<AdminInfoModel> list = new AdminInfoModel().getList(page, limit, key);
+			Page<UserInfoModel> list = new UserInfoModel().getList(page, limit, key,2);
 			setAttr("code", 0);
 			setAttr("msg", "你好！");
 			setAttr("count", list.getTotalRow());
 			setAttr("data", list.getList());
 			renderJson();
 		}
-
-		/**
-		 * 打开管理员添加页面
-		 *@author zhangzhiqiang
-		 */
-		public void openAdminAdd() {
-			render("admininfo/admininfoAdd.html");
-		}
-
-		/*
-		 * @Title: saveAdmininfo
-		 * @Description: 保存添加理员信息界面数据
-		 * @param 参数
-		 * @return void 返回类型
-		 * @throws
-		 *  @author zhangzhiqiang
-		 * **/
-		public void saveAdmininfo() {
-			String admin_name = getPara("admin_name");
-			String admin_password = getPara("admin_password");
-			String admin_sex = getPara("admin_sex");
-			String admin_phone_no = getPara("admin_phone_no");
-			if(admin_sex.equals("0")) {
-				admin_sex="男";
-			}else {
-				admin_sex="女";
-			}
-			boolean result =false;
-			AdminInfoModel m = new AdminInfoModel().getphone_no(admin_phone_no);
-			if(m==null) {
-				result = new AdminInfoModel().saveAdminInfo(admin_name, admin_password, admin_sex, admin_phone_no, "1", "0");
-			}
-			setAttr("result", result);
-			renderJson();
-		}
-		/**
-		 * 打开管理员修改页面
-		 * 
-		 */
-		public void openAdmininfoEdit() {
-			// 接收页面数据
-			String admin_phone_no = getPara("admin_phone_no");
-			setAttr("admin_phone_no", admin_phone_no);
-			renderFreeMarker("admininfo/admininfoEdit.html");
-		}
-		/* @updataAdmininfo
-		 * @Title: saveAdmininfo
-		 * @Description: 更新修改理员信息界面数据到数据库
-		 * @param 参数
-		 * @return void 返回类型
-		 * @throws
-		 *  @author zhangzhiqiang
-		 * **/
-		public void updataAdmininfo() {
-			String admin_name = getPara("admin_name");
-			String admin_password = getPara("admin_password");
-			String admin_sex = getPara("admin_sex");
-			String admin_phone_no = getPara("admin_phone_no");
-			
-			if(admin_sex.equals("0")) {
-				admin_sex="男";
-			}else {
-				admin_sex="女";
-			}
-			boolean result = new AdminInfoModel().updataAdminInfo(admin_name, admin_password, admin_sex, admin_phone_no, "1", "0");
-			setAttr("result", result);
-			renderJson();
-		}
-		
 	public void openCuStomers() {
 		//要传一个类型给它,???
 		String type=getPara("type");
@@ -636,4 +467,39 @@ public class AdminController extends Controller {
 			setAttr("result", result);
 			renderJson();
 		}
+	/**
+	 * 获取主页面图表数据
+	 * xiao
+	 * 2019年3月10日00:15:51
+	 */
+	public void getTubiaoinfo() {
+		List<TubiaoBean> chengjiao=new ArrayList<TubiaoBean>();//成交
+		List<TubiaoBean> weichengjiao=new ArrayList<TubiaoBean>();//未成交
+		
+		for(int i=1;i<=12;i++) {//从本年的第一个月开始
+			int c_num=0;//成交的数量
+			int w_num=0;//未成交的数量
+			List<CustomerModel> list=CustomerModel.getListByCYeanMonth(i);//获取客户信息列表
+			for(CustomerModel m:list) {
+				
+				if(m.getstatus()==6) {//找到成交的客户信息
+					c_num++;
+				}else {
+					w_num++;
+				}
+			}
+			TubiaoBean b=new TubiaoBean();
+			b.setName("已成交");
+			b.setValue(c_num);
+			chengjiao.add(b);
+			TubiaoBean a=new TubiaoBean();
+			a.setName("未成交");
+			a.setValue(w_num);
+			weichengjiao.add(a);
+		}
+		
+		setAttr("chengjiao", chengjiao);
+		setAttr("weichengjiao", weichengjiao);
+		renderJson();
+	}
 }

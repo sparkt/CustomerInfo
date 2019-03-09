@@ -50,10 +50,10 @@ public class UserInfoModel extends Model<UserInfoModel> {
 			set("phone_no", phone_no);
 		}
 		
-		public String getType() {
+		public int getType() {
 			return get("type");
 		}
-		public void setType(String type) {
+		public void setType(int type) {
 			set("type", type);
 		}
 	
@@ -92,7 +92,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	 * @param status
 	 * @return
 	 */
-	public  boolean saveUserinfo(String user_name,String user_password, String user_sex,String phone_no,String vip_grade,String type) {
+	public  boolean saveUserinfo(String user_name,String user_password, String user_sex,String phone_no,String vip_grade,int type) {
 		UserInfoModel m=new UserInfoModel();
 		m.setUser_name(user_name);
 		m.setUser_password(user_password);
@@ -279,7 +279,15 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
-	
+	public  Page<UserInfoModel> getList(int pageNumber, int pageSize, String key,int type) {
+		String sele_sql = "select * ";
+		StringBuffer from_sql = new StringBuffer();
+		from_sql.append("from ").append(tableName).append(" where type=").append(type);
+		if (!StringUtil.isBlankOrEmpty(key)) {
+			from_sql.append(" and user_name like '%" + key + "%'");
+		}
+		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
+	}
 	public  Page<UserInfoModel> getmenberList(int pageNumber, int pageSize, String key) {
 		String sele_sql = "select * ";
 		StringBuffer from_sql = new StringBuffer();
@@ -311,5 +319,14 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		return dao.findFirst(selectsql,phone_no);
 		
 	}
-	
+	/**
+	 * 1普通，2管理员
+	 * @param phone_no
+	 * @return
+	 */
+	public static UserInfoModel getModeByAdminlogin(String phone_no) {
+		String sql = "select * from " + tableName + " where  type=2 and phone_no=?";
+		UserInfoModel m = dao.findFirst(sql, phone_no);
+		return m;
+	}
 }
