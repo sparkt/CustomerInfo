@@ -105,7 +105,7 @@ public class WeixinController extends Controller {
 	}
 
 	/*
-	 * 个人中心页面 返回用户所在团队信息
+	 * 个人中心页面 返回用户所在团队信息（不用了）
 	 * 
 	 * @author 张志强 phone_no用户号码
 	 */
