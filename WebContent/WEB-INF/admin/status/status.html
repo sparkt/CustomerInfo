@@ -31,9 +31,9 @@
 	<script type="text/html" id="barDemo">
 #[[
 		{{# if (d.status===3) { }}  
-			<a class="layui-btn layui-btn-normal" lay-event="chengjiao"><i class="layui-icon">&#xe654;</i>成交</a>
+			<a class="layui-btn" lay-event="chengjiao"><i class="layui-icon">&#xe654;</i>成交</a>
  		{{#} else if(d.status===2){}} 
-			<a class="layui-btn layui-btn-normal" lay-event="handle"><i class="layui-icon">&#xe654;</i>处理</a>
+			<a class="layui-btn layui-btn-danger" lay-event="handle"><i class="layui-icon">&#xe654;</i>处理</a>
 		{{# } }}  
 ]]#
 	</script>
