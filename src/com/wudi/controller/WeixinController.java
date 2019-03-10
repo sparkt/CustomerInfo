@@ -191,22 +191,28 @@ public class WeixinController extends Controller {
 	 * 
 	 * @author 张志强
 	 * 
-	 * @Description: TODO 传入被删除队员号码phone_no和执行删除人好码captain_phone
+	 * @Description: TODO 传入被删除队员号码phone_no和执行删除人号码captain_phone
 	 * 
 	 */
 	public void deleteMember() {
-		String captain_phone = getPara("captain_phone"); // 注意：此处传入的是执行删除人好码
+		String captain_phone = getPara("captain_phone"); // 注意：此处传入的是执行删除人号码
 		String phone_no = getPara("phone_no");
-		boolean result = new UserInfoModel().deleteMember(captain_phone, phone_no);
-		int code = 0; // 删除不成功
+		int code = 0; // 0删除不成功 1成功
 		String info = "删除不成功";
-		if (result) {
-			code = 0;
-			info = "删除成功";
+		if(!captain_phone.equals(phone_no)) {//说明不是队长
+			boolean result = new UserInfoModel().deleteMember(captain_phone, phone_no);
+			
+			if (result) {
+				code = 1;
+				info = "删除成功";
+			}
+		}else {
+			info = "不能删除自己";
 		}
 		setAttr("code", code);
 		setAttr("info", info);
 		renderJson();
+		
 	}
 
 	/**
