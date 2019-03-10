@@ -387,4 +387,13 @@ public class WeixinController extends Controller {
 		setAttr("data", list);
 		renderJson();
 	}
+	/**
+	 *  点击查看队员的客户信息
+	 */
+	public void getCustomersByUser() {
+		String phone_no=getPara("phone_no");
+		List<CustomerModel> list=CustomerModel.findListByPhone_no(phone_no);
+		setAttr("data", list);
+		renderJson();
+	}
 }
