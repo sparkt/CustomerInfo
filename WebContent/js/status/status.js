@@ -44,9 +44,6 @@ layui.config({//框架的固定，配置的使用
 			  var demoReload = $('#demoReload');
 							// 执行重载
 			  table.reload('testReload', {//reload重新加载
-				  page : {
-					  curr : 1// 重新从第 1 页开始
-					  },
 					  where : {//要查询的字段
 						  key : demoReload.val(),
 						  type:$("#type").val()
@@ -106,10 +103,7 @@ layui.config({//框架的固定，配置的使用
 			    	  success:function(d){
 			    		  top.layer.close(msgid);
 			    		  if(d.result){
-			    			//弹出loading
-						   		layer.closeAll("iframe");
-						  	 //刷新父页面
-						  	 	parent.location.reload();
+			    			  
 			    		  }else{
 			    			  top.layer.msg("操作失败！，数据库操作有问题！！");
 			    		  }
@@ -140,10 +134,6 @@ layui.config({//框架的固定，配置的使用
 			    	  success:function(d){
 			    		  top.layer.close(msgid);
 			    		  if(d.result){
-			    			//弹出loading
-						   		layer.closeAll("iframe");
-						  	 //刷新父页面
-						  	 	parent.location.reload();
 			    		  }else{
 			    			  top.layer.msg("操作失败！，数据库操作有问题！！");
 			    		  }

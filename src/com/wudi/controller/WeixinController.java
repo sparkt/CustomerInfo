@@ -261,7 +261,7 @@ public class WeixinController extends Controller {
 		// 查询用户表phone_no字段
 		UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
 		if (m != null) {
-			type=m.getType();
+			type = m.getType();
 			if (m.getUser_password().equals(user_password)) {
 				if (m.getStatus().equals("0")) {
 					code = 3;
@@ -303,8 +303,8 @@ public class WeixinController extends Controller {
 		String type = getPara("type");
 		int status = getParaToInt("status");
 		// 保存数据
-		boolean result = CustomerModel.saveOrUpate(id, name, sex, tel_no, disclose, age, work_address, comments,
-				phone_no, nation, type, status);
+		 boolean result = CustomerModel.saveOrUpate(id, name, sex, tel_no, disclose, age, work_address, comments, phone_no,
+				nation, type, status);
 		setAttr("result", result);
 		renderJson();
 	}
