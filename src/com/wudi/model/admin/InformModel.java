@@ -41,7 +41,7 @@ import com.wudi.util.Util;
 	 * @param phone_no
 	 * @return
 	 */
-	public InformModel getphone_no(String phone_no) {
+	public static InformModel getphone_no(String phone_no) {
 		String selectsql = "SELECT * FROM " + tableName + " WHERE phone_no=?";
 		return dao.findFirst(selectsql,phone_no);
 		

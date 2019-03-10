@@ -113,16 +113,15 @@ public class WeixinController extends Controller {
 		String phone_no = getPara("phone_no");
 		UserInfoModel user = new UserInfoModel().getphone_no(phone_no);
 		GroupInfoModel groups = null;
-		String info = "";
-		if (user.getGroup().equals("0")) {
-			info = "你还没加入团队";
-		} else {
+		if (!user.getGroup().equals("0")) {
 			groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
-		}
+		} 
 		List<CustomerModel> customers = CustomerModel.findListByPhone_no(phone_no);
+		InformModel info=InformModel.getphone_no(phone_no);
 		setAttr("user", user);
 		setAttr("customers", customers);
 		setAttr("groups", groups);
+		setAttr("info", info);
 		renderJson();
 	}
 
