@@ -11,7 +11,7 @@ layui.config({//框架的固定，配置的使用
 //==================一个table实例================================//table怎么设置
 	  table.render({
 	    elem: '#demo',//渲染对象
-	    height: 400,//表格高度
+	    height:'full-88',//表格高度
 	    url: 'queryCustomers', //数据接口
 	    where: {key: '',type:$("#type").val()},//给后台传的参数
 	    page: true, //开启分页
@@ -19,7 +19,14 @@ layui.config({//框架的固定，配置的使用
 	    id: 'testReload',
 	    cols:  [[ //表头
 	    	 {field: 'name', title: '姓名', sort: true, fixed: 'left'}
-		      ,{field: 'sex', title: '性别',align:'center'}
+		      ,{field: 'sex', title: '性别',align:'center',width:70,
+		    	  templet: function(d){
+		    		  if(d.sex==1){
+			    		  return '<span class="layui-badge layui-bg-blue">男</span>'
+			    	  }else{
+			    		  return '<span class="layui-badge layui-bg-orange">女</span>'
+			    	  }
+		    	  }}
 		      ,{field: 'tel_no', title: '电话', align:'center'}
 		      ,{field: 'comments', title: '备注',align:'center'}
 		      ,{field: 'status', title: '状态', align:'center',
@@ -46,6 +53,18 @@ layui.config({//框架的固定，配置的使用
 				  page : {
 					  curr : 1// 重新从第 1 页开始
 					  },
+					  where : {//要查询的字段
+						  key : demoReload.val(),
+						  type:$("#type").val()
+						  }
+					  });
+			  }
+  };
+  var actives = {
+		  reload : function() {
+			  var demoReload = $('#demoReload');
+							// 执行重载
+			  table.reload('testReload', {//reload重新加载
 					  where : {//要查询的字段
 						  key : demoReload.val(),
 						  type:$("#type").val()
@@ -81,7 +100,7 @@ layui.config({//框架的固定，配置的使用
 			    	  success:function(d){
 			    		  top.layer.close(msgid);
 			    		  if(d.result){
-			    			  
+			    			  actives.reload();
 			    		  }else{
 			    			  top.layer.msg("操作失败！，数据库操作有问题！！");
 			    		  }
@@ -112,6 +131,7 @@ layui.config({//框架的固定，配置的使用
 			    	  success:function(d){
 			    		  top.layer.close(msgid);
 			    		  if(d.result){
+			    			  actives.reload();//重新加载数据
 			    		  }else{
 			    			  top.layer.msg("操作失败！，数据库操作有问题！！");
 			    		  }

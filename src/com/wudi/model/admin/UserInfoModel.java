@@ -64,11 +64,11 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		set("vip_grade", vip_grade);
 	}
 	
-	public String getStatus() {
+	public int getStatus() {
 		return get("status");
 		
 	}
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		set("status", status);
 	}
 	
@@ -99,7 +99,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		m.setUser_sex(user_sex);
 		m.setPhone_no(phone_no);
 		m.setVip_grade(vip_grade);
-		m.setStatus("0");//开始注册还没有审核传0
+		m.setStatus(0);//开始注册还没有审核传0
 		m.setType(type);
 		m.setGroup("0");//开始注册没有团队传0
 		return m.save();
@@ -116,7 +116,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	 * @param vip_grade
 	 * @param status
 	 * */
-	public  boolean updataUserinfo(String user_name,String user_password, String user_sex,String phone_no,String vip_grade,String status ) {
+	public  boolean updataUserinfo(String user_name,String user_password, String user_sex,String phone_no,String vip_grade,int status ) {
 		UserInfoModel m=dao.getphone_no(phone_no);
 		if(m==null) {
 			return false;

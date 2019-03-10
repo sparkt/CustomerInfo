@@ -268,7 +268,7 @@ public class WeixinController extends Controller {
 		if (m != null) {
 			type = m.getType();
 			if (m.getUser_password().equals(user_password)) {
-				if (m.getStatus().equals("0")) {
+				if (m.getStatus()==0) {
 					code = 3;
 					info = "未审核用户";
 				} else {
