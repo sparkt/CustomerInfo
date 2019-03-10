@@ -113,16 +113,15 @@ public class WeixinController extends Controller {
 		String phone_no = getPara("phone_no");
 		UserInfoModel user = new UserInfoModel().getphone_no(phone_no);
 		GroupInfoModel groups = null;
-		String info = "";
-		if (user.getGroup().equals("0")) {
-			info = "你还没加入团队";
-		} else {
+		if (!user.getGroup().equals("0")) {
 			groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
-		}
+		} 
 		List<CustomerModel> customers = CustomerModel.findListByPhone_no(phone_no);
+		List<InformModel> infos=InformModel.getListByphone_no(phone_no);
 		setAttr("user", user);
 		setAttr("customers", customers);
 		setAttr("groups", groups);
+		setAttr("infos", infos);
 		renderJson();
 	}
 
@@ -192,22 +191,28 @@ public class WeixinController extends Controller {
 	 * 
 	 * @author 张志强
 	 * 
-	 * @Description: TODO 传入被删除队员号码phone_no和执行删除人好码captain_phone
+	 * @Description: TODO 传入被删除队员号码phone_no和执行删除人号码captain_phone
 	 * 
 	 */
 	public void deleteMember() {
-		String captain_phone = getPara("captain_phone"); // 注意：此处传入的是执行删除人好码
+		String captain_phone = getPara("captain_phone"); // 注意：此处传入的是执行删除人号码
 		String phone_no = getPara("phone_no");
-		boolean result = new UserInfoModel().deleteMember(captain_phone, phone_no);
-		int code = 0; // 删除不成功
+		int code = 0; // 0删除不成功 1成功
 		String info = "删除不成功";
-		if (result) {
-			code = 0;
-			info = "删除成功";
+		if(!captain_phone.equals(phone_no)) {//说明不是队长
+			boolean result = new UserInfoModel().deleteMember(captain_phone, phone_no);
+			
+			if (result) {
+				code = 1;
+				info = "删除成功";
+			}
+		}else {
+			info = "不能删除自己";
 		}
 		setAttr("code", code);
 		setAttr("info", info);
 		renderJson();
+		
 	}
 
 	/**
@@ -384,6 +389,15 @@ public class WeixinController extends Controller {
 	public void getByType() {
 		String type = getPara("type");
 		List<CustomerModel> list = CustomerModel.getCustomerNum(type);
+		setAttr("data", list);
+		renderJson();
+	}
+	/**
+	 *  点击查看队员的客户信息
+	 */
+	public void getCustomersByUser() {
+		String phone_no=getPara("phone_no");
+		List<CustomerModel> list=CustomerModel.findListByPhone_no(phone_no);
 		setAttr("data", list);
 		renderJson();
 	}
