@@ -1,7 +1,8 @@
 package com.wudi.model.admin;
 
+import java.util.List;
+
 import com.jfinal.plugin.activerecord.Model;
-import com.wudi.util.Util;
 
  public class InformModel extends Model<InformModel> {
 	/**
@@ -44,6 +45,16 @@ import com.wudi.util.Util;
 	public static InformModel getphone_no(String phone_no) {
 		String selectsql = "SELECT * FROM " + tableName + " WHERE phone_no=?";
 		return dao.findFirst(selectsql,phone_no);
+		
+	}
+	/**
+	 * 查找号码
+	 * @param phone_no
+	 * @return
+	 */
+	public static List<InformModel> getListByphone_no(String phone_no) {
+		String selectsql = "SELECT * FROM " + tableName + " WHERE phone_no=?";
+		return dao.find(selectsql,phone_no);
 		
 	}
 	/**

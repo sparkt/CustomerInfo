@@ -117,11 +117,11 @@ public class WeixinController extends Controller {
 			groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
 		} 
 		List<CustomerModel> customers = CustomerModel.findListByPhone_no(phone_no);
-		InformModel info=InformModel.getphone_no(phone_no);
+		List<InformModel> infos=InformModel.getListByphone_no(phone_no);
 		setAttr("user", user);
 		setAttr("customers", customers);
 		setAttr("groups", groups);
-		setAttr("info", info);
+		setAttr("infos", infos);
 		renderJson();
 	}
 
