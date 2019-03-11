@@ -279,6 +279,16 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
+	
+	public List<UserInfoModel>gettest(String key){
+		
+		
+		return dao.find("select * from "+tableName);
+		
+		
+	}
+	
+	
 	public  Page<UserInfoModel> getList(int pageNumber, int pageSize, String key,int type) {
 		String sele_sql = "select * ";
 		StringBuffer from_sql = new StringBuffer();

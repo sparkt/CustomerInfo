@@ -129,10 +129,12 @@ public class AdminController extends Controller {
 			int limit=getParaToInt("limit");
 			int page=getParaToInt("page");
 			Page<UserInfoModel> list = new UserInfoModel().getList(page, limit, key);
+			List<UserInfoModel> testlist = new UserInfoModel().gettest(key);
 			setAttr("code", 0);
 			setAttr("msg", "你好！");
 			setAttr("count", list.getTotalRow());
 			setAttr("data", list.getList());
+			setAttr("testdata",testlist);
 			renderJson();
 		}
 		
