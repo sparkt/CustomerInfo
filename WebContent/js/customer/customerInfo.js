@@ -116,7 +116,8 @@ layui.config({//框架的固定，配置的使用
 		 //关闭当前提示	
 	      layer.close(index);
 	    });
-	  } else if(layEvent === 'chuli'){ //处理
+
+	  } else if(layEvent === 'handle'){ //处理 
 		  layer.confirm('确定处理此信息？',{icon:3, title:'提示信息'},function(index){
 				var msgid;
 				//向服务端发送指令
@@ -147,36 +148,23 @@ layui.config({//框架的固定，配置的使用
 		 //关闭当前提示	
 	      layer.close(index);
 	    });
-	  } else if(layEvent === 'edit'){ //编辑
+	  }else if(layEvent === 'edit'){ //编辑
 		  var index = layui.layer.open({
-            title : "【修改信息】",
-            type : 2,
-            area: ['800px', '600px'],
-            content : "openSpecialPromotiomEdit?id="+data.id,
-            success : function(layero, index){
-                setTimeout(function(){
-                    layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
-                        tips: 3
-                    });
-                },500)
-            }
-        })          
-        layui.layer.full(index);
-	  }
-	});
-
-//=======================监听工具条====================================
-
-	//给编辑和删除增加动作，直接应用layui
-	table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-	  var data = obj.data; //获得当前行数据
-	  var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-	  var tr = obj.tr; //获得当前行 tr 的DOM对象
-	 
-	  if(layEvent === 'detail'){ //查看
-	    //do somehing
-		  
-	  } else if(layEvent === 'del'){ //删除
+              title : "【修改信息】",
+              type : 2,
+              area: ['800px', '600px'],
+              content : "openSpecialPromotiomEdit?id="+data.id,
+              success : function(layero, index){
+                  setTimeout(function(){
+                      layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
+                          tips: 3
+                      });
+                  },500)
+              }
+          })          
+          layui.layer.full(index);
+	  } else if(layEvent === 'del'){
+		  //删除
 		  layer.confirm('确定删除此信息？',{icon:3, title:'提示信息'},function(index){
 				var msgid;
 				//向服务端发送删除指令
@@ -211,23 +199,7 @@ layui.config({//框架的固定，配置的使用
 		 //关闭当前提示	
 	      layer.close(index);
 	    });
-	  } else if(layEvent === 'edit'){ //编辑
-		  var index = layui.layer.open({
-              title : "【修改信息】",
-              type : 2,
-              area: ['800px', '600px'],
-              content : "openSpecialPromotiomEdit?id="+data.id,
-              success : function(layero, index){
-                  setTimeout(function(){
-                      layui.layer.tips('点击此处返回列表', '.layui-layer-setwin .layui-layer-close', {
-                          tips: 3
-                      });
-                  },500)
-              }
-          })          
-          layui.layer.full(index);
+	  
 	  }
 	});
-	
-	
 })
