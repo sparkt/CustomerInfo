@@ -1,15 +1,17 @@
 layui.config({
 	base : "js/"
-}).use(['form','layer','jquery','laypage','table'],function(){
+}).use(['form','layer','jquery','laypage','table','laytpl'],function(){//组件，使用组件完成功能：from:表单；
 	var form = layui.form,
 		layer = parent.layer === undefined ? layui.layer : parent.layer,
 		laypage = layui.laypage,
 		table = layui.table,
-		$ = layui.$;
+		laytpl = layui.laytpl,
+		$ = layui.$;//以上只是将所需要的文件拿出来，以便于后面使用。
 		
 //==================一个table实例================================
 	  table.render({
 	    elem: '#demo',//渲染对象
+	    height: 'full-88',//表格高度
 	    url: 'getUserInfoList', //数据接口
 	    where: {key: ''},//给后台传的参数
 	    page: true, //开启分页
@@ -37,7 +39,7 @@ layui.config({
 		    		  return '<span class="layui-badge layui-bg-blue">已审核</span>'
 		    	  }
 		      }}
-		      ,{fixed: 'right', align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
+		      ,{fixed: 'right', align:'center',title:'操作', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
 		    ]]
 	  });
 	  

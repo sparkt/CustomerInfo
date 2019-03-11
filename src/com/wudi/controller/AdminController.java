@@ -115,7 +115,7 @@ public class AdminController extends Controller {
 		public void check() {
 			String phone_no = getPara("phone_no");
 			UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-			m.setStatus("1");
+			m.setStatus(1);
 			boolean  result = m.update();
 			setAttr("result", result);
 			renderJson();
@@ -186,8 +186,8 @@ public class AdminController extends Controller {
 			}else {
 				user_sex="女";
 			}
-			
-			boolean result = new UserInfoModel().updataUserinfo(user_name, user_password, user_sex, phone_no, "1", "0");
+
+			boolean result = new UserInfoModel().updataUserinfo(user_name, user_password, user_sex, phone_no, "1", 0);
 			
 			setAttr("result", result);
 			}else {
