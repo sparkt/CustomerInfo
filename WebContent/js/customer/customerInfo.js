@@ -116,7 +116,7 @@ layui.config({//框架的固定，配置的使用
 		 //关闭当前提示	
 	      layer.close(index);
 	    });
-	  } else if(layEvent === 'handle'){ //处理
+	  } else if(layEvent === 'chuli'){ //处理
 		  layer.confirm('确定处理此信息？',{icon:3, title:'提示信息'},function(index){
 				var msgid;
 				//向服务端发送指令
