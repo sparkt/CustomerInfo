@@ -9,6 +9,12 @@ layui.config({
 	
  	form.on("submit(update)",function(data){
  		var index;
+ 		var $1 = $.trim($('#user_name').val());
+        var $2 = $.trim($("#user_password").val());
+        if($1 == '' || $2 == ''){  
+            top.layer.msg('用户名和密码不能为空且不能为空格！',function() {time:2000}); 
+            return false;  
+        }else{
  		 $.ajax({//异步请求返回给后台
 	    	  url:'updataUserinfo',
 	    	  type:'POST',
@@ -33,6 +39,7 @@ layui.config({
 	    		      });
 	           }
 	      });
+        }
  		return false;
  	})
 	

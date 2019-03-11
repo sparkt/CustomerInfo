@@ -12,6 +12,7 @@ import com.wudi.interceptor.AdminInterceptor;
 import com.wudi.model.admin.CustomerModel;
 import com.wudi.model.admin.GroupInfoModel;
 import com.wudi.model.admin.UserInfoModel;
+import com.wudi.util.StringUtil;
 import com.wudi.util.Util;
 
 /**
@@ -114,7 +115,7 @@ public class AdminController extends Controller {
 		public void check() {
 			String phone_no = getPara("phone_no");
 			UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
-			m.setStatus("1");
+			m.setStatus(1);
 			boolean  result = m.update();
 			setAttr("result", result);
 			renderJson();
@@ -181,15 +182,19 @@ public class AdminController extends Controller {
 			String user_password = getPara("user_password");
 			String user_sex = getPara("user_sex");
 			String phone_no = getPara("phone_no");
-			
+			if(!StringUtil.isBlankOrEmpty(user_password)&&!StringUtil.isBlankOrEmpty(user_name)) {
 			if(user_sex.equals("0")) {
 				user_sex="男";
 			}else {
 				user_sex="女";
 			}
-			boolean result = new UserInfoModel().updataUserinfo(user_name, user_password, user_sex, phone_no, "1", "0");
+
+			boolean result = new UserInfoModel().updataUserinfo(user_name, user_password, user_sex, phone_no, "1", 0);
 			
 			setAttr("result", result);
+			}else {
+				setAttr("result", "修改失败，用户名或密码为空！");
+			}
 			renderJson();
 		}
 		

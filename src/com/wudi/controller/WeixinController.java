@@ -113,16 +113,15 @@ public class WeixinController extends Controller {
 		String phone_no = getPara("phone_no");
 		UserInfoModel user = new UserInfoModel().getphone_no(phone_no);
 		GroupInfoModel groups = null;
-		String info = "";
-		if (user.getGroup().equals("0")) {
-			info = "你还没加入团队";
-		} else {
+		if (!user.getGroup().equals("0")) {
 			groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
-		}
+		} 
 		List<CustomerModel> customers = CustomerModel.findListByPhone_no(phone_no);
+		List<InformModel> infos=InformModel.getListByphone_no(phone_no);
 		setAttr("user", user);
 		setAttr("customers", customers);
 		setAttr("groups", groups);
+		setAttr("infos", infos);
 		renderJson();
 	}
 
@@ -269,7 +268,7 @@ public class WeixinController extends Controller {
 		if (m != null) {
 			type = m.getType();
 			if (m.getUser_password().equals(user_password)) {
-				if (m.getStatus().equals("0")) {
+				if (m.getStatus()==0) {
 					code = 3;
 					info = "未审核用户";
 				} else {
@@ -394,7 +393,17 @@ public class WeixinController extends Controller {
 		renderJson();
 	}
 	/**
-	 *  点击查看队员的客户信息
+
+	 * 查看队友的客户信息
+	 */
+	public void getTeamCustInfo() {
+		String phone_no=getPara("phone_no");
+		List<CustomerModel> list = CustomerModel.findListByPhone_no(phone_no);
+		setAttr("data", list);
+		renderJson();
+	}
+
+	/* *  点击查看队员的客户信息
 	 */
 	public void getCustomersByUser() {
 		String phone_no=getPara("phone_no");
