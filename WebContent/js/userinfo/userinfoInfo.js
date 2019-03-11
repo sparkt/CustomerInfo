@@ -13,7 +13,7 @@ layui.config({
 	    elem: '#demo',//渲染对象
 	    height: 'full-88',//表格高度
 	    url: 'getUserInfoList', //数据接口
-	    where: {key: ''},//给后台传的参数
+	    where: {key: '',type:'1'},//给后台传的参数
 	    page: true, //开启分页
 	    limit: 10,//每页显示信息条数
 	    toolbar: '#toolbarDemo',
@@ -44,7 +44,7 @@ layui.config({
 		    ]], done : function(obj){
 		    	this.obj=obj;
 		    	$('#xls').on('click', function() {//导出所有数据
-		    		 table.exportFile(ins.config.id,obj.testdata,'xls');
+		    		 table.exportFile(ins.config.id,obj.xlsdata,'xls');
 		    		  
 		    		  });
 		    }
