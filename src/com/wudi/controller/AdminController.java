@@ -126,14 +126,17 @@ public class AdminController extends Controller {
 		 * @author Zhangzhiqiang
 		 * */
 		public void getUserInfoList() {
+			String type = getPara("type");
 			String key = getPara("key");
 			int limit=getParaToInt("limit");
 			int page=getParaToInt("page");
 			Page<UserInfoModel> list = new UserInfoModel().getList(page, limit, key);
+			List<UserInfoModel> xlsList = new UserInfoModel().getXls(type);
 			setAttr("code", 0);
 			setAttr("msg", "你好！");
 			setAttr("count", list.getTotalRow());
 			setAttr("data", list.getList());
+			setAttr("xlsdata",xlsList);
 			renderJson();
 		}
 		
@@ -215,13 +218,16 @@ public class AdminController extends Controller {
 		public void getAdminlist() {
 			// 获取页面查询的关键字
 			String key = getPara("key");
+			String type = getPara("type");
 			int limit=getParaToInt("limit");
 			int page=getParaToInt("page");
 			Page<UserInfoModel> list = new UserInfoModel().getList(page, limit, key,2);
+			List<UserInfoModel> xlslist = new UserInfoModel().getXls(type);
 			setAttr("code", 0);
 			setAttr("msg", "你好！");
 			setAttr("count", list.getTotalRow());
 			setAttr("data", list.getList());
+			setAttr("xlsdata",xlslist);
 			renderJson();
 		}
 	public void openCuStomers() {
@@ -246,10 +252,12 @@ public class AdminController extends Controller {
         int page=getParaToInt("page");
         String type=getPara("type"); 
         Page<CustomerModel> list = CustomerModel.getList(page, limit, key,type);
+        List<CustomerModel> datalist = new  CustomerModel().getXls(type);
         setAttr("code", 0);
         setAttr("msg", "你好！");
         setAttr("count", list.getTotalRow());
         setAttr("data", list.getList());
+        setAttr("xlsdata", datalist);
         renderJson();
 	}
 	
@@ -323,11 +331,13 @@ public class AdminController extends Controller {
 		String key = getPara("key");
 		int limit=getParaToInt("limit");
 		int page=getParaToInt("page");
-		Page<GroupInfoModel> list = new GroupInfoModel().getList(page, limit, key);
+		Page<GroupInfoModel> list = new GroupInfoModel().getList(page, limit, key); 
+		List<GroupInfoModel> xlslist = new GroupInfoModel().getXls();
 		setAttr("code", 0);
 		setAttr("msg", "你好！");
 		setAttr("count", list.getTotalRow());
 		setAttr("data", list.getList());
+		setAttr("xlsdata", xlslist);
 		renderJson();
 	}
 
@@ -472,6 +482,33 @@ public class AdminController extends Controller {
 			setAttr("result", result);
 			renderJson();
 		}
+		/**
+		 * 后台管理用户
+		 */
+		public void openAdminAdd() {
+			render("admininfo/adminAdd.html");
+		}
+		public void saveadmin() {
+			String user_name = getPara("user_name");
+			String user_password = getPara("user_password");
+			String user_sex = getPara("user_sex");
+			String phone_no = getPara("phone_no");
+			if(user_sex.equals("0")) {
+				user_sex="男";
+			}else {
+				user_sex="女";
+			}
+			boolean result =true;
+			UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+			if(m!=null) {
+				result=false;
+			}else {
+
+				result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0",2);
+			}
+			setAttr("result", result);
+			renderJson();
+			}
 	/**
 	 * 获取主页面图表数据
 	 * xiao

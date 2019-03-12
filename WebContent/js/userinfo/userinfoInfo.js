@@ -9,11 +9,11 @@ layui.config({
 		$ = layui.$;//以上只是将所需要的文件拿出来，以便于后面使用。
 		
 //==================一个table实例================================
-	  table.render({
+	var ins=  table.render({
 	    elem: '#demo',//渲染对象
 	    height: 'full-88',//表格高度
 	    url: 'getUserInfoList', //数据接口
-	    where: {key: ''},//给后台传的参数
+	    where: {key: '',type:'1'},//给后台传的参数
 	    page: true, //开启分页
 	    limit: 10,//每页显示信息条数
 	    toolbar: '#toolbarDemo',
@@ -39,9 +39,22 @@ layui.config({
 		    		  return '<span class="layui-badge layui-bg-blue">已审核</span>'
 		    	  }
 		      }}
+
 		      ,{fixed: 'right', align:'center',title:'操作', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
-		    ]]
+		    ]], done : function(obj){
+		    	this.obj=obj;
+		    	$('#xls').on('click', function() {//导出所有数据
+		    		 table.exportFile(ins.config.id,obj.xlsdata,'xls');
+		    		  
+		    		  });
+		    }
+
 	  });
+	  
+
+	  
+	  
+	  
 	  
 //====================点击【搜索】按钮事件===========================
   var active = {
@@ -64,6 +77,10 @@ layui.config({
 	  var type = $(this).data('type');
 	  active[type] ? active[type].call(this) : '';
 	  });
+  
+  
+  
+  
   
 //=============绑定【添加】事件============================
 	$(window).one("resize",function(){
@@ -108,6 +125,7 @@ layui.config({
 				   		//layer.closeAll("iframe");
 				  	 		//刷新父页面
 				  	 	parent.location.reload();
+				  	 
 			    		
 		    	  },
 		    	  error:function(XMLHttpRequest, textStatus, errorThrown){
@@ -121,7 +139,7 @@ layui.config({
 	 	
 		  
 	  } else if(layEvent === 'del'){
-		  
+
 		  
 	  } else if(layEvent === 'edit'){ //编辑
 		  var index = layui.layer.open({

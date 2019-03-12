@@ -279,6 +279,21 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
+	
+	public List<UserInfoModel>getXls(String type){
+		List<UserInfoModel> list;
+		if(type.equals("1")) {
+			list = dao.find("select * from "+tableName);
+		}else {
+			list = dao.find("select * from "+tableName+" where type='2'");
+		}
+		
+		return list;
+		
+		
+		
+	}
+	
 	public  Page<UserInfoModel> getList(int pageNumber, int pageSize, String key,int type) {
 		String sele_sql = "select * ";
 		StringBuffer from_sql = new StringBuffer();
@@ -288,6 +303,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
+	
 	public  Page<UserInfoModel> getmenberList(int pageNumber, int pageSize, String key) {
 		String sele_sql = "select * ";
 		StringBuffer from_sql = new StringBuffer();

@@ -8,10 +8,10 @@ layui.config({
 		$ = layui.$;
 
 //==================一个table实例================================
-	  table.render({
+	var ins=table.render({
 	    elem: '#demo',//渲染对象
 	    url: 'getAdminlist', //数据接口
-	    where: {key: ''},//给后台传的参数
+	    where: {key: '',type:'2'},//给后台传的参数
 	    page: true, //开启分页
 	    toolbar: '#toolbarDemo',
 	    limit: 10,//每页显示信息条数
@@ -30,7 +30,13 @@ layui.config({
 		      ,{field: 'user_password' ,title:'管理员密码'}
 
 		      ,{fixed: 'right', align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
-		    ]]
+		    ]], done : function(obj){
+		    	this.obj=obj;
+		    	$('#xls').on('click', function() {//导出所有数据
+		    		 table.exportFile(ins.config.id,obj.xlsdata,'xls');
+		    		  
+		    		  });
+		    }
 	  });
 	  
 //====================点击【搜索】按钮事件===========================
