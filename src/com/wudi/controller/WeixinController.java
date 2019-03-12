@@ -239,7 +239,7 @@ public class WeixinController extends Controller {
 			code = 1;
 			info = "用户已经存在";
 		} else {
-			boolean result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no, "0", 1);
+			boolean result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0", 0, 1);
 			if (result) {
 				code = 2;
 				info = "注册成功";
