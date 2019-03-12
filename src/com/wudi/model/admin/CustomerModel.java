@@ -451,7 +451,9 @@ public class CustomerModel extends Model<CustomerModel> {
 		return list;
 	}
 	public static List<CustomerModel> AdminGetInfoByType(String type){
-		return dao.find("select * from "+tableName+" where type=?",type);
+		String sql = "select * from " + tableName + " where type=?";
+		List<CustomerModel> list = dao.find(sql, type);
+		return list;
 	}
 
 	/**
