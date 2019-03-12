@@ -9,9 +9,9 @@ layui.config({
 	
  	form.on("submit(update)",function(data){
  		var index;
- 		var $1 = $.trim($('#user_name').val());
-        var $2 = $.trim($("#user_password").val());
-        if($1 == '' || $2 == ''){  
+ 		var user_name = $.trim($('#user_name').val());
+        var user_password = $.trim($("#user_password").val());
+        if(user_password == '' || user_name == ''){  
             top.layer.msg('用户名和密码不能为空且不能为空格！',function() {time:2000}); 
             return false;  
         }else{
