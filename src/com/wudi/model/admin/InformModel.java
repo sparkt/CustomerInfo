@@ -67,14 +67,18 @@ import com.jfinal.plugin.activerecord.Model;
 	public boolean circularize( String info, String phone_no ,String time) {
 		boolean result =false;
 		InformModel save = new InformModel();
-		save.setphone_no(phone_no);
-		save.setinfo(info);
-		save.settime(time);
-		InformModel m = dao.getphone_no(phone_no);
+		
+		InformModel m = InformModel.getphone_no(phone_no);
 		//如果信息存在及更新，不存在即保存
 		if(m!=null){
-			result = save.update();
+			m.setphone_no(phone_no);
+			m.setinfo(info);
+			m.settime(time);
+			result = m.update();
 		}else {
+			save.setphone_no(phone_no);
+			save.setinfo(info);
+			save.settime(time);
 			result = save.save();
 		}
 		
