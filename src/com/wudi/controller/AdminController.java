@@ -474,6 +474,33 @@ public class AdminController extends Controller {
 			setAttr("result", result);
 			renderJson();
 		}
+		/**
+		 * 后台管理用户
+		 */
+		public void openAdminAdd() {
+			render("admininfo/adminAdd.html");
+		}
+		public void saveadmin() {
+			String user_name = getPara("user_name");
+			String user_password = getPara("user_password");
+			String user_sex = getPara("user_sex");
+			String phone_no = getPara("phone_no");
+			if(user_sex.equals("0")) {
+				user_sex="男";
+			}else {
+				user_sex="女";
+			}
+			boolean result =true;
+			UserInfoModel m = new UserInfoModel().getphone_no(phone_no);
+			if(m!=null) {
+				result=false;
+			}else {
+
+				result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0",2);
+			}
+			setAttr("result", result);
+			renderJson();
+			}
 	/**
 	 * 获取主页面图表数据
 	 * xiao
