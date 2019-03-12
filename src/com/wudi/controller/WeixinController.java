@@ -117,8 +117,7 @@ public class WeixinController extends Controller {
 			groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
 		} 
 		List<CustomerModel> customers = CustomerModel.findListByPhone_no(phone_no);
-		List<InformModel> infos=InformModel.getListByphone_no(phone_no);
-		setAttr("user", user);
+		InformModel infos=InformModel.getByphone_no(phone_no);
 		setAttr("customers", customers);
 		setAttr("groups", groups);
 		setAttr("infos", infos);
