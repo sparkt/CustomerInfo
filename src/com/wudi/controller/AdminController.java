@@ -252,10 +252,12 @@ public class AdminController extends Controller {
         int page=getParaToInt("page");
         String type=getPara("type"); 
         Page<CustomerModel> list = CustomerModel.getList(page, limit, key,type);
+        List<CustomerModel> datalist = new  CustomerModel().getXls(type);
         setAttr("code", 0);
         setAttr("msg", "你好！");
         setAttr("count", list.getTotalRow());
         setAttr("data", list.getList());
+        setAttr("xlsdata", datalist);
         renderJson();
 	}
 	
@@ -329,11 +331,13 @@ public class AdminController extends Controller {
 		String key = getPara("key");
 		int limit=getParaToInt("limit");
 		int page=getParaToInt("page");
-		Page<GroupInfoModel> list = new GroupInfoModel().getList(page, limit, key);
+		Page<GroupInfoModel> list = new GroupInfoModel().getList(page, limit, key); 
+		List<GroupInfoModel> xlslist = new GroupInfoModel().getXls();
 		setAttr("code", 0);
 		setAttr("msg", "你好！");
 		setAttr("count", list.getTotalRow());
 		setAttr("data", list.getList());
+		setAttr("xlsdata", xlslist);
 		renderJson();
 	}
 
