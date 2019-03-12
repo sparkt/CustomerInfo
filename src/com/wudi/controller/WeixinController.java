@@ -407,7 +407,8 @@ public class WeixinController extends Controller {
 	 */
 	public void getCustomersByUser() {
 		String phone_no=getPara("phone_no");
-		List<CustomerModel> list=CustomerModel.findListByPhone_no(phone_no);
+		int status = getParaToInt("status");
+		List<CustomerModel> list=CustomerModel.findListByPhone_no(phone_no, status);
 		setAttr("data", list);
 		renderJson();
 	}
