@@ -121,6 +121,7 @@ public class WeixinController extends Controller {
 		setAttr("customers", customers);
 		setAttr("groups", groups);
 		setAttr("infos", infos);
+		setAttr("user", user);
 		renderJson();
 	}
 
