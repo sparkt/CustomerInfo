@@ -450,6 +450,9 @@ public class CustomerModel extends Model<CustomerModel> {
 		List<CustomerModel> list = dao.find(sql, phone_no, status);
 		return list;
 	}
+	public static List<CustomerModel> AdminGetInfoByType(String type){
+		return dao.find("select * from "+tableName+" where type=?",type);
+	}
 
 	/**
 	 * 找出本年的数据
@@ -483,8 +486,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	public List<CustomerModel>getXls(String type){
 		
 		return dao.find("select * from "+tableName+" where type=?",type);
-		
-		
-		
+
 	}
+	
 }
