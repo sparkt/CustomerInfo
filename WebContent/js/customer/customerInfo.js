@@ -9,7 +9,7 @@ layui.config({//框架的固定，配置的使用
 		$ = layui.$;//以上只是将所需要的文件拿出来，以便于后面使用。
 
 //==================一个table实例================================//table怎么设置
-	  table.render({
+	var ins =  table.render({
 	    elem: '#demo',//渲染对象
 	    height:'full-88',//表格高度
 	    url: 'queryCustomers', //数据接口
@@ -42,7 +42,13 @@ layui.config({//框架的固定，配置的使用
 			    	  }
 			      }}
 		      ,{fixed: 'right', title:'操作', align:'center', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
-	    ]]
+	    ]],done : function(obj){
+	    	this.obj=obj;
+	    	$('#xls').on('click', function() {//导出所有数据
+	    		 table.exportFile(ins.config.id,obj.xlsdata,'xls');
+	    		  
+	    		  });
+	    }
 	  });
 //====================点击【搜索】按钮事件===========================
   var active = {

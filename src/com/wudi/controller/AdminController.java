@@ -126,16 +126,17 @@ public class AdminController extends Controller {
 		 * @author Zhangzhiqiang
 		 * */
 		public void getUserInfoList() {
+			String type = getPara("type");
 			String key = getPara("key");
 			int limit=getParaToInt("limit");
 			int page=getParaToInt("page");
 			Page<UserInfoModel> list = new UserInfoModel().getList(page, limit, key);
-			List<UserInfoModel> testlist = new UserInfoModel().gettest(key);
+			List<UserInfoModel> xlsList = new UserInfoModel().getXls(type);
 			setAttr("code", 0);
 			setAttr("msg", "你好！");
 			setAttr("count", list.getTotalRow());
 			setAttr("data", list.getList());
-			setAttr("testdata",testlist);
+			setAttr("xlsdata",xlsList);
 			renderJson();
 		}
 		
@@ -217,13 +218,16 @@ public class AdminController extends Controller {
 		public void getAdminlist() {
 			// 获取页面查询的关键字
 			String key = getPara("key");
+			String type = getPara("type");
 			int limit=getParaToInt("limit");
 			int page=getParaToInt("page");
 			Page<UserInfoModel> list = new UserInfoModel().getList(page, limit, key,2);
+			List<UserInfoModel> xlslist = new UserInfoModel().getXls(type);
 			setAttr("code", 0);
 			setAttr("msg", "你好！");
 			setAttr("count", list.getTotalRow());
 			setAttr("data", list.getList());
+			setAttr("xlsdata",xlslist);
 			renderJson();
 		}
 	public void openCuStomers() {
@@ -248,10 +252,12 @@ public class AdminController extends Controller {
         int page=getParaToInt("page");
         String type=getPara("type"); 
         Page<CustomerModel> list = CustomerModel.getList(page, limit, key,type);
+        List<CustomerModel> datalist = new  CustomerModel().getXls(type);
         setAttr("code", 0);
         setAttr("msg", "你好！");
         setAttr("count", list.getTotalRow());
         setAttr("data", list.getList());
+        setAttr("xlsdata", datalist);
         renderJson();
 	}
 	
@@ -325,11 +331,13 @@ public class AdminController extends Controller {
 		String key = getPara("key");
 		int limit=getParaToInt("limit");
 		int page=getParaToInt("page");
-		Page<GroupInfoModel> list = new GroupInfoModel().getList(page, limit, key);
+		Page<GroupInfoModel> list = new GroupInfoModel().getList(page, limit, key); 
+		List<GroupInfoModel> xlslist = new GroupInfoModel().getXls();
 		setAttr("code", 0);
 		setAttr("msg", "你好！");
 		setAttr("count", list.getTotalRow());
 		setAttr("data", list.getList());
+		setAttr("xlsdata", xlslist);
 		renderJson();
 	}
 

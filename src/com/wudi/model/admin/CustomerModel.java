@@ -158,7 +158,7 @@ public class CustomerModel extends Model<CustomerModel> {
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
-
+	
 	public static Page<CustomerModel> getList(int pageNumber, int pageSize, String key) {
 		String sele_sql = "select * ";
 		StringBuffer from_sql = new StringBuffer();
@@ -478,5 +478,13 @@ public class CustomerModel extends Model<CustomerModel> {
 		String sql = "select * from " + tableName + " where tel_no=? and type=?";
 		CustomerModel m = dao.findFirst(sql, tel_no, type);
 		return m;
+	}
+	
+	public List<CustomerModel>getXls(String type){
+		
+		return dao.find("select * from "+tableName+" where type=?",type);
+		
+		
+		
 	}
 }

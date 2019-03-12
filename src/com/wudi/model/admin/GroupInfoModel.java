@@ -158,5 +158,17 @@ public class GroupInfoModel extends Model<GroupInfoModel> {
 			}
 			return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 		}
+		
+		public List<GroupInfoModel>getXls(){
+			
+			return dao.find("select * from "+tableName);
+			
+			
+			
+		}
+		
+		
+		
+		
 }
 	
