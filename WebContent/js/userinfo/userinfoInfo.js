@@ -125,7 +125,7 @@ layui.config({
 				   		//layer.closeAll("iframe");
 				  	 		//刷新父页面
 				  	 	parent.location.reload();
-				  	 	table.exportFile(ins.config.id, obj.testdata,'xls');
+				  	 
 			    		
 		    	  },
 		    	  error:function(XMLHttpRequest, textStatus, errorThrown){
