@@ -163,7 +163,7 @@ public class AdminController extends Controller {
 				result=false;
 			}else {
 
-				result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0",1);
+				result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0",1,0);
 			}
 			setAttr("result", result);
 			renderJson();
@@ -504,7 +504,7 @@ public class AdminController extends Controller {
 				result=false;
 			}else {
 
-				result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0",2);
+				result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0",2,1);
 			}
 			setAttr("result", result);
 			renderJson();

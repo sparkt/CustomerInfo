@@ -92,14 +92,14 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	 * @param status
 	 * @return
 	 */
-	public  boolean saveUserinfo(String user_name,String user_password, String user_sex,String phone_no,String vip_grade,int type) {
+	public  boolean saveUserinfo(String user_name,String user_password, String user_sex,String phone_no,String vip_grade,int type,int status) {
 		UserInfoModel m=new UserInfoModel();
 		m.setUser_name(user_name);
 		m.setUser_password(user_password);
 		m.setUser_sex(user_sex);
 		m.setPhone_no(phone_no);
 		m.setVip_grade(vip_grade);
-		m.setStatus(0);//开始注册还没有审核传0
+		m.setStatus(status);//开始注册用户还没有审核传0，添加管理员传1
 		m.setType(type);
 		m.setGroup("0");//开始注册没有团队传0
 		return m.save();
