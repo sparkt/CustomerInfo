@@ -57,6 +57,11 @@ import com.jfinal.plugin.activerecord.Model;
 		return dao.find(selectsql,phone_no);
 		
 	}
+	public static InformModel getByphone_no(String phone_no) {
+		String selectsql = "SELECT * FROM " + tableName + " WHERE phone_no=?";
+		return dao.findFirst(selectsql,phone_no);
+		
+	}
 	/**
 	 * 保存通知信息
 	 * @param info

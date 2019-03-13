@@ -117,11 +117,11 @@ public class WeixinController extends Controller {
 			groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
 		} 
 		List<CustomerModel> customers = CustomerModel.findListByPhone_no(phone_no);
-		List<InformModel> infos=InformModel.getListByphone_no(phone_no);
-		setAttr("user", user);
+		InformModel infos=InformModel.getByphone_no(phone_no);
 		setAttr("customers", customers);
 		setAttr("groups", groups);
 		setAttr("infos", infos);
+		setAttr("user", user);
 		renderJson();
 	}
 
@@ -380,18 +380,7 @@ public class WeixinController extends Controller {
 			}
 		}
 	}
-	/*
-	 * 
-	 * 管理员获取客户信息接口 lijinpeng
-	 * 
-	 */
-
-	public void getByType() {
-		String type = getPara("type");
-		List<CustomerModel> list = CustomerModel.getCustomerNum(type);
-		setAttr("data", list);
-		renderJson();
-	}
+	
 	/**
 
 	 * 查看队友的客户信息
@@ -409,6 +398,15 @@ public class WeixinController extends Controller {
 		String phone_no=getPara("phone_no");
 		int status = getParaToInt("status");
 		List<CustomerModel> list=CustomerModel.findListByPhone_no(phone_no, status);
+		setAttr("data", list);
+		renderJson();
+	}
+	/**
+	 * 管理员查看各个模块的客户信息
+	 */
+	public void AdminGetCustmoerInfo() {
+		String type = getPara("type");
+		List <CustomerModel> list = CustomerModel.AdminGetInfoByType(type);
 		setAttr("data", list);
 		renderJson();
 	}
