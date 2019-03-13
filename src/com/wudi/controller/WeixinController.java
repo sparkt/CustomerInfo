@@ -396,8 +396,8 @@ public class WeixinController extends Controller {
 	 */
 	public void getCustomersByUser() {
 		String phone_no=getPara("phone_no");
-		int status = getParaToInt("status");
-		List<CustomerModel> list=CustomerModel.findListByPhone_no(phone_no, status);
+		//int status = getParaToInt("status");
+		List<CustomerModel> list=CustomerModel.TeamfindListByPhone_no(phone_no);
 		setAttr("data", list);
 		renderJson();
 	}
