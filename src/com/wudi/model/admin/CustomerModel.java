@@ -451,7 +451,7 @@ public class CustomerModel extends Model<CustomerModel> {
 		return list;
 	}
 	public static List<CustomerModel> TeamfindListByPhone_no(String phone_no) {
-		String sql = "select * from " + tableName + " where phone_no=? and status = 1 or status =2";
+		String sql = "select * from " + tableName + " where phone_no=? and status between 1 and 2";
 		List<CustomerModel> list = dao.find(sql, phone_no);
 		return list;
 	}

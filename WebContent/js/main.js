@@ -175,7 +175,7 @@ layui.config({
     	            markPoint : {
     	                data : [
     	                    {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
-    	                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+    	                    {name : '年最低', value : 2.3, xAxis: 11, yAxis: 6}
     	                ]
     	            },
     	            markLine : {
