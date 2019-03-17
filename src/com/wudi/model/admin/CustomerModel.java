@@ -293,6 +293,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	public static boolean saveOrUpate(String id, String name, int sex, String tel_no, int disclose, int age,
 			String work_address, String comments, String phone_no, String nation, String type, int status) {
 		boolean result = false;
+		CustomerModel update=findModelById(id);
 		CustomerModel model = findModel(tel_no, type);
 		if (StringUtil.isBlankOrEmpty(id)) {// 为保存
 			if (model == null) {
@@ -314,7 +315,7 @@ public class CustomerModel extends Model<CustomerModel> {
 				 * 1：未处理，首次录入信息 2：已经跟进，已经修改备注 3：待处理，已经跟进，还未成交 6：已成交
 				 */
 				if (!StringUtil.isBlankOrEmpty(comments)) {
-					if (status == 1) {// 只有未处理状态的时候才可以修改
+					if (status == 1&&!update.getComments().equals(comments)) {// 只有未处理状态并且备注不等于第一次添加的时候才可以修改
 						status = 2;
 					}
 				}
@@ -355,9 +356,10 @@ public class CustomerModel extends Model<CustomerModel> {
 			String sql = "select * from " + tableName + " where type = ?";
 			list = dao.find(sql, type);
 		} else {
-			String sql = "select * from " + tableName + " where phone_no=? and type = ?";
+			String sql = "select * from " + tableName + " where phone_no=? and type = ? and status between 1 and 2";
 			list = dao.find(sql, phone_no, type);
 		}
+		
 
 		return list;
 	}
@@ -379,6 +381,13 @@ public class CustomerModel extends Model<CustomerModel> {
 		List<CustomerModel> list = dao.find(sql, phone_no);
 		return list;
 	}
+	
+	public static List<CustomerModel> findListByPhone_noandType(String phone_no,int type) {
+		String sql = "select * from " + tableName + " where phone_no=? and type = ?";
+		List<CustomerModel> list = dao.find(sql, phone_no,type);
+		return list;
+	}
+
 
 	public static List<CustomerModel> findListByStatus(int status, String phone_no) {
 		String sql = "select * from " + tableName + " where status=? and phone_no =?";
@@ -488,6 +497,11 @@ public class CustomerModel extends Model<CustomerModel> {
 		String sql = "select * from " + tableName + " where tel_no=? and type=?";
 		CustomerModel m = dao.findFirst(sql, tel_no, type);
 		return m;
+	}
+	public static CustomerModel findModelById(String id) {
+		String sql = "select * from " + tableName + " where id =?";
+		CustomerModel u = dao.findFirst(sql, id);
+		return u;
 	}
 	
 	public List<CustomerModel>getXls(String type){
