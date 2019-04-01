@@ -105,7 +105,8 @@ public class AdminController extends Controller {
 		public void openUserinfoEdit() {
 			// 接收页面数据
 				String phone_no = getPara("phone_no");
-				setAttr("phone_no", phone_no);
+				UserInfoModel m=UserInfoModel.findByPhone_no(phone_no);
+				setAttr("user", m);
 				renderFreeMarker("userinfo/userinfoEdit.html");
 		}
 		
@@ -183,6 +184,7 @@ public class AdminController extends Controller {
 			String user_password = getPara("user_password");
 			String user_sex = getPara("user_sex");
 			String phone_no = getPara("phone_no");
+			String vip_grade = getPara("vip_grade");
 			if(!StringUtil.isBlankOrEmpty(user_password)&&!StringUtil.isBlankOrEmpty(user_name)) {
 			if(user_sex.equals("0")) {
 				user_sex="男";
@@ -190,13 +192,23 @@ public class AdminController extends Controller {
 				user_sex="女";
 			}
 
-			boolean result = new UserInfoModel().updataUserinfo(user_name, user_password, user_sex, phone_no, "1", 0);
+			boolean result = new UserInfoModel().updataUserinfo(user_name, user_password, user_sex, phone_no, vip_grade, 0);
 			
 			setAttr("result", result);
 			}else {
 				setAttr("result", "修改失败，用户名或密码为空！");
 			}
 			renderJson();
+		}
+		/**
+		 * 增加一个删除
+		 * Ljp
+		 */
+		public void deleteUserinfo() {
+			String id=getPara("id");
+		    boolean result = UserInfoModel.delByID(id);
+		    setAttr("result", result);
+		    renderJson();
 		}
 		
 		/*

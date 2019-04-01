@@ -121,7 +121,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	}
 
 	/**
-	 * 1：未处理，首次录入信息 2：已经跟进，已经修改备注 3：待处理，已经跟进，还未成交（显示的按钮就是“处理”） 6：已成交，没有按钮
+	 * 1：未处理，首次录入信息 2：已经跟进，已经修改备注  6：已成交，没有按钮
 	 * 
 	 * @param status
 	 */
@@ -323,6 +323,32 @@ public class CustomerModel extends Model<CustomerModel> {
 				model.setcreate_time(new Date());
 			}
 			result = update(id, model);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 管理员修改函数
+	 */
+	public static boolean adminUpdate(String id, String name, int sex, String tel_no, int disclose, int age,
+			String work_address, String comments,  String nation, String type, int status) {
+		boolean result = false;
+		CustomerModel m =CustomerModel.getById(id);
+		m.setName(name);
+		m.setAge(age);
+		m.setNation(nation);
+		m.setComments(comments);
+		m.setDisclose(disclose);
+		m.setSex(sex);
+		m.setTel_no(tel_no);
+		m.setWork_address(work_address);
+		m.settype(type);
+		m.setstatus(status);
+		try {
+			result = m.update();
+		} catch (Exception e) {
+			result = false;
 		}
 		return result;
 	}

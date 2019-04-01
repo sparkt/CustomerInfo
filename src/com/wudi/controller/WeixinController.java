@@ -313,6 +313,24 @@ public class WeixinController extends Controller {
 		setAttr("result", result);
 		renderJson();
 	}
+	public void adminUpdateCustomer() {
+		String id = getPara("id");
+		String name = getPara("name");
+		int sex = getParaToInt("sex");
+		String tel_no = getPara("tel_no");
+		int disclose = getParaToInt("disclose");
+		int age = getParaToInt("age");
+		String work_address = getPara("work_address");
+		String comments = getPara("comments");
+		String nation = getPara("nation");
+		String type = getPara("type");
+		int status = getParaToInt("status");
+		// 保存数据
+		 boolean result = CustomerModel.adminUpdate(id, name, sex, tel_no, disclose, age, work_address, comments,
+				nation, type, status);
+		setAttr("result", result);
+		renderJson();
+	}
 
 	/*
 	 * 根据id查找客户信息
@@ -331,6 +349,7 @@ public class WeixinController extends Controller {
 
 	/**
 	 * 根据电话号码查询客户信息
+	 * 普通用户的
 	 */
 	public void getCustomerByPhoneNo() {
 		String phone_no = getPara("phone_no");

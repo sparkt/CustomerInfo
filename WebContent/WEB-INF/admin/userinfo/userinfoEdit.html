@@ -19,19 +19,25 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">姓名</label>
 			<div class="layui-input-inline">
-				<input type="text" class="layui-input" name="user_name" id="user_name">
+				<input type="text" class="layui-input" name="user_name" id="user_name" lay-verify="required"   autocomplete="off"  value="${(user.user_name)}">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">手机号码</label>
 			<div class="layui-input-inline">
-				<input type="text" class="layui-input  layui-disabled" name="phone_no"  lay-verify="required"   autocomplete="off" value="${(phone_no)}">
+				<input type="text" class="layui-input  layui-disabled" name="phone_no"  lay-verify="required"   autocomplete="off" value="${(user.phone_no)}">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">密码</label>
 			<div class="layui-input-inline">
-				<input type="text" class="layui-input" name="user_password" placeholder="请输入密码"  autocomplete="off" id="user_password">
+				<input type="password" class="layui-input" name="user_password" placeholder="请输入密码"  autocomplete="off" id="user_password" value="${(user.user_password)}">
+			</div>
+		</div>
+				<div class="layui-form-item">
+			<label class="layui-form-label">修改会员</label>
+			<div class="layui-input-inline">
+				<input type="text" class="layui-input" name="vip_grade" placeholder="请输入0或1"  autocomplete="off" >
 			</div>
 		</div>
 		<div class="layui-form-item">

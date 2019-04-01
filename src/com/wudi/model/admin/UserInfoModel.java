@@ -131,7 +131,23 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		return m.update();
 	
 	}
-	
+	public static boolean delByID(String id) {
+		try {
+			String delsql="DELETE FROM "+tableName+" WHERE id=?";
+			int iRet=Db.update(delsql, id);
+			if(iRet > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
 	/**
 	 *  用户加入团队
