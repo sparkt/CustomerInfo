@@ -9,11 +9,11 @@ layui.config({
 		$ = layui.$;//以上只是将所需要的文件拿出来，以便于后面使用。
 		
 //==================一个table实例================================
-	  table.render({
+	var ins=  table.render({
 	    elem: '#demo',//渲染对象
 	    height: 'full-88',//表格高度
 	    url: 'getUserInfoList', //数据接口
-	    where: {key: ''},//给后台传的参数
+	    where: {key: '',type:'1'},//给后台传的参数
 	    page: true, //开启分页
 	    limit: 10,//每页显示信息条数
 	    toolbar: '#toolbarDemo',
@@ -30,7 +30,13 @@ layui.config({
 		      }} 
 		      ,{field: 'phone_no', title: '手机号码'}
 		      ,{field: 'user_password' ,title:'用户密码'}
-		      ,{field: 'vip_grade' ,title:'等级',width:50}
+		      ,{field: 'vip_grade' ,title:'等级',width:50,templet:function(d){
+		    	  if(d.vip_grade=='1'){
+		    		  return '<span style="color: blue">1级</span>'
+		    	  }else{
+		    		  return '<span style="color: red" >0级</span>'
+		    	  }
+		      }} 
 		      ,{field: 'groups' ,title:'团队'}
 		      ,{field: 'status' ,title:'状态',width:80, templet: function(d){
 		    	  if(d.status==0){
@@ -39,9 +45,22 @@ layui.config({
 		    		  return '<span class="layui-badge layui-bg-blue">已审核</span>'
 		    	  }
 		      }}
+
 		      ,{fixed: 'right', align:'center',title:'操作', toolbar: '#barDemo'} //这里的toolbar值是模板元素的选择器
-		    ]]
+		    ]], done : function(obj){
+		    	this.obj=obj;
+		    	$('#xls').on('click', function() {//导出所有数据
+		    		 table.exportFile(ins.config.id,obj.xlsdata,'xls');
+		    		  
+		    		  });
+		    }
+
 	  });
+	  
+
+	  
+	  
+	  
 	  
 //====================点击【搜索】按钮事件===========================
   var active = {
@@ -64,6 +83,10 @@ layui.config({
 	  var type = $(this).data('type');
 	  active[type] ? active[type].call(this) : '';
 	  });
+  
+  
+  
+  
   
 //=============绑定【添加】事件============================
 	$(window).one("resize",function(){
@@ -109,6 +132,7 @@ layui.config({
 				   		//layer.closeAll("iframe");
 				  	 		//刷新父页面
 				  	 	parent.location.reload();
+				  	 
 			    		
 		    	  },
 		    	  error:function(XMLHttpRequest, textStatus, errorThrown){
@@ -122,7 +146,40 @@ layui.config({
 	 	
 		  
 	  } else if(layEvent === 'del'){
-		  
+		  layer.confirm('确定删除此信息？',{icon:3, title:'提示信息'},function(index){
+				var msgid;
+				//向服务端发送删除指令
+		 		 $.ajax({//异步请求返回给后台
+			    	  url:'deleteUserinfo',
+			    	  type:'POST',
+			    	  data:{"id":data.id},
+			    	  dataType:'json',
+			    	  beforeSend: function(re){
+			    		  msgid = top.layer.msg('数据处理中，请稍候',{icon: 16,time:false,shade:0.8});
+			          },
+			    	  success:function(d){
+			    		  top.layer.close(msgid);
+			    		  if(d.result==1){
+			    			//弹出loading
+						   		layer.closeAll("iframe");
+						   		obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+						  	 //刷新父页面
+						  	 	parent.location.reload();
+			    		  }else{
+			    			  top.layer.msg("操作失败！，数据库操作有问题！！");
+			    		  }
+				    		
+			    	  },
+			    	  error:function(XMLHttpRequest, textStatus, errorThrown){
+			    		  top.layer.msg('操作失败！！！服务器有问题！！！！<br>请检测服务器是否启动？', {
+			    		        time: 20000, //20s后自动关闭
+			    		        btn: ['知道了']
+			    		      });
+			           }
+			      });
+		 //关闭当前提示	
+	      layer.close(index);
+	    });
 		  
 	  } else if(layEvent === 'edit'){ //编辑
 		  var index = layui.layer.open({

@@ -117,11 +117,11 @@ public class WeixinController extends Controller {
 			groups = GroupInfoModel.getGroupAllInfo(user.getGroup());
 		} 
 		List<CustomerModel> customers = CustomerModel.findListByPhone_no(phone_no);
-		List<InformModel> infos=InformModel.getListByphone_no(phone_no);
-		setAttr("user", user);
+		InformModel infos=InformModel.getByphone_no(phone_no);
 		setAttr("customers", customers);
 		setAttr("groups", groups);
 		setAttr("infos", infos);
+		setAttr("user", user);
 		renderJson();
 	}
 
@@ -239,7 +239,7 @@ public class WeixinController extends Controller {
 			code = 1;
 			info = "用户已经存在";
 		} else {
-			boolean result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no, "0", 1);
+			boolean result = new UserInfoModel().saveUserinfo(user_name, user_password, user_sex, phone_no,"0", 1, 0);
 			if (result) {
 				code = 2;
 				info = "注册成功";
@@ -313,6 +313,24 @@ public class WeixinController extends Controller {
 		setAttr("result", result);
 		renderJson();
 	}
+	public void adminUpdateCustomer() {
+		String id = getPara("id");
+		String name = getPara("name");
+		int sex = getParaToInt("sex");
+		String tel_no = getPara("tel_no");
+		int disclose = getParaToInt("disclose");
+		int age = getParaToInt("age");
+		String work_address = getPara("work_address");
+		String comments = getPara("comments");
+		String nation = getPara("nation");
+		String type = getPara("type");
+		int status = getParaToInt("status");
+		// 保存数据
+		 boolean result = CustomerModel.adminUpdate(id, name, sex, tel_no, disclose, age, work_address, comments,
+				nation, type, status);
+		setAttr("result", result);
+		renderJson();
+	}
 
 	/*
 	 * 根据id查找客户信息
@@ -331,6 +349,7 @@ public class WeixinController extends Controller {
 
 	/**
 	 * 根据电话号码查询客户信息
+	 * 普通用户的
 	 */
 	public void getCustomerByPhoneNo() {
 		String phone_no = getPara("phone_no");
@@ -380,24 +399,32 @@ public class WeixinController extends Controller {
 			}
 		}
 	}
-	/*
-	 * 
-	 * 管理员获取客户信息接口 lijinpeng
-	 * 
-	 */
+	
+	/**
 
-	public void getByType() {
-		String type = getPara("type");
-		List<CustomerModel> list = CustomerModel.getCustomerNum(type);
+	 * 查看队友的客户信息
+	 */
+	public void getTeamCustInfo() {
+		String phone_no=getPara("phone_no");
+		List<CustomerModel> list = CustomerModel.findListByPhone_no(phone_no);
+		setAttr("data", list);
+		renderJson();
+	}
+
+	/* *  点击查看队员的客户信息
+	 */
+	public void getCustomersByUser() {
+		String phone_no=getPara("phone_no");
+		List<CustomerModel> list=CustomerModel.TeamfindListByPhone_no(phone_no);
 		setAttr("data", list);
 		renderJson();
 	}
 	/**
-	 *  点击查看队员的客户信息
+	 * 管理员查看各个模块的客户信息
 	 */
-	public void getCustomersByUser() {
-		String phone_no=getPara("phone_no");
-		List<CustomerModel> list=CustomerModel.findListByPhone_no(phone_no);
+	public void AdminGetCustmoerInfo() {
+		String type = getPara("type");
+		List <CustomerModel> list = CustomerModel.AdminGetInfoByType(type);
 		setAttr("data", list);
 		renderJson();
 	}

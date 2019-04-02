@@ -92,14 +92,14 @@ public class UserInfoModel extends Model<UserInfoModel> {
 	 * @param status
 	 * @return
 	 */
-	public  boolean saveUserinfo(String user_name,String user_password, String user_sex,String phone_no,String vip_grade,int type) {
+	public  boolean saveUserinfo(String user_name,String user_password, String user_sex,String phone_no,String vip_grade,int type,int status) {
 		UserInfoModel m=new UserInfoModel();
 		m.setUser_name(user_name);
 		m.setUser_password(user_password);
 		m.setUser_sex(user_sex);
 		m.setPhone_no(phone_no);
 		m.setVip_grade(vip_grade);
-		m.setStatus(0);//开始注册还没有审核传0
+		m.setStatus(status);//开始注册用户还没有审核传0，添加管理员传1
 		m.setType(type);
 		m.setGroup("0");//开始注册没有团队传0
 		return m.save();
@@ -131,7 +131,23 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		return m.update();
 	
 	}
-	
+	public static boolean delByID(String id) {
+		try {
+			String delsql="DELETE FROM "+tableName+" WHERE id=?";
+			int iRet=Db.update(delsql, id);
+			if(iRet > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
 	/**
 	 *  用户加入团队
@@ -279,6 +295,21 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
+	
+	public List<UserInfoModel>getXls(String type){
+		List<UserInfoModel> list;
+		if(type.equals("1")) {
+			list = dao.find("select * from "+tableName);
+		}else {
+			list = dao.find("select * from "+tableName+" where type='2'");
+		}
+		
+		return list;
+		
+		
+		
+	}
+	
 	public  Page<UserInfoModel> getList(int pageNumber, int pageSize, String key,int type) {
 		String sele_sql = "select * ";
 		StringBuffer from_sql = new StringBuffer();
@@ -288,6 +319,7 @@ public class UserInfoModel extends Model<UserInfoModel> {
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
+	
 	public  Page<UserInfoModel> getmenberList(int pageNumber, int pageSize, String key) {
 		String sele_sql = "select * ";
 		StringBuffer from_sql = new StringBuffer();

@@ -121,7 +121,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	}
 
 	/**
-	 * 1：未处理，首次录入信息 2：已经跟进，已经修改备注 3：待处理，已经跟进，还未成交（显示的按钮就是“处理”） 6：已成交，没有按钮
+	 * 1：未处理，首次录入信息 2：已经跟进，已经修改备注  6：已成交，没有按钮
 	 * 
 	 * @param status
 	 */
@@ -158,7 +158,7 @@ public class CustomerModel extends Model<CustomerModel> {
 		}
 		return dao.paginate(pageNumber, pageSize, sele_sql, from_sql.toString());
 	}
-
+	
 	public static Page<CustomerModel> getList(int pageNumber, int pageSize, String key) {
 		String sele_sql = "select * ";
 		StringBuffer from_sql = new StringBuffer();
@@ -293,6 +293,7 @@ public class CustomerModel extends Model<CustomerModel> {
 	public static boolean saveOrUpate(String id, String name, int sex, String tel_no, int disclose, int age,
 			String work_address, String comments, String phone_no, String nation, String type, int status) {
 		boolean result = false;
+		CustomerModel update=findModelById(id);
 		CustomerModel model = findModel(tel_no, type);
 		if (StringUtil.isBlankOrEmpty(id)) {// 为保存
 			if (model == null) {
@@ -314,7 +315,7 @@ public class CustomerModel extends Model<CustomerModel> {
 				 * 1：未处理，首次录入信息 2：已经跟进，已经修改备注 3：待处理，已经跟进，还未成交 6：已成交
 				 */
 				if (!StringUtil.isBlankOrEmpty(comments)) {
-					if (status == 1) {// 只有未处理状态的时候才可以修改
+					if (status == 1&&!update.getComments().equals(comments)) {// 只有未处理状态并且备注不等于第一次添加的时候才可以修改
 						status = 2;
 					}
 				}
@@ -322,6 +323,32 @@ public class CustomerModel extends Model<CustomerModel> {
 				model.setcreate_time(new Date());
 			}
 			result = update(id, model);
+		}
+		return result;
+	}
+	
+	
+	/**
+	 * 管理员修改函数
+	 */
+	public static boolean adminUpdate(String id, String name, int sex, String tel_no, int disclose, int age,
+			String work_address, String comments,  String nation, String type, int status) {
+		boolean result = false;
+		CustomerModel m =CustomerModel.getById(id);
+		m.setName(name);
+		m.setAge(age);
+		m.setNation(nation);
+		m.setComments(comments);
+		m.setDisclose(disclose);
+		m.setSex(sex);
+		m.setTel_no(tel_no);
+		m.setWork_address(work_address);
+		m.settype(type);
+		m.setstatus(status);
+		try {
+			result = m.update();
+		} catch (Exception e) {
+			result = false;
 		}
 		return result;
 	}
@@ -355,9 +382,10 @@ public class CustomerModel extends Model<CustomerModel> {
 			String sql = "select * from " + tableName + " where type = ?";
 			list = dao.find(sql, type);
 		} else {
-			String sql = "select * from " + tableName + " where phone_no=? and type = ?";
+			String sql = "select * from " + tableName + " where phone_no=? and type = ? and status between 1 and 2";
 			list = dao.find(sql, phone_no, type);
 		}
+		
 
 		return list;
 	}
@@ -379,6 +407,13 @@ public class CustomerModel extends Model<CustomerModel> {
 		List<CustomerModel> list = dao.find(sql, phone_no);
 		return list;
 	}
+	
+	public static List<CustomerModel> findListByPhone_noandType(String phone_no,int type) {
+		String sql = "select * from " + tableName + " where phone_no=? and type = ?";
+		List<CustomerModel> list = dao.find(sql, phone_no,type);
+		return list;
+	}
+
 
 	public static List<CustomerModel> findListByStatus(int status, String phone_no) {
 		String sql = "select * from " + tableName + " where status=? and phone_no =?";
@@ -447,7 +482,17 @@ public class CustomerModel extends Model<CustomerModel> {
 
 	public static List<CustomerModel> findListByPhone_no(String phone_no, int status) {
 		String sql = "select * from " + tableName + " where phone_no=? and status=?";
-		List<CustomerModel> list = dao.find(sql, phone_no, status);
+		List<CustomerModel> list = dao.find(sql, phone_no);
+		return list;
+	}
+	public static List<CustomerModel> TeamfindListByPhone_no(String phone_no) {
+		String sql = "select * from " + tableName + " where phone_no=? and status between 1 and 2";
+		List<CustomerModel> list = dao.find(sql, phone_no);
+		return list;
+	}
+	public static List<CustomerModel> AdminGetInfoByType(String type){
+		String sql = "select * from " + tableName + " where type=?";
+		List<CustomerModel> list = dao.find(sql, type);
 		return list;
 	}
 
@@ -479,4 +524,16 @@ public class CustomerModel extends Model<CustomerModel> {
 		CustomerModel m = dao.findFirst(sql, tel_no, type);
 		return m;
 	}
+	public static CustomerModel findModelById(String id) {
+		String sql = "select * from " + tableName + " where id =?";
+		CustomerModel u = dao.findFirst(sql, id);
+		return u;
+	}
+	
+	public List<CustomerModel>getXls(String type){
+		
+		return dao.find("select * from "+tableName+" where type=?",type);
+
+	}
+	
 }
