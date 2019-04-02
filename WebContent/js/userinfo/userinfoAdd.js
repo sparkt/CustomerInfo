@@ -1,12 +1,18 @@
 var $;
 layui.config({
 	base : "js/"
-}).use(['form','layer','jquery'],function(){
+}).use(['form','layer','jquery','laydate'],function(){
 	var form = layui.form,
 		layer = parent.layer === undefined ? layui.layer : parent.layer,
 		laypage = layui.laypage;
+	  	laydate = layui.laydate;
 		$ = layui.jquery;
 
+		
+		  //日期
+		  laydate.render({
+		    elem: '#date'
+		  });
 		
  	form.on("submit(add)",function(data){
  		var index;
